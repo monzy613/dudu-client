@@ -1,0 +1,43 @@
+{
+  "name": "dudu",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "remotedev": "remotedev-debugger --port 5680 --injectserver",
+    "postinstall": "npm run remotedev",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "feedparser-promised": "^1.1.1",
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "react": "~15.4.0",
+    "react-native": "0.41.2",
+    "react-native-animatable": "^1.1.0",
+    "react-native-scrollable-tab-view": "^0.7.2",
+    "react-native-spinkit": "^1.0.2",
+    "react-native-vector-icons": "^4.0.0",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-immutable": "^3.1.0",
+    "redux-persist": "^4.3.1",
+    "redux-persist-immutable": "^4.2.0",
+    "redux-persist-transform-immutable": "^4.2.0",
+    "wurl": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.1.0",
+    "react-native-debugger-open": "^0.3.2",
+    "react-test-renderer": "~15.4.0",
+    "remote-redux-devtools": "^0.5.7",
+    "remote-redux-devtools-on-debugger": "^0.7.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
