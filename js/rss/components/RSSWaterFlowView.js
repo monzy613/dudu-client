@@ -8,8 +8,11 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 import isEmpty from 'lodash/isEmpty'
 import { connect } from 'react-redux'
+import * as Animatable from 'react-native-animatable'
 
 import { push as pushRoute } from 'navigationAction'
+
+const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity)
 
 import {
   darkText,
@@ -37,31 +40,37 @@ class RSSWaterFlowView extends Component {
     } = overview
     return (
       <TouchableOpacity
-        style={[styles.container, style]}
+        style={style}
         onPress={this.onPress}
       >
-        <Text style={styles.mainTitle}>{title}</Text>
-        { subtitles.map((subtitle, index) => (
-          <Text
-            key={index}
-            numberOfLines={1}
-            style={styles.subtitle}>
-            {subtitle}
-          </Text>
-          ))
-        }
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={{ marginRight: 5 }}>
-            <Icon color={mainBlue} name="ios-share-outline" size={20} />
-          </TouchableOpacity>
-        </View>
+        <Animatable.View
+          style={styles.contentContainer}
+          animation="fadeIn"
+          duration={800}
+        >
+          <Text style={styles.mainTitle}>{title}</Text>
+          { subtitles.map((subtitle, index) => (
+            <Text
+              key={index}
+              numberOfLines={1}
+              style={styles.subtitle}>
+              {subtitle}
+            </Text>
+            ))
+          }
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={{ marginRight: 5 }}>
+              <Icon color={mainBlue} name="ios-share-outline" size={20} />
+            </TouchableOpacity>
+          </View>
+        </Animatable.View>
       </TouchableOpacity>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     padding: 10,
     backgroundColor: 'white',
     shadowRadius: 1,

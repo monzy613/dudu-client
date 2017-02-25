@@ -4,9 +4,13 @@ import isEmpty from 'lodash/isEmpty'
 
 import {
   UPDATE_RSS_LIST,
+  UPDATE_FEEDS,
 } from './action'
 
-const initialState = fromJS({ overviews: [] })
+const initialState = fromJS({
+  overviews: [],
+  feeds: []
+})
 
 export default rss = (state = initialState, action) => {
   switch (action.type) {
@@ -29,6 +33,21 @@ export default rss = (state = initialState, action) => {
             }
         }
         return list.concat(newItems)
+      })
+    case UPDATE_FEEDS:
+      payload = action.payload
+      return state
+      .update('feeds', list => {
+        const newFeeds = []
+        const ids = list.map(feed => feed.id)
+        const newList = isArray(payload) ? payload : (isEmpty(payload) ? [] : [payload])
+        for (i in newList) {
+          const feed = payload[i]
+          if (!ids.includes(feed.id)) {
+            newFeeds.push(feed)
+          }
+        }
+        return list.concat(newFeeds)
       })
     default:
       return state

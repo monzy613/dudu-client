@@ -52,9 +52,9 @@ class DDNavbar extends Component {
     this.setState({ title, hidden })
   }
 
-  renderButton(data, style) {
+  renderButton(data, style, key) {
     return (
-      <View style={[styles.buttonContainer, style]}>
+      <View style={[styles.buttonContainer, style]} key={key}>
         { data.handler ?
           <NavbarButton handler={data.handler}>
             {data.content}
@@ -76,6 +76,7 @@ class DDNavbar extends Component {
       backgroundImage,
       title,
       tintColor,
+      rightItems,
     } = this.state
     const {
       statusBar = {},
@@ -96,8 +97,12 @@ class DDNavbar extends Component {
           <View style={styles.titleContainer}>
             <Text style={[styles.title, { color: tintColor }]}>{title}</Text>
           </View>
-          {leftBtn && this.renderButton(leftBtn)}
-          {rightBtn && this.renderButton(rightBtn)}
+          { leftBtn && this.renderButton(leftBtn) }
+          { isEmpty(rightItems) ? null : (
+            <View style={styles.rightButtonsContainer}>
+              { rightItems.map((item, index) => this.renderButton(item, {}, index)) }
+            </View>
+          ) }
         </View>
       </View>
     )
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    marginTop: 5,
+    marginTop: 10,
     fontSize: 16,
     fontWeight: '100',
     backgroundColor: transparent,
@@ -161,11 +166,14 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   button: {
-    marginTop: 5,
+    marginTop: 10,
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  rightButtonsContainer: {
+    flexDirection: 'row'
   },
 })
 

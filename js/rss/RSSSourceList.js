@@ -6,6 +6,7 @@ import {
   ScrollView,
   ListView,
   Dimensions,
+  InteractionManager,
 } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -29,16 +30,18 @@ class RSSSourceList extends Component {
   }
 
   componentDidMount() {
-    ddapi.get('/feed/overview')
-      .then(data => {
-        this.setState({ loading: false })
-        this.props.updateRSSList(data)
-      })
-      .catch(error => {
-        this.setState({ loading: false })
-        // TODO: 提示弹框
-        console.log(error)
-      })
+    InteractionManager.runAfterInteractions(() => {
+      ddapi.get('/feed/overview')
+        .then(data => {
+          this.setState({ loading: false })
+          this.props.updateRSSList(data)
+        })
+        .catch(error => {
+          this.setState({ loading: false })
+          // TODO: 提示弹框
+          console.log(error)
+        })
+    })
   }
 
   renderRow = overview => (
@@ -58,7 +61,8 @@ class RSSSourceList extends Component {
           (
             <ListView
               enableEmptySections
-              contentContainerStyle={styles.container}
+              style={styles.listView}
+              contentContainerStyle={styles.listViewContentContainer}
               dataSource={dataSource}
               renderRow={this.renderRow}
             />
@@ -70,8 +74,11 @@ class RSSSourceList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  listView: {
     flex: 1,
+  },
+  listViewContentContainer: {
+    paddingBottom: 16,
     flexWrap: 'wrap',
     flexDirection: 'row',
   },

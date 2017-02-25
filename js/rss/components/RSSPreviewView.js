@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import isEmpty from 'lodash/isEmpty'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import * as Animatable from 'react-native-animatable'
 
 import { push as pushRoute } from 'navigationAction'
 
@@ -35,20 +36,26 @@ class RSSPreviewView extends Component {
     } = item
     const formattedDate = moment(publishDate).format('YYYY-MM-DD')
     const BookmarkButton = bookmark ? (
-      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmarks" size={22} />
+      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmark" size={22} />
     ) : (
-      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmarks-outline" size={22} />
+      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmark-outline" size={22} />
     )
     return (
-      <TouchableOpacity style={[styles.container, style, read ? {} : styles.unread]}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title} numberOfLines={1} >{title}</Text>
-          <TouchableOpacity>
-            { BookmarkButton }
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.summary} numberOfLines={5}>{content}</Text>
-        <Text style={styles.publishDate} numberOfLines={1}>{formattedDate}</Text>
+      <TouchableOpacity style={[style, read ? {} : styles.unread]}>
+        <Animatable.View
+          style={styles.container}
+          animation="fadeIn"
+          duration={800}
+        >
+          <View style={styles.titleContainer}>
+            <Text style={styles.title} numberOfLines={1} >{title}</Text>
+            <TouchableOpacity>
+              { BookmarkButton }
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.summary} numberOfLines={5}>{content}</Text>
+          <Text style={styles.publishDate} numberOfLines={1}>{formattedDate}</Text>
+        </Animatable.View>
       </TouchableOpacity>
     )
   }

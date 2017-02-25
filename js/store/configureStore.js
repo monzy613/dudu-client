@@ -2,37 +2,42 @@ import {
   AsyncStorage,
   Platform
 } from 'react-native'
-import { createStore, compose } from 'redux'
-import devtool from 'remote-redux-devtools'
-// import { persistStore, autoRehydrate } from 'redux-persist'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { composeWithDevTools } from 'remote-redux-devtools'
 import { persistStore, autoRehydrate } from 'redux-persist-immutable'
-import immutableTransform from 'redux-persist-transform-immutable'
 import isFunction from 'lodash/isFunction'
 
-import rootReducer from './rootReducer'
+import reducer from './rootReducer'
 
 export default configureStore = onComplete => {
-  const store = createStore(
-    rootReducer,
-    compose(
-      // autoRehydrate(),
-      devtool({
-        name: Platform.OS,
-        port: 5680,
-        hostname: 'localhost'
-      })
-    )
+
+  const enhancers = composeWithDevTools({
+    name: Platform.OS,
+    port: 5680,
+    hostname: 'localhost'
+  })(
+    autoRehydrate(),
   )
 
-  // persistStore(store, {
-  //   storage: AsyncStorage
-  // }, () => {
-  //   if (isFunction(onComplete)) {
-  //     onComplete()
-  //   }
-  // })
+  const store = createStore(
+    reducer,
+    enhancers,
+  )
 
-  // devtool.updateStore(store)
+  const persistConfig = {
+    storage: AsyncStorage,
+  }
+
+  persistStore(store, persistConfig)
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept(() => {
+      const nextRootReducer = require('./rootReducer').default
+
+      store.replaceReducer(nextRootReducer)
+    })
+  }
 
   return store
 }
