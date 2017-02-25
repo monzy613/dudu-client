@@ -60,7 +60,7 @@ class RSSSource extends Component {
 
   renderRow = item => {
     return (
-      <RSSPreviewView style={styles.previewCell} item={item} />
+      <RSSPreviewView style={styles.previewCell} item={item && item.toJS()} />
     )
   }
 
@@ -68,7 +68,7 @@ class RSSSource extends Component {
     if (this.state.loading) {
       return <DDSpinner />
     }
-    const feeds = (this.props.feeds && this.props.feeds.toJS()) || []
+    const feeds = (this.props.feeds && this.props.feeds.toArray()) || []
     const dataSource = this.state.ds.cloneWithRows(feeds)
 
     return (

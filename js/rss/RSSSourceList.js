@@ -44,16 +44,16 @@ class RSSSourceList extends Component {
     })
   }
 
-  renderRow = rssSource => (
+  renderRow = overview => (
     <RSSWaterFlowView
-      rssSource={rssSource}
+      overview={overview.toJS()}
       style={styles.waterFlowCell}
     />
   )
 
   render = () => {
-    const rssSources = (this.props.rssSources && this.props.rssSources.toArray()) || []
-    const dataSource = this.state.ds.cloneWithRows(rssSources)
+    const overviews = (this.props.overviews && this.props.overviews.toArray()) || []
+    const dataSource = this.state.ds.cloneWithRows(overviews)
     return (
       <DDNavigationLayout isRoot title="订阅源">
         {
@@ -96,7 +96,7 @@ export default connect(
   state => {
     return {
       overviews: state.getIn(['rss', 'overviews']),
-      rssSources: state.getIn(['rss', 'rssSources'])
+      overviews: state.getIn(['rss', 'overviews'])
     }
   },
   { updateRSSList }

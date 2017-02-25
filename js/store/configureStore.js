@@ -9,7 +9,6 @@ import isFunction from 'lodash/isFunction'
 
 import reducer from './rootReducer'
 import {
-  rehydrateStart,
   rehydrateComplete,
 } from './action'
 
@@ -28,10 +27,8 @@ export default configureStore = onComplete => {
     enhancers,
   )
 
-  store.dispatch(rehydrateStart())
-
   const persistConfig = {
-    blacklist: ['navigation'],
+    blacklist: ['rehydrate'],
     storage: AsyncStorage,
   }
 

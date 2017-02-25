@@ -8,9 +8,8 @@ import {
 } from './action'
 
 const initialState = fromJS({
-  rssSources: {},
-  // feeds: {},
-  feeds: []
+  overviews: {},
+  feeds: {},
 })
 
 export default rss = (state = initialState, action) => {
@@ -18,25 +17,11 @@ export default rss = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_RSS_LIST:
       payload = action.payload
-      return state.update('rssSources', map => map.merge(payload))
+      return state.update('overviews', map => map.merge(payload))
     case UPDATE_FEEDS:
       payload = action.payload
       return state
-      // .update('feeds', map => map.merge(payload))
-      .update('feeds', list => {
-        const newFeeds = []
-        const ids = list.map(feed => feed.id)
-        const newList = isArray(payload) ? payload : (isEmpty(payload) ? [] : [payload])
-        for (i in newList) {
-          const feed = newList[i]
-          if (!ids.includes(feed.id)) {
-            newFeeds.push(feed)
-          } else {
-            // update
-          }
-        }
-        return list.concat(newFeeds)
-      })
+      .update('feeds', map => map.merge(payload))
     default:
       return state
   }
