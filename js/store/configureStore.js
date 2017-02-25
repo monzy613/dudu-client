@@ -8,6 +8,10 @@ import { persistStore, autoRehydrate } from 'redux-persist-immutable'
 import isFunction from 'lodash/isFunction'
 
 import reducer from './rootReducer'
+import {
+  rehydrateStart,
+  rehydrateComplete,
+} from './action'
 
 export default configureStore = onComplete => {
 
@@ -24,11 +28,16 @@ export default configureStore = onComplete => {
     enhancers,
   )
 
+  store.dispatch(rehydrateStart())
+
   const persistConfig = {
+    blacklist: ['navigation'],
     storage: AsyncStorage,
   }
 
-  persistStore(store, persistConfig)
+  persistStore(store, persistConfig, () => {
+    store.dispatch(rehydrateComplete())
+  })
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

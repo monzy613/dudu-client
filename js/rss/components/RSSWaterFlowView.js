@@ -23,7 +23,7 @@ import {
 
 class RSSWaterFlowView extends Component {
   onPress = () => {
-    const link = this.props.overview && this.props.overview.link
+    const link = this.props.rssSource && this.props.rssSource.get('link')
     if (!isEmpty(link)) {
       this.props.pushRoute({ link })
     }
@@ -32,22 +32,19 @@ class RSSWaterFlowView extends Component {
   render = () => {
     const {
       style = {},
-      overview = {},
+      rssSource = {},
     } = this.props
-    const {
-      title = '',
-      subtitles = [],
-    } = overview
+
+    const title = rssSource && rssSource.get('title')
+    subtitles = rssSource && rssSource.get('subtitles')
+
     return (
-      <TouchableOpacity
-        style={style}
-        onPress={this.onPress}
+      <Animatable.View
+        style={[styles.contentContainer, style]}
+        animation="fadeIn"
+        duration={800}
       >
-        <Animatable.View
-          style={styles.contentContainer}
-          animation="fadeIn"
-          duration={800}
-        >
+        <TouchableOpacity onPress={this.onPress}>
           <Text style={styles.mainTitle}>{title}</Text>
           { subtitles.map((subtitle, index) => (
             <Text
@@ -59,12 +56,12 @@ class RSSWaterFlowView extends Component {
             ))
           }
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={{ marginRight: 5 }}>
+            <TouchableOpacity>
               <Icon color={mainBlue} name="ios-share-outline" size={20} />
             </TouchableOpacity>
           </View>
-        </Animatable.View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Animatable.View>
     )
   }
 }

@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import * as Animatable from 'react-native-animatable'
 
+import ddapi from 'ddapi'
 import { push as pushRoute } from 'navigationAction'
 
 import {
@@ -22,6 +23,17 @@ import {
 } from 'DDColor'
 
 class RSSPreviewView extends Component {
+
+  bookmark = () => {
+    const { item } = this.props
+    const id = item && item.id
+    if (!isEmpty(id)) {
+      const newItem = this.props.item
+      newItem.bookmark = !item.bookmark
+      // api
+    }
+  }
+
   render() {
     const {
       style = {},
@@ -41,22 +53,22 @@ class RSSPreviewView extends Component {
       <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmark-outline" size={22} />
     )
     return (
-      <TouchableOpacity style={[style, read ? {} : styles.unread]}>
-        <Animatable.View
-          style={styles.container}
-          animation="fadeIn"
-          duration={800}
-        >
+      <Animatable.View
+        style={[styles.container, style, read ? {} : styles.unread]}
+        animation="fadeIn"
+        duration={800}
+      >
+        <TouchableOpacity>
           <View style={styles.titleContainer}>
             <Text style={styles.title} numberOfLines={1} >{title}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.bookmark}>
               { BookmarkButton }
             </TouchableOpacity>
           </View>
           <Text style={styles.summary} numberOfLines={5}>{content}</Text>
           <Text style={styles.publishDate} numberOfLines={1}>{formattedDate}</Text>
-        </Animatable.View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Animatable.View>
     )
   }
 }

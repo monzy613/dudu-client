@@ -16,11 +16,14 @@ import {
 } from 'DDColor'
 
 class Dudu extends Component {
-  render = () => (
-    <View style={styles.container}>
-      <Navigator />
-    </View>
-  )
+  render = () => {
+    const rehydrated = this.props.rehydrated
+    return rehydrated ? (
+      <View style={styles.container}>
+        <Navigator />
+      </View>
+    ) : <View style={{ backgroundColor: 'red' }}/> 
+  }
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +34,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  null,
+  state => ({
+    rehydrated: state.getIn(['rehydrate', 'rehydrated'])
+  }),
   {
     pushRoute,
     popRoute,
