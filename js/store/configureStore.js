@@ -29,12 +29,12 @@ export default configureStore = onComplete => {
   )
 
   const persistConfig = {
-    blacklist: ['rehydrate'],
+    blacklist: ['rehydrate', 'navigation'],
     storage: AsyncStorage,
   }
 
   persistStore(store, persistConfig, () => {
-    const authState = store.getState('auth')
+    const authState = store.getState().get('auth')
     store.dispatch(rehydrateComplete())
     if (authState && authState.get('token')) {
       // 已登录

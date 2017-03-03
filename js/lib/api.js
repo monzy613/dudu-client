@@ -14,7 +14,7 @@ const instance = axios.create({
 })
 const ddapi = {}
 
-const apiRequest = ({ method = 'get', path, params }) => {
+const request = ({ method = 'get', path, params }) => {
   return new Promise((resolve, reject) => {
     if (!isFunction(instance[method])) {
       reject({ error: `${method} is not a proper method` })
@@ -26,7 +26,7 @@ const apiRequest = ({ method = 'get', path, params }) => {
         if (isEmpty(json)) {
           reject({ error: 'json empty' })
         } else {
-          if (json.success) {
+          if (json.success || !isEmpty(json.result)) {
             resolve(json.result)
           } else {
             reject({ error: json.error })
@@ -40,11 +40,11 @@ const apiRequest = ({ method = 'get', path, params }) => {
 }
 
 ddapi.get = (path, params) => {
-  return apiRequest({ path, params })
+  return request({ path, params })
 }
 
 ddapi.post = (path, params) => {
-  return apiRequest({ method: 'post', path, params })
+  return request({ method: 'post', path, params })
 }
 
 export default ddapi

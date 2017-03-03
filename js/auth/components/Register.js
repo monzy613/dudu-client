@@ -9,12 +9,19 @@ import {
   StyleSheet,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import isEmpty from 'lodash/isEmpty'
 
 import DDNavbar from 'DDNavbar'
 import DDButton from 'DDButton'
 import { logo } from 'DDImages'
 import { placeholderColor, mainBlue } from 'DDColor'
 import ddapi from 'ddapi'
+import { isMobileLegal } from 'ddutil'
+import { clearSet } from 'navigationAction'
+import { obtainUserInfo } from 'authAction'
+
+const VALIDATION_TYPE_REGISTER = Symbol('register')
+const VALIDATION_TYPE_VERIFY = Symbol('verify')
 
 class Register extends Component {
   constructor(props) {
@@ -23,7 +30,14 @@ class Register extends Component {
     this.state = {
       verifyCodeSend: false,
       countDown: 0,
+      mobile: '',
+      password: '',
+      verifyCode: '',
     }
+
+    this.handleMobileInput = this.handleInput.bind(this, 'mobile')
+    this.handlePasswordInput = this.handleInput.bind(this, 'password')
+    this.handleVerifyCodeInput = this.handleInput.bind(this, 'verifyCode')
   }
 
   componentWillUnmount() {
@@ -57,13 +71,65 @@ class Register extends Component {
   }
 
   sendVerifyCode = () => {
-    // request
+    const validation = this.validate(VALIDATION_TYPE_VERIFY)
+    if (!validation.success) {
+      alert(validation.message)
+      return
+    }
+    const { mobile, password } = this.state
+    ddapi.post('/auth/register', { mobile, password })
+    .then(result => {
+      console.log(result)
+    })
+    .catch(err => {
+      console.warn(err)
+    })
     this.setState({ countDown: 60, verifyCodeSend: true })
     this.timer = setTimeout(this.verifyCodeCountDown, 1000)
   }
 
   register = () => {
-    // request
+    const validation = this.validate(VALIDATION_TYPE_REGISTER)
+    if (!validation.success) {
+      alert(validation.message)
+      return
+    }
+    const { verifyCode: number, mobile } = this.state
+    ddapi.post('/auth/verify', { mobile, number })
+    .then(user => {
+      const { token } = user
+      this.props.obtainUserInfo({ user, token })
+      this.props.clearSet({ key: 'home' })
+    })
+    .catch(err => {
+      console.warn(err)
+    })
+  }
+
+  validate = type => {
+    const result = { success: false }
+    if (type === VALIDATION_TYPE_REGISTER) {
+      const { verifyCode } = this.state
+      if (isEmpty(verifyCode)) {
+        result.message = '请输入验证码'
+      } else {
+        result.success = true
+      }
+    } else if (type === VALIDATION_TYPE_VERIFY) {
+      const { mobile, password } = this.state
+      if (!isMobileLegal(mobile)) {
+        result.message = '手机号不合法'
+      } else if (password.length < 6) {
+        result.message = '密码长度不足6位'
+      } else {
+        result.success = true
+      }
+    }
+    return result
+  }
+
+  handleInput(type, value) {
+    this.setState({ [type]: value })
   }
 
   render = () => {
@@ -84,6 +150,7 @@ class Register extends Component {
               style={styles.input}
               placeholder="请输入手机号"
               placeholderTextColor={placeholderColor}
+              onChangeText={this.handleMobileInput}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -92,6 +159,7 @@ class Register extends Component {
               placeholder="请输入密码"
               secureTextEntry
               placeholderTextColor={placeholderColor}
+              onChangeText={this.handlePasswordInput}
             />
           </View>
           { verifyCodeSend ? (
@@ -100,6 +168,7 @@ class Register extends Component {
                 style={styles.input}
                 placeholder="请输入验证码"
                 placeholderTextColor={placeholderColor}
+                onChangeText={this.handleVerifyCodeInput}
               />
             </View>
           ) : null }
@@ -171,5 +240,8 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  null, null
+  null, {
+    clearSet,
+    obtainUserInfo,
+  }
 )(Register)

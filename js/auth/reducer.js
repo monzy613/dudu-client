@@ -1,6 +1,9 @@
 import { fromJS } from 'immutable'
 
-import { OBTAIN_USER_INFO } from './action'
+import {
+  OBTAIN_USER_INFO,
+  CLEAR_USER_INFO
+} from './action'
 const initialState = fromJS({})  // token, user
 
 export default auth = (state = initialState, action) => {
@@ -11,6 +14,9 @@ export default auth = (state = initialState, action) => {
       return state
       .set('token', token)
       .set('user', user)
+    }
+    case CLEAR_USER_INFO: {
+      return initialState
     }
     default:
       return state

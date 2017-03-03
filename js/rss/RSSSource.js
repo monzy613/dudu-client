@@ -33,7 +33,7 @@ class RSSSource extends Component {
   componentDidMount = () => {
     const { source } = this.props.route && this.props.route.params && this.props.route.params
     InteractionManager.runAfterInteractions(() => {
-      ddapi.get('/feed/getBySource',{
+      ddapi.get('/feed/getBySource', {
         params: { source }
       })
         .then(feeds => {

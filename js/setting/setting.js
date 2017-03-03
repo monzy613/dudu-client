@@ -7,7 +7,8 @@ import {
   StyleSheet,
 } from 'react-native'
 import { settingTest } from './action'
-import { push as pushRoute } from 'navigationAction'
+import { clearUserInfo } from 'authAction'
+import { push as pushRoute, clearSet } from 'navigationAction'
 import DDNavigationLayout from 'DDNavigationLayout'
 
 class Setting extends Component {
@@ -16,17 +17,17 @@ class Setting extends Component {
     this.state = { hidden: false }
   }
 
-  push = () => {
-    // this.props.pushRoute({ link: 'dudu://rss_source?title=订阅源' })
-    this.props.settingTest()
+  clear = () => {
+    this.props.clearUserInfo()
+    this.props.clearSet({ key: 'auth' })
   }
 
   render = () => {
     return (
       <DDNavigationLayout isRoot title="设置">
         <View style={styles.container}>
-          <TouchableOpacity onPress={this.push}>
-            <Text>push</Text>
+          <TouchableOpacity onPress={this.clear}>
+            <Text>clear</Text>
           </TouchableOpacity>
         </View>
       </DDNavigationLayout>
@@ -44,5 +45,10 @@ const styles = StyleSheet.create({
 
 export default connect(
   null,
-  { pushRoute, settingTest }
+  {
+    pushRoute,
+    settingTest,
+    clearUserInfo,
+    clearSet,
+  }
 )(Setting)
