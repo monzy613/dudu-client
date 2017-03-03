@@ -84,16 +84,22 @@ class DDNavbar extends Component {
       style = {},
       leftBtn,
       rightBtn,
+      transparent: isTransparent,
     } = this.props
 
-    const containerColor = color ? { backgroundColor: color } : null
+    let containerColor = color ? { backgroundColor: color } : null
+    if (isTransparent) {
+      containerColor = { backgroundColor: transparent }
+    }
     return (
       <View style={[styles.container, containerColor, navigationStyle]}>
         <View style={[styles.content, style]}>
-          <Image
-            style={[styles.imageBackground, style]}
-            source={navigationBackground}
-          />
+          { !isEmpty(containerColor) ? null : (
+            <Image
+              style={[styles.imageBackground, style]}
+              source={navigationBackground}
+            />
+          )}
           <View style={styles.titleContainer}>
             <Text style={[styles.title, { color: tintColor }]}>{title}</Text>
           </View>
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
   },
   titleContainer: {
     position: 'absolute',

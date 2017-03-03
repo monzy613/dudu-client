@@ -14,23 +14,36 @@ import * as Animatable from 'react-native-animatable'
 
 import ddapi from 'ddapi'
 import { push as pushRoute } from 'navigationAction'
-
 import {
   darkText,
   lightText,
   shadowColor,
   mainBlue,
 } from 'DDColor'
+import {
+  updateFeedReadState,
+  updateFeedBookmarkState,
+} from '../action'
 
 class RSSPreviewView extends Component {
 
   bookmark = () => {
-    const { item } = this.props
-    const id = item && item.id
-    if (!isEmpty(id)) {
-      const newItem = this.props.item
-      newItem.bookmark = !item.bookmark
-      // api
+    const { source, id, bookmark } = this.props.item || {}
+    if (!isEmpty(source) && !isEmpty(id)) {
+      this.props.updateFeedBookmarkState({
+        source, id,
+        bookmark: !bookmark
+      })
+    }
+  }
+
+  gotoDetail = () => {
+    const { source, id, read } = this.props.item || {}
+    if (!isEmpty(source) && !isEmpty(id) && !read) {
+      this.props.updateFeedReadState({
+        source, id,
+        read: true
+      })
     }
   }
 
@@ -58,7 +71,7 @@ class RSSPreviewView extends Component {
         animation="fadeIn"
         duration={800}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.gotoDetail}>
           <View style={styles.titleContainer}>
             <Text style={styles.title} numberOfLines={1} >{title}</Text>
             <TouchableOpacity onPress={this.bookmark}>
@@ -116,5 +129,9 @@ const styles = StyleSheet.create({
 
 export default connect(
   null ,
-  { pushRoute }
+  {
+    pushRoute,
+    updateFeedReadState,
+    updateFeedBookmarkState,
+  }
 )(RSSPreviewView)

@@ -9,13 +9,17 @@ import {
   InteractionManager,
 } from 'react-native'
 import { connect } from 'react-redux'
+import { fromJS } from 'immutable'
 
+import { push as pushRoute } from 'navigationAction'
 import DDNavigationLayout from 'DDNavigationLayout'
 import DDSpinner from 'DDSpinner'
 import RSSWaterFlowView from './components/RSSWaterFlowView'
+import RSSAddButton from './components/RSSAddButton'
 import ddapi from 'ddapi'
 import {
-  updateRSSList
+  clearRSSList,
+  updateRSSList,
 }from './action'
 
 class RSSSourceList extends Component {
@@ -30,6 +34,7 @@ class RSSSourceList extends Component {
   }
 
   componentDidMount() {
+    this.props.clearRSSList()
     InteractionManager.runAfterInteractions(() => {
       ddapi.get('/feed/overview')
         .then(data => {
@@ -44,15 +49,26 @@ class RSSSourceList extends Component {
     })
   }
 
-  renderRow = overview => (
-    <RSSWaterFlowView
-      overview={overview.toJS()}
-      style={styles.waterFlowCell}
-    />
-  )
+  renderRow = data => {
+    const overview = data.toJS()
+
+    return overview.key === 'add' ? (
+      <RSSAddButton style={styles.waterFlowCell} onPress={this.gotoAppendNew} />
+    ) : (
+      <RSSWaterFlowView
+        overview={overview}
+        style={styles.waterFlowCell}
+      />
+    )
+  }
+
+  gotoAppendNew = () => {
+    this.props.pushRoute({ key: 'rss_append_new' })
+  }
 
   render = () => {
-    const overviews = (this.props.overviews && this.props.overviews.toArray()) || []
+    const overviews = (this.props.overviews && this.props.overviews.toArray())
+    overviews.push(fromJS({ key: 'add' }))
     const dataSource = this.state.ds.cloneWithRows(overviews)
     return (
       <DDNavigationLayout isRoot title="订阅源">
@@ -96,8 +112,11 @@ export default connect(
   state => {
     return {
       overviews: state.getIn(['rss', 'overviews']),
-      overviews: state.getIn(['rss', 'overviews'])
     }
   },
-  { updateRSSList }
+  {
+    pushRoute,
+    clearRSSList,
+    updateRSSList,
+  }
 )(RSSSourceList)

@@ -21,14 +21,15 @@ const initialState = fromJS({
 export default navigation = (state = initialState, action) => {
   const currentIndex = state.get('index')
   switch (action.type) {
-    case ROUTE_POP:
+    case ROUTE_POP: {
       if (currentIndex <= 0) {
         return state
       }
       return state
       .update('index', index => index - 1)
       .update('routes', routes => routes.slice(0, -1))
-    case ROUTE_PUSH:
+    }
+    case ROUTE_PUSH: {
       const payload = action.payload
       const link = payload.link
       const scheme = link ? wurl('protocol', link) : null
@@ -43,6 +44,12 @@ export default navigation = (state = initialState, action) => {
       return state
       .update('index', index => index + 1)
       .update('routes', routes => routes.push(fromJS(payload)))
+    }
+    case ROUTE_CLEAR_SET: {
+      return state
+      .set('routes', fromJS([action.payload]))
+      .set('index', 0)
+    }
     default:
       return state
   }

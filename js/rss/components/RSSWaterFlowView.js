@@ -12,8 +12,6 @@ import * as Animatable from 'react-native-animatable'
 
 import { push as pushRoute } from 'navigationAction'
 
-const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(TouchableOpacity)
-
 import {
   darkText,
   lightText,

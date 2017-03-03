@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'remote-redux-devtools'
 import { persistStore, autoRehydrate } from 'redux-persist-immutable'
 import isFunction from 'lodash/isFunction'
 
+import { clearSet } from 'navigationAction'
 import reducer from './rootReducer'
 import {
   rehydrateComplete,
@@ -33,7 +34,15 @@ export default configureStore = onComplete => {
   }
 
   persistStore(store, persistConfig, () => {
+    const authState = store.getState('auth')
     store.dispatch(rehydrateComplete())
+    if (authState && authState.get('token')) {
+      // 已登录
+      store.dispatch(clearSet({ key: 'home' }))
+    } else {
+      // 未登录
+      store.dispatch(clearSet({ key: 'auth' }))
+    }
   })
 
   if (module.hot) {

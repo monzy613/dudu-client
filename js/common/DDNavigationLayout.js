@@ -50,6 +50,7 @@ export default class DDNavigationLayout extends Component {
               this.setState({ navigator: bar.navigator })
             }
           }}
+          {...this.props}
         />
         { children }
       </View>

@@ -6,10 +6,12 @@ import isEmpty from 'lodash/isEmpty'
 import DDNavigationLayout from 'DDNavigationLayout'
 import Home from './home'
 
+import { routes as auth } from './auth'
 import { routes as rss } from './rss'
 
 const RouteKeysWithOutNavigationBar = [
-  'home'
+  'home',
+  'auth',
 ]
 
 const routes = merge(
@@ -19,12 +21,12 @@ const routes = merge(
       isRoot: true
     },
   },
-  rss
+  rss,
+  auth,
 )
 
 export default mapValues(routes, (route, key) => {
-  // TODO: 不要navigationBar的直接返回route
-  // return route
+  // 不要navigationBar的直接返回route
   if (RouteKeysWithOutNavigationBar.includes(key)) {
     return {
       ...route,

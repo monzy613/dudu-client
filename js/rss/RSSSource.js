@@ -30,9 +30,12 @@ class RSSSource extends Component {
     }
   }
 
-  componentDidMount = props => {
+  componentDidMount = () => {
+    const { source } = this.props.route && this.props.route.params && this.props.route.params
     InteractionManager.runAfterInteractions(() => {
-      ddapi.get('/feed/getBySource')
+      ddapi.get('/feed/getBySource',{
+        params: { source }
+      })
         .then(feeds => {
           this.setState({ loading: false })
           this.props.updateFeeds(feeds)
@@ -68,8 +71,10 @@ class RSSSource extends Component {
     if (this.state.loading) {
       return <DDSpinner />
     }
-    const feeds = (this.props.feeds && this.props.feeds.toArray()) || []
-    const dataSource = this.state.ds.cloneWithRows(feeds)
+
+    const { source } = this.props.route && this.props.route.params && this.props.route.params
+    const feedList = (this.props.feeds.get(source) && this.props.feeds.get(source).toArray()) || []
+    const dataSource = this.state.ds.cloneWithRows(feedList)
 
     return (
       <ListView
