@@ -20,8 +20,11 @@ import { isMobileLegal } from 'ddutil'
 import { clearSet } from 'navigationAction'
 import { obtainUserInfo } from 'authAction'
 
-const VALIDATION_TYPE_REGISTER = Symbol('register')
-const VALIDATION_TYPE_VERIFY = Symbol('verify')
+// const VALIDATION_TYPE_REGISTER = Symbol('register')
+// const VALIDATION_TYPE_VERIFY = Symbol('verify')
+
+const VALIDATION_TYPE_REGISTER = 'VALIDATION_TYPE_REGISTER'
+const VALIDATION_TYPE_VERIFY = 'VALIDATION_TYPE_VERIFY'
 
 class Register extends Component {
   constructor(props) {

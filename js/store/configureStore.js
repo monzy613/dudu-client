@@ -18,7 +18,7 @@ export default configureStore = onComplete => {
   const enhancers = composeWithDevTools({
     name: Platform.OS,
     port: 5680,
-    hostname: 'localhost'
+    hostname: 'localhost',
   })(
     autoRehydrate(),
   )
