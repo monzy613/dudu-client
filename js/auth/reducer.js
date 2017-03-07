@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import axios from 'axios'
 
 import {
   OBTAIN_USER_INFO,
@@ -11,9 +12,10 @@ export default auth = (state = initialState, action) => {
   switch (action.type) {
     case OBTAIN_USER_INFO: {
       const { user, token } = payload
+      axios.defaults.headers.common['Authorization'] = token
       return state
       .set('token', token)
-      .set('user', user)
+      .set('user', fromJS(user))
     }
     case CLEAR_USER_INFO: {
       return initialState

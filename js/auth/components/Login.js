@@ -47,9 +47,8 @@ class Login extends Component {
     }
     const { mobile, password } = this.state
     ddapi.post('/auth/login', { mobile, password })
-    .then(user => {
-      const { token } = user
-      this.props.obtainUserInfo({ user, token })
+    .then(result => {
+      this.props.obtainUserInfo(result)
       this.props.clearSet({ key: 'home' })
     })
     .catch(err => {

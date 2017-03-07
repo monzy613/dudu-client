@@ -1190,7 +1190,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.dudu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.ver.dudu;
 				PRODUCT_NAME = dudu;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1209,7 +1209,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.dudu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.ver.dudu;
 				PRODUCT_NAME = dudu;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -21,7 +21,7 @@ import {
 
 class RSSWaterFlowView extends Component {
   onPress = () => {
-    const link = this.props.overview && this.props.overview.link
+    const link = this.props.feed && this.props.feed.link
     if (!isEmpty(link)) {
       this.props.pushRoute({ link })
     }
@@ -30,11 +30,13 @@ class RSSWaterFlowView extends Component {
   render = () => {
     const {
       style = {},
-      overview = {},
+      feed = {},
     } = this.props
 
-    const title = overview && overview.title
-    const subtitles = (overview && overview.subtitles) || []
+    const title = feed && feed.title
+    const subtitles = ((feed && feed.items) || []).map(item => {
+      return item.title
+    }).slice(0, 3)
 
     return (
       <Animatable.View

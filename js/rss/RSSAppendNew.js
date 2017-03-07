@@ -2,19 +2,41 @@ import React, { Component } from 'react'
 import {
   TextInput,
   TouchableOpacity,
+  InteractionManager,
+  Dimensions,
   Text,
   ScrollView,
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
 
+import ddapi from 'ddapi'
 import { pop as popRoute } from 'navigationAction'
+import DDButton from 'DDButton'
 import {
   mainBlue,
   placeholderColor,
 } from 'DDColor'
 
 class RSSAppendNew extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { source: '' }
+  }
+
+  subscribe = () => {
+    const { source } = this.state
+    ddapi.post(`/feed/subscribe`, { source })
+    .then(data => {
+      alert('done')
+      console.log(data)
+    })
+    .catch(error => {
+      alert('error')
+      console.warn(error)
+    })
+  }
+
   render = () => {
     return (
       <ScrollView style={styles.scrollView}>
@@ -22,10 +44,13 @@ class RSSAppendNew extends Component {
           style={styles.input}
           placeholder="请输入订阅源url"
           placeholderTextColor={placeholderColor}
+          onChangeText={source => this.setState({ source })}
         />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonTitle} >订阅</Text>
-        </TouchableOpacity>
+        <DDButton
+          style={styles.submitButton}
+          title="订阅"
+          onPress={this.subscribe}
+        />
       </ScrollView>
     )
   }
@@ -43,12 +68,9 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     paddingLeft: 10,
   },
-  button: {
-    padding: 12,
+  submitButton: {
     margin: 16,
-    marginTop: 25,
-    backgroundColor: mainBlue,
-    borderRadius: 2,
+    marginTop: 30,
   },
   buttonTitle: {
     textAlign: 'center',

@@ -1,3 +1,5 @@
+// 一级页面
+
 import React, { Component } from 'react'
 import {
   View,
@@ -6,6 +8,7 @@ import {
   ScrollView,
   ListView,
   Dimensions,
+  RefreshControl,
   InteractionManager,
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -17,10 +20,7 @@ import DDSpinner from 'DDSpinner'
 import RSSWaterFlowView from './components/RSSWaterFlowView'
 import RSSAddButton from './components/RSSAddButton'
 import ddapi from 'ddapi'
-import {
-  clearRSSList,
-  updateRSSList,
-}from './action'
+import { updateRSSList } from './action'
 
 class RSSSourceList extends Component {
   constructor(props) {
@@ -28,62 +28,66 @@ class RSSSourceList extends Component {
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
-      loading: true,
+      refreshing: true,
       ds,
     }
   }
 
   componentDidMount() {
-    this.props.clearRSSList()
     InteractionManager.runAfterInteractions(() => {
-      ddapi.get('/feed/overview')
-        .then(data => {
-          this.setState({ loading: false })
-          this.props.updateRSSList(data)
-        })
-        .catch(error => {
-          this.setState({ loading: false })
-          // TODO: 提示弹框
-          console.log(error)
-        })
+      this.fetchData()
     })
   }
 
-  renderRow = data => {
-    const overview = data.toJS()
+  fetchData = () => {
+    ddapi.get(`/feed/getSubscribesByUser/${this.props.mobile}`)
+      .then(data => {
+        this.setState({ refreshing: false })
+        this.props.updateRSSList(data)
+      })
+      .catch(error => {
+        this.setState({ refreshing: false })
+        // TODO: 提示弹框
+        console.log(error)
+      })
+  }
 
-    return overview.key === 'add' ? (
+  renderRow = data => {
+    const feed = data.toJS()
+
+    return feed.key === 'add' ? (
       <RSSAddButton style={styles.waterFlowCell} onPress={this.gotoAppendNew} />
     ) : (
       <RSSWaterFlowView
-        overview={overview}
+        feed={feed}
         style={styles.waterFlowCell}
       />
     )
   }
 
   gotoAppendNew = () => {
-    this.props.pushRoute({ key: 'rss_append_new' })
+    this.props.pushRoute({ key: 'rss_append_new', title: '添加' })
   }
 
   render = () => {
-    const overviews = (this.props.overviews && this.props.overviews.toArray())
-    overviews.push(fromJS({ key: 'add' }))
-    const dataSource = this.state.ds.cloneWithRows(overviews)
+    const feeds = (this.props.feeds && this.props.feeds.toArray())
+    feeds.push(fromJS({ key: 'add' }))
+    const dataSource = this.state.ds.cloneWithRows(feeds)
     return (
       <DDNavigationLayout isRoot title="订阅源">
-        {
-          this.state.loading ? <DDSpinner /> : 
-          (
-            <ListView
-              enableEmptySections
-              style={styles.listView}
-              contentContainerStyle={styles.listViewContentContainer}
-              dataSource={dataSource}
-              renderRow={this.renderRow}
+        <ListView
+          enableEmptySections
+          style={styles.listView}
+          contentContainerStyle={styles.listViewContentContainer}
+          dataSource={dataSource}
+          renderRow={this.renderRow}
+          refreshControl={(
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.fetchData}
             />
-          )
-        }
+          )}
+        />
       </DDNavigationLayout>
     )
   }
@@ -111,12 +115,12 @@ const styles = StyleSheet.create({
 export default connect(
   state => {
     return {
-      overviews: state.getIn(['rss', 'overviews']),
+      feeds: state.getIn(['rss', 'feeds']),
+      mobile: state.getIn(['auth', 'user', 'mobile']),
     }
   },
   {
     pushRoute,
-    clearRSSList,
     updateRSSList,
   }
 )(RSSSourceList)

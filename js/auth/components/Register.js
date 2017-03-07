@@ -99,9 +99,8 @@ class Register extends Component {
     }
     const { verifyCode: number, mobile } = this.state
     ddapi.post('/auth/verify', { mobile, number })
-    .then(user => {
-      const { token } = user
-      this.props.obtainUserInfo({ user, token })
+    .then(result => {
+      this.props.obtainUserInfo(result)
       this.props.clearSet({ key: 'home' })
     })
     .catch(err => {

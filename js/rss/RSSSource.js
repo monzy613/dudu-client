@@ -1,3 +1,5 @@
+// 二级页面
+
 import React, { Component } from 'react'
 import {
   View,
@@ -25,27 +27,9 @@ class RSSSource extends Component {
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
-      loading: true,
+      loading: false,
       ds,
     }
-  }
-
-  componentDidMount = () => {
-    const { source } = this.props.route && this.props.route.params && this.props.route.params
-    InteractionManager.runAfterInteractions(() => {
-      ddapi.get('/feed/getBySource', {
-        params: { source }
-      })
-        .then(feeds => {
-          this.setState({ loading: false })
-          this.props.updateFeeds(feeds)
-        })
-        .catch(error => {
-          this.setState({ loading: false })
-          // TODO: 提示弹框
-          console.log(error)
-        })
-    })
   }
 
   componentWillReceiveProps = props => {
@@ -63,7 +47,10 @@ class RSSSource extends Component {
 
   renderRow = item => {
     return (
-      <RSSPreviewView style={styles.previewCell} item={item && item.toJS()} />
+      <RSSPreviewView
+        style={styles.previewCell}
+        item={item}
+      />
     )
   }
 
@@ -73,8 +60,8 @@ class RSSSource extends Component {
     }
 
     const { source } = this.props.route && this.props.route.params && this.props.route.params
-    const feedList = (this.props.feeds.get(source) && this.props.feeds.get(source).toArray()) || []
-    const dataSource = this.state.ds.cloneWithRows(feedList)
+    const feeds = (this.props.feeds && this.props.feeds.toJS()) || []
+    const dataSource = this.state.ds.cloneWithRows(feeds)
 
     return (
       <ListView
@@ -105,9 +92,10 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  state => {
+  (state, props) => {
+    const source = props.route && props.route.params && props.route.params.source
     return {
-      feeds: state.getIn(['rss', 'feeds'])
+      feeds: state.getIn(['rss', 'feeds', source, 'items'])
     }
   },
   { pushRoute, updateFeeds }

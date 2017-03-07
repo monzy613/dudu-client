@@ -5,7 +5,9 @@ import {
 import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'remote-redux-devtools'
 import { persistStore, autoRehydrate } from 'redux-persist-immutable'
+import isEmpty from 'lodash/isEmpty'
 import isFunction from 'lodash/isFunction'
+import axios from 'axios'
 
 import { clearSet } from 'navigationAction'
 import reducer from './rootReducer'
@@ -34,15 +36,17 @@ export default configureStore = onComplete => {
   }
 
   persistStore(store, persistConfig, () => {
-    const authState = store.getState().get('auth')
-    store.dispatch(rehydrateComplete())
-    if (authState && authState.get('token')) {
-      // 已登录
-      store.dispatch(clearSet({ key: 'home' }))
-    } else {
+    const token = store.getState().get('auth') && store.getState().get('auth').get('token')
+    if (isEmpty(token)) {
       // 未登录
+      axios.defaults.headers.common['Authorization'] = undefined
       store.dispatch(clearSet({ key: 'auth' }))
+    } else {
+      // 已登录
+      axios.defaults.headers.common['Authorization'] = token
+      store.dispatch(clearSet({ key: 'home' }))
     }
+    store.dispatch(rehydrateComplete())
   })
 
   if (module.hot) {

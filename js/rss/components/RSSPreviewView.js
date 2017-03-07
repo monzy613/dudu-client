@@ -38,6 +38,12 @@ class RSSPreviewView extends Component {
   }
 
   gotoDetail = () => {
+    const {
+      item = {},
+    } = this.props
+    const title = item && item.title
+    this.props.pushRoute({ key: 'rss_detail', params: { item }})
+    return
     const { source, id, read } = this.props.item || {}
     if (!isEmpty(source) && !isEmpty(id) && !read) {
       this.props.updateFeedReadState({
@@ -58,12 +64,12 @@ class RSSPreviewView extends Component {
       content,
       read,
       bookmark,
-    } = item
+    } = item || {}
     const formattedDate = moment(publishDate).format('YYYY-MM-DD')
     const BookmarkButton = bookmark ? (
-      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmark" size={22} />
+      <Icon color={mainBlue} name="ios-bookmark" size={22} />
     ) : (
-      <Icon style={styles.bookmark} color={mainBlue} name="ios-bookmark-outline" size={22} />
+      <Icon color={mainBlue} name="ios-bookmark-outline" size={22} />
     )
     return (
       <Animatable.View
@@ -109,8 +115,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: darkText,
-  },
-  bookmark: {
+    width: Dimensions.get('window').width - 16 * 5,
   },
   summary: {
     marginTop: 5,

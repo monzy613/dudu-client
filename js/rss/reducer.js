@@ -11,7 +11,6 @@ import {
 } from './action'
 
 const initialState = fromJS({
-  overviews: {},
   feeds: {},
 })
 
@@ -19,12 +18,9 @@ export default rss = (state = initialState, action) => {
   const payload = action.payload
   switch (action.type) {
     case CLEAR_RSS_LIST:
-      return state.update('overviews', map => fromJS({}))
+      return state.update('feeds', map => fromJS({}))
     case UPDATE_RSS_LIST:
-      return state.update('overviews', map => map.merge(payload))
-    case UPDATE_FEEDS:
-      return state
-      .update('feeds', map => map.merge(payload))
+      return state.update('feeds', map => map.merge(payload))
     case UPDATE_FEED_READ_STATE: {
       const { source, id, read } = payload
       return state.setIn(['feeds', source, id, 'read'], read)
