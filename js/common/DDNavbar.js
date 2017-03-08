@@ -83,13 +83,28 @@ class DDNavbar extends Component {
       color,
       style = {},
       leftBtn,
-      rightBtn,
+      rightButtons,
       transparent: isTransparent,
     } = this.props
 
     let containerColor = color ? { backgroundColor: color } : null
     if (isTransparent) {
       containerColor = { backgroundColor: transparent }
+    }
+
+    let RightButtonContainer = null
+    if (!isEmpty(rightItems)) {
+      RightButtonContainer = (
+        <View style={styles.rightButtonsContainer}>
+          { rightItems.map((item, index) => this.renderButton(item, {}, index)) }
+        </View>
+      )
+    } else if (!isEmpty(rightButtons)) {
+      RightButtonContainer = (
+        <View style={styles.rightButtonsContainer}>
+          { rightButtons.map((item, index) => this.renderButton(item, {}, index)) }
+        </View>
+      )
     }
     return (
       <View style={[styles.container, containerColor, navigationStyle]}>
@@ -104,11 +119,7 @@ class DDNavbar extends Component {
             <Text style={[styles.title, { color: tintColor }]}>{title}</Text>
           </View>
           { leftBtn && this.renderButton(leftBtn) }
-          { isEmpty(rightItems) ? null : (
-            <View style={styles.rightButtonsContainer}>
-              { rightItems.map((item, index) => this.renderButton(item, {}, index)) }
-            </View>
-          ) }
+          { RightButtonContainer }
         </View>
       </View>
     )

@@ -8,13 +8,13 @@ import {
   Dimensions,
 } from 'react-native'
 
-export default () => (
+export default ({ color = "#4A90E2" }) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
     <Spinner
       isVisible
       type="9CubeGrid"
       size={Dimensions.get('window').width * 40 / 375}
-      color="#4A90E2"
+      color={color}
     />
   </View>
 )

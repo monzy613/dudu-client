@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: mainBlue,
     borderRadius: 2,
-    flex: 1,
   },
   title: {
     color: 'white',

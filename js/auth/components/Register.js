@@ -20,9 +20,6 @@ import { isMobileLegal } from 'ddutil'
 import { clearSet } from 'navigationAction'
 import { obtainUserInfo } from 'authAction'
 
-// const VALIDATION_TYPE_REGISTER = Symbol('register')
-// const VALIDATION_TYPE_VERIFY = Symbol('verify')
-
 const VALIDATION_TYPE_REGISTER = 'VALIDATION_TYPE_REGISTER'
 const VALIDATION_TYPE_VERIFY = 'VALIDATION_TYPE_VERIFY'
 
@@ -54,7 +51,6 @@ class Register extends Component {
     return {
       content: (
         <Icon
-          style={styles.backIcon}
           name="angle-left"
           size={30}
           color={mainBlue}
@@ -149,6 +145,7 @@ class Register extends Component {
           <Image style={styles.logo} source={logo} />
           <View style={styles.inputContainer}>
             <TextInput
+              underlineColorAndroid="rgba(0,0,0,0)"
               style={styles.input}
               placeholder="请输入手机号"
               placeholderTextColor={placeholderColor}
@@ -157,6 +154,7 @@ class Register extends Component {
           </View>
           <View style={styles.inputContainer}>
             <TextInput
+              underlineColorAndroid="rgba(0,0,0,0)"
               style={styles.input}
               placeholder="请输入密码"
               secureTextEntry
@@ -167,6 +165,7 @@ class Register extends Component {
           { verifyCodeSend ? (
             <View style={styles.inputContainer}>
               <TextInput
+                underlineColorAndroid="rgba(0,0,0,0)"
                 style={styles.input}
                 placeholder="请输入验证码"
                 placeholderTextColor={placeholderColor}

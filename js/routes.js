@@ -12,6 +12,7 @@ import { routes as rss } from './rss'
 const RouteKeysWithOutNavigationBar = [
   'home',
   'auth',
+  'rss_detail',
 ]
 
 const routes = merge(

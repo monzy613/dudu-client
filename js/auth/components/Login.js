@@ -6,7 +6,7 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
-  StyleSheet,
+  StyleSheet
 } from 'react-native'
 
 import DDButton from 'DDButton'
@@ -51,9 +51,7 @@ class Login extends Component {
       this.props.obtainUserInfo(result)
       this.props.clearSet({ key: 'home' })
     })
-    .catch(err => {
-      console.error(err)
-    })
+    .catch(error => console.warn(error))
   }
 
   validate = () => {
@@ -82,6 +80,7 @@ class Login extends Component {
           <Image style={styles.logo} source={logo} />
           <View style={styles.inputContainer}>
             <TextInput
+              underlineColorAndroid="rgba(0,0,0,0)"
               style={styles.input}
               placeholder="请输入手机号"
               placeholderTextColor={placeholderColor}
@@ -90,6 +89,7 @@ class Login extends Component {
           </View>
           <View style={styles.inputContainer}>
             <TextInput
+              underlineColorAndroid="rgba(0,0,0,0)"
               style={styles.input}
               placeholder="请输入密码"
               secureTextEntry
