@@ -34,8 +34,8 @@ class RSSWaterFlowView extends Component {
     } = this.props
 
     const title = feed && feed.title
-    const subtitles = ((feed && feed.items) || []).map(item => {
-      return item.title
+    const subtitles = ((feed && feed.itemOverviews) || []).map(overview => {
+      return overview.title
     }).slice(0, 3)
 
     return (

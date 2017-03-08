@@ -26,7 +26,7 @@ const request = ({ method = 'get', path, params }) => {
         if (isEmpty(json)) {
           reject({ error: 'json empty' })
         } else {
-          if (json.success || !isEmpty(json.result)) {
+          if (json.success || json.result !== undefined) {
             resolve(json.result)
           } else {
             reject({ error: json.error })

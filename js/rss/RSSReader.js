@@ -4,37 +4,41 @@ import {
   ScrollView,
   WebView,
   StyleSheet,
+  InteractionManager,
 } from 'react-native'
 import HTMLView from 'react-native-htmlview'
+import isEmpty from 'lodash/isEmpty'
 
+import ddapi from 'ddapi'
+import { htmlStyleInjector } from 'ddutil'
 import DDSpinner from 'DDSpinner'
 
-const cssStringFromObject = object => {
-  let result = ''
-  for (tag in object) {
-    let tempContent = ''
-    const tagStyle = object[tag]
-    for (styleKey in tagStyle) {
-      const styleValue = tagStyle[styleKey]
-      tempContent += `${styleKey}:${styleValue};`
-    }
-    result += `${tag}{${tempContent}}`
-  }
-  return result
-}
-
-const htmlStyleInjector = ({ html, styles }) => {
-  if (typeof html !== typeof '') {
-    return undefined
-  }
-  return `<body>${html}<style type='text/css'>${cssStringFromObject(styles)}</style></body>`
-}
-
-
 class RSSReader extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      feedItem: undefined
+    }
+  }
+
+  componentDidMount = () => {
+    InteractionManager.runAfterInteractions(() => {
+      ddapi.get('/feed/getFeedItem', { params: {
+        url: this.props.route.params.url
+      } })
+      .then(feedItem => this.setState({ feedItem }))
+      .catch(error => console.warn(error))
+    })
+  }
+
   render = () => {
-    const { item } = this.props.route.params
-    const { description } = item
+    const { feedItem } = this.state
+    if (isEmpty(feedItem)) {
+      return <DDSpinner />
+    }
+    
+    const { description } = feedItem
     const html = htmlStyleInjector({
       html: description,
       styles: {

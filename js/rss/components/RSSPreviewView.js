@@ -38,11 +38,10 @@ class RSSPreviewView extends Component {
   }
 
   gotoDetail = () => {
-    const {
-      item = {},
-    } = this.props
-    const title = item && item.title
-    this.props.pushRoute({ key: 'rss_detail', params: { item }})
+    const { item = {} } = this.props
+    const { link } = item
+    this.props.pushRoute({ link })
+
     return
     const { source, id, read } = this.props.item || {}
     if (!isEmpty(source) && !isEmpty(id) && !read) {

@@ -20,7 +20,10 @@ import DDSpinner from 'DDSpinner'
 import RSSWaterFlowView from './components/RSSWaterFlowView'
 import RSSAddButton from './components/RSSAddButton'
 import ddapi from 'ddapi'
-import { updateRSSList } from './action'
+import {
+  updateRSSList,
+  clearRSSList,
+} from './action'
 
 class RSSSourceList extends Component {
   constructor(props) {
@@ -42,6 +45,7 @@ class RSSSourceList extends Component {
   fetchData = () => {
     ddapi.get(`/feed/getSubscribesByUser/${this.props.mobile}`)
       .then(data => {
+        this.props.clearRSSList()
         this.setState({ refreshing: false })
         this.props.updateRSSList(data)
       })
@@ -122,5 +126,6 @@ export default connect(
   {
     pushRoute,
     updateRSSList,
+    clearRSSList,
   }
 )(RSSSourceList)

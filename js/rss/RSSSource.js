@@ -95,7 +95,7 @@ export default connect(
   (state, props) => {
     const source = props.route && props.route.params && props.route.params.source
     return {
-      feeds: state.getIn(['rss', 'feeds', source, 'items'])
+      feeds: state.getIn(['rss', 'feeds', source, 'itemOverviews'])
     }
   },
   { pushRoute, updateFeeds }

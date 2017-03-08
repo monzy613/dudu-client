@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 
 import ddapi from 'ddapi'
 import { pop as popRoute } from 'navigationAction'
+import { updateRSSList } from './action'
 import DDButton from 'DDButton'
 import {
   mainBlue,
@@ -27,9 +28,10 @@ class RSSAppendNew extends Component {
   subscribe = () => {
     const { source } = this.state
     ddapi.post(`/feed/subscribe`, { source })
-    .then(data => {
+    .then(feed => {
       alert('done')
-      console.log(data)
+      this.props.updateRSSList(feed)
+      this.props.popRoute()
     })
     .catch(error => {
       alert('error')
@@ -82,5 +84,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   null,
-  { popRoute }
+  { popRoute, updateRSSList }
 )(RSSAppendNew)

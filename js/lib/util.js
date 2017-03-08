@@ -10,6 +10,29 @@ const isMobileLegal = number => {
   return re.test(number)
 }
 
+const cssStringFromObject = object => {
+  let result = ''
+  for (tag in object) {
+    let tempContent = ''
+    const tagStyle = object[tag]
+    for (styleKey in tagStyle) {
+      const styleValue = tagStyle[styleKey]
+      tempContent += `${styleKey}:${styleValue};`
+    }
+    result += `${tag}{${tempContent}}`
+  }
+  return result
+}
+
+const htmlStyleInjector = ({ html, styles }) => {
+  if (typeof html !== typeof '') {
+    return undefined
+  }
+  return `<body>${html}<style type='text/css'>${cssStringFromObject(styles)}</style></body>`
+}
+
 export {
   isMobileLegal,
+  htmlStyleInjector,
+  cssStringFromObject,
 }
