@@ -37,7 +37,14 @@ class RSSReader extends Component {
         url: this.props.route.params.url
       } })
       .then(feedItem => this.setState({ feedItem }))
-      .catch(error => console.warn(error))
+      .catch(error => {
+        this.setState({
+          feedItem: {
+            description: '<h3>网络连接失败</h3>'
+          }
+        })
+        console.warn(error)
+      })
     })
   }
 
