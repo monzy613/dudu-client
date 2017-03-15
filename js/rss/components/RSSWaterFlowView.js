@@ -44,7 +44,7 @@ class RSSWaterFlowView extends Component {
         animation="fadeIn"
         duration={800}
       >
-        <TouchableOpacity onPress={this.onPress}>
+        <TouchableOpacity onPress={this.onPress} style={styles.container}>
           <Text style={styles.mainTitle}>{title}</Text>
           { subtitles.map((subtitle, index) => (
             <Text
@@ -69,6 +69,7 @@ class RSSWaterFlowView extends Component {
 const styles = StyleSheet.create({
   contentContainer: {
     padding: 10,
+    paddingBottom: 5,
     backgroundColor: 'white',
     shadowRadius: 1,
     shadowOpacity: 1,
@@ -78,19 +79,23 @@ const styles = StyleSheet.create({
       height: 1,
     },
   },
+  container: {
+    justifyContent: 'space-between',
+  },
   mainTitle: {
     color: darkText,
+    height: 15,
     fontSize: 14,
     marginTop: 5,
     marginBottom: 8,
   },
   subtitle: {
     color: lightText,
+    height: 13,
     fontSize: 12,
     marginBottom: 5,
   },
   buttonContainer: {
-    marginTop: 2,
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },

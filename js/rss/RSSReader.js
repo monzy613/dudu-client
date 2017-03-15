@@ -52,7 +52,7 @@ class RSSReader extends Component {
     const iconColor = Theme(this.state.theme).iconColor
     return [
       {
-        content: <Ionicons style={{ backgroundColor: transparent }} name="ios-share-outline" size={25} color={iconColor} />,
+        content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={25} color={iconColor} />,
         handler: this.props.popRoute
       }
     ]

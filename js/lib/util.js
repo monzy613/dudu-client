@@ -10,6 +10,10 @@ const isMobileLegal = number => {
   return re.test(number)
 }
 
+/**
+ * 
+ * @param {*cssObject} object 
+ */
 const cssStringFromObject = object => {
   let result = ''
   for (tag in object) {
