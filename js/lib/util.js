@@ -28,11 +28,38 @@ const cssStringFromObject = object => {
   return result
 }
 
+const onScrollInjectScript = `(function () {
+  if (WebViewBridge) {
+    const scrollX = (this.x || window.pageXOffset) - window.pageXOffset
+    const scrollY = (this.y || window.pageYOffset) - window.pageYOffset
+    this.x = window.pageXOffset
+    this.y = window.pageYOffset
+    WebViewBridge.send(JSON.stringify({
+      type: 'onScroll',
+      payload: {
+        scrollX,
+        scrollY
+      }
+    }))
+  }
+})()`
+
+const onClickInjectScript = `(function () {
+  if (WebViewBridge) {
+    WebViewBridge.send(JSON.stringify({ type: 'onClick' }))
+  }
+})()`
+
 const htmlStyleInjector = ({ html, styles }) => {
   if (typeof html !== typeof '') {
     return undefined
   }
-  return `<body>${html}<style type='text/css'>${cssStringFromObject(styles)}</style></body>`
+  return `<body onscroll="${onScrollInjectScript}">
+            <div onclick="${onClickInjectScript}">
+              ${html}
+            <div>
+            <style type='text/css'>${cssStringFromObject(styles)}</style>
+          </body>`
 }
 
 export {

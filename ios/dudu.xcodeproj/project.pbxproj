@@ -55,6 +55,7 @@
 		F4AA12FD1E5706B900E8180E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F31E5706B900E8180E /* Octicons.ttf */; };
 		F4AA12FE1E5706B900E8180E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F41E5706B900E8180E /* SimpleLineIcons.ttf */; };
 		F4AA12FF1E5706B900E8180E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F51E5706B900E8180E /* Zocial.ttf */; };
+		F4E231DA1E795ACC0059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */; };
 		F98AA038E17D4C9DB6E4C036 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0670D03451054E29880F5278 /* EvilIcons.ttf */; };
 		FFB0E5F8D73C4F45B8CCF530 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB469460FD084DAA83C0A7C3 /* Foundation.ttf */; };
 		FFF39FA782F14C7E8940EDD8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 838813E938894FA58145BC59 /* Entypo.ttf */; };
@@ -264,6 +265,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		F4E231CE1E795AC00059F984 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4E231B91E795AC00059F984 /* React-Native-Webview-Bridge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4114DC4C1C187C3A003CD988;
+			remoteInfo = "React-Native-Webview-Bridge";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -314,6 +322,7 @@
 		F4AA12F31E5706B900E8180E /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		F4AA12F41E5706B900E8180E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		F4AA12F51E5706B900E8180E /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		F4E231B91E795AC00059F984 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		FB469460FD084DAA83C0A7C3 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -330,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4E231DA1E795ACC0059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -496,6 +506,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F4E231B91E795AC00059F984 /* React-Native-Webview-Bridge.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -605,6 +616,14 @@
 				F4AA12F51E5706B900E8180E /* Zocial.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F4E231BA1E795AC00059F984 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -763,6 +782,10 @@
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
+				},
+				{
+					ProductGroup = F4E231BA1E795AC00059F984 /* Products */;
+					ProjectRef = F4E231B91E795AC00059F984 /* React-Native-Webview-Bridge.xcodeproj */;
 				},
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
@@ -975,6 +998,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = F47A184D1E609C7B00D0DDE2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReact-Native-Webview-Bridge.a";
+			remoteRef = F4E231CE1E795AC00059F984 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -127,8 +127,6 @@ export default class RSSReaderToolbar extends Component {
       {
         selectedIcon: 'ios-bookmark',
         unselectedIcon: 'ios-bookmark-outline',
-        onSelected: () => alert('bookmarked'),
-        onUnselected: () => alert('unbookmarked')
       },
       {
         selectedIcon: 'ios-sunny',
@@ -138,9 +136,11 @@ export default class RSSReaderToolbar extends Component {
       {
         selectedIcon: 'ios-share',
         unselectedIcon: 'ios-share-outline',
-        onSelected: () => alert('bookmarked'),
-        onUnselected: () => alert('unbookmarked')
       },
+      {
+        selectedIcon: 'ios-send',
+        unselectedIcon: 'ios-send-outline',
+      }
     ]
     return (
       <Animatable.View

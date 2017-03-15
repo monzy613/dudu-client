@@ -10,6 +10,7 @@ import HTMLView from 'react-native-htmlview'
 import isEmpty from 'lodash/isEmpty'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import WebViewBridge from 'react-native-webview-bridge'
 
 import { pop as popRoute } from 'navigationAction'
 import ddapi from 'ddapi'
@@ -28,7 +29,7 @@ class RSSReader extends Component {
     super(props)
     this.state = {
       feedItem: undefined,
-      showToolbar: false,
+      showBars: false,
     }
   }
 
@@ -49,16 +50,16 @@ class RSSReader extends Component {
     })
   }
 
-  toggleToolbar = () => {
-    this.setState({ showToolbar: !this.state.showToolbar })
+  toggleBars = () => {
+    this.setState({ showBars: !this.state.showBars })
   }
 
   renderRightButtons = () => {
     const iconColor = Themes[this.props.theme].iconColor
     return [
       {
-        content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={25} color={iconColor} />,
-        handler: this.toggleToolbar
+        content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={35} color={iconColor} />,
+        handler: undefined
       }
     ]
   }
@@ -77,10 +78,22 @@ class RSSReader extends Component {
     }
   }
 
+  onBridgeMessage = jsonString => {
+    const action = JSON.parse(jsonString)
+    switch (action.type) {
+      case 'onClick': {
+        this.toggleBars()
+        break
+      }
+      default:
+        break
+    }
+  }
+
   render = () => {
     const {
       feedItem,
-      showToolbar,
+      showBars,
     } = this.state
     const theme = Themes[this.props.theme]
 
@@ -115,13 +128,17 @@ class RSSReader extends Component {
 
     return (
       <View style={[styles.container, { backgroundColor: theme.contentColor }]}>
-        { Navbar }
-        <WebView
-          style={{ backgroundColor: theme.contentColor }}
+        { showBars ? Navbar : null }
+        <WebViewBridge
+          style={{ flex: 1, backgroundColor: theme.contentColor }}
           source={{ html }}
+          ref="WebViewBridge"
+          onBridgeMessage={this.onBridgeMessage}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
         />
         {
-          showToolbar ? (
+          showBars ? (
             <RSSReaderToolbar
               style={styles.toolbar}
               theme={this.props.theme}

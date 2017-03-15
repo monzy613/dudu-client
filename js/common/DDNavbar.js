@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
-    padding: 10,
+    padding: 15,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
