@@ -26,3 +26,9 @@ export const updateFeedBookmarkState = ({ source, id, bookmark }) => ({
   type: UPDATE_FEED_BOOKMARK_STATE,
   payload: { source, id, bookmark },
 })
+
+export const UPDATE_READER_THEME = 'CHANGE_READER_THEME'
+export const updateReaderTheme = theme => ({
+  type: UPDATE_READER_THEME,
+  payload: { theme },
+})

@@ -27,11 +27,23 @@ const readerThemes = [
     '#34AF40',
     '#FAF4E8',
     'black',
+  ],
+  [
+    '#333333',
+    mainBlue,
+    '#171717',
+    lightText,
   ]
 ]
 
 // reader theme colors
-export const Theme = themeIndex => {
+const themeObject = themeIndex => {
   const [navColor, iconColor, contentColor, textColor] = readerThemes[themeIndex]
   return { navColor, iconColor, contentColor, textColor }
 }
+
+const Themes = []
+for (let i = 0; i < readerThemes.length; i++) {
+  Themes.push(themeObject(i))
+}
+export { Themes }

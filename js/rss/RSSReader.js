@@ -16,18 +16,19 @@ import ddapi from 'ddapi'
 import { htmlStyleInjector } from 'ddutil'
 import DDSpinner from 'DDSpinner'
 import DDNavbar from 'DDNavbar'
+import { updateReaderTheme } from './action'
 import {
-  Theme,
+  Themes,
   transparent,
 } from 'DDColor'
+import RSSReaderToolbar from './components/RSSReaderToolbar'
 
 class RSSReader extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       feedItem: undefined,
-      theme: 1,
+      showToolbar: false,
     }
   }
 
@@ -48,12 +49,16 @@ class RSSReader extends Component {
     })
   }
 
+  toggleToolbar = () => {
+    this.setState({ showToolbar: !this.state.showToolbar })
+  }
+
   renderRightButtons = () => {
-    const iconColor = Theme(this.state.theme).iconColor
+    const iconColor = Themes[this.props.theme].iconColor
     return [
       {
         content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={25} color={iconColor} />,
-        handler: this.props.popRoute
+        handler: this.toggleToolbar
       }
     ]
   }
@@ -65,7 +70,7 @@ class RSSReader extends Component {
         <Icon
           name="angle-left"
           size={30}
-          color={Theme(this.state.theme).iconColor}
+          color={Themes[this.props.theme].iconColor}
         />
       ),
       handler: popRoute
@@ -73,8 +78,11 @@ class RSSReader extends Component {
   }
 
   render = () => {
-    const { feedItem } = this.state
-    const theme = Theme(this.state.theme)
+    const {
+      feedItem,
+      showToolbar,
+    } = this.state
+    const theme = Themes[this.props.theme]
 
     const Navbar = (
       <DDNavbar
@@ -97,15 +105,30 @@ class RSSReader extends Component {
       html: description,
       styles: {
         body: { background: theme.contentColor },
+        a: { color: theme.textColor },
+        li: { color: theme.textColor },
         p: { color: theme.textColor },
-        h3: { color: theme.textColor }
+        h3: { color: theme.textColor },
+        h2: { color: theme.textColor },
       }
     })
 
     return (
       <View style={[styles.container, { backgroundColor: theme.contentColor }]}>
         { Navbar }
-        <WebView style={{ backgroundColor: theme.contentColor }} source={{ html }} />
+        <WebView
+          style={{ backgroundColor: theme.contentColor }}
+          source={{ html }}
+        />
+        {
+          showToolbar ? (
+            <RSSReaderToolbar
+              style={styles.toolbar}
+              theme={this.props.theme}
+              onChangeTheme={theme => this.props.updateReaderTheme(theme)}
+            />
+          ) : null
+        }
       </View>
     )
   }
@@ -115,8 +138,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  toolbar: {
+    height: 50,
+  },
 })
 
 export default connect(
-  null, { popRoute }
+  state => ({
+    theme: state.getIn(['rss', 'theme'])
+  }), {
+    popRoute,
+    updateReaderTheme,
+  }
 )(RSSReader)

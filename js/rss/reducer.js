@@ -8,9 +8,11 @@ import {
   UPDATE_FEEDS,
   UPDATE_FEED_READ_STATE,
   UPDATE_FEED_BOOKMARK_STATE,
+  UPDATE_READER_THEME,
 } from './action'
 
 const initialState = fromJS({
+  theme: 0,
   feeds: {},
 })
 
@@ -28,6 +30,10 @@ export default rss = (state = initialState, action) => {
     case UPDATE_FEED_BOOKMARK_STATE: {
       const { source, id, bookmark } = payload
       return state.setIn(['feeds', source, id, 'bookmark'], bookmark)
+    }
+    case UPDATE_READER_THEME: {
+      const { theme } = payload
+      return state.set('theme', theme)
     }
     default:
       return state

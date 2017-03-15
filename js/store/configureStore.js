@@ -31,7 +31,10 @@ export default configureStore = onComplete => {
   )
 
   const persistConfig = {
-    blacklist: ['rehydrate', 'navigation'],
+    blacklist: [
+      'rehydrate',
+      'navigation',
+    ],
     storage: AsyncStorage,
   }
 
