@@ -55,7 +55,7 @@
 		F4AA12FD1E5706B900E8180E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F31E5706B900E8180E /* Octicons.ttf */; };
 		F4AA12FE1E5706B900E8180E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F41E5706B900E8180E /* SimpleLineIcons.ttf */; };
 		F4AA12FF1E5706B900E8180E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F51E5706B900E8180E /* Zocial.ttf */; };
-		F4E231DA1E795ACC0059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */; };
+		F4E2320D1E7A30540059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */; };
 		F98AA038E17D4C9DB6E4C036 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0670D03451054E29880F5278 /* EvilIcons.ttf */; };
 		FFB0E5F8D73C4F45B8CCF530 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB469460FD084DAA83C0A7C3 /* Foundation.ttf */; };
 		FFF39FA782F14C7E8940EDD8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 838813E938894FA58145BC59 /* Entypo.ttf */; };
@@ -339,7 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4E231DA1E795ACC0059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */,
+				F4E2320D1E7A30540059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
