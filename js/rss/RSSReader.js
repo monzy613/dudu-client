@@ -4,6 +4,7 @@ import {
   View,
   WebView,
   StyleSheet,
+  Platform,
   InteractionManager,
 } from 'react-native'
 import HTMLView from 'react-native-htmlview'
@@ -128,7 +129,7 @@ class RSSReader extends Component {
 
     return (
       <View style={[styles.container, { backgroundColor: theme.contentColor }]}>
-        { showBars ? Navbar : null }
+        { showBars ? Navbar : <View style={{ height: Platform.OS === 'ios' ? 20 : 0 }} /> }
         <WebViewBridge
           style={{ flex: 1, backgroundColor: theme.contentColor }}
           source={{ html }}
