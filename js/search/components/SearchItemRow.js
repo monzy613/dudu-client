@@ -5,12 +5,12 @@ import {
   Text,
 } from 'react-native'
 
-export default class SearchFeedRow extends Component {
+export default class SearchItemRow extends Component {
   render = () => {
-    const { feed } = this.props
+    const { item } = this.props
     return (
       <View>
-        <Text>feed: {feed.title}</Text>
+        <Text>item: {item.title}</Text>
       </View>
     )
   }

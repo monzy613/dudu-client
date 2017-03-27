@@ -22,6 +22,8 @@ import {
 } from 'DDColor'
 import SearchNavbar from './components/SearchNavbar'
 import SearchFeedRow from './components/SearchFeedRow'
+import SearchItemRow from './components/SearchItemRow'
+import SearchUserRow from './components/SearchUserRow'
 
 import ddapi from 'ddapi'
 
@@ -94,9 +96,16 @@ class Search extends Component {
   }
 
   renderRow = data => {
-    return (
-      <SearchFeedRow style={styles.feedRow} />
-    )
+    switch (data.type) {
+      case SEARCH_TYPE_FEED:
+        return <SearchFeedRow style={styles.row} feed={data.feed} />
+      case SEARCH_TYPE_ITEM:
+        return <SearchItemRow style={styles.row} item={data.item} />
+      case SEARCH_TYPE_USER:
+        return <SearchUserRow style={styles.row} user={data.user} />
+      default:
+        return null
+    }
   }
 
   onSearch = originKeyword => {
@@ -169,7 +178,7 @@ const styles = StyleSheet.create({
   listView: {
     flex: 1,
   },
-  feedRow: {
+  row: {
     height: 40,
   },
 })
