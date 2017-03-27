@@ -2,6 +2,10 @@
  * @providesModule ddutil
  */
 
+import {
+  Platform
+} from 'react-native'
+
 /**
  * 判断手机号是否合理
  */
@@ -62,8 +66,13 @@ const htmlStyleInjector = ({ html, styles }) => {
           </body>`
 }
 
+const NAV_BAR_HEIGHT = 44
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0
+const NavigationBarHeight = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT
+
 export {
   isMobileLegal,
   htmlStyleInjector,
   cssStringFromObject,
+  NavigationBarHeight,
 }

@@ -9,7 +9,7 @@ import {
 import {
   mainBlue,
 } from 'DDColor'
-import ddapi from 'ddapi'
+
 import Login from './Login'
 import Register from './Register'
 

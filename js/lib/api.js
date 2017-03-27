@@ -6,7 +6,7 @@ import axios from 'axios'
 import isFunction from 'lodash/isFunction'
 import isEmpty from 'lodash/isEmpty'
 
-const baseURL = 'http://localhost:3000/'
+const baseURL = 'http://localhost:3000/api/'
 
 const instance = axios.create({
   baseURL,

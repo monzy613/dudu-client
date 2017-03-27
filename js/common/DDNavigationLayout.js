@@ -28,7 +28,7 @@ export default class DDNavigationLayout extends Component {
       title,
       popRoute,
       children,
-      rightBtn,
+      rightItems,
       isRoot,
     } = this.props
 
@@ -44,7 +44,7 @@ export default class DDNavigationLayout extends Component {
         <DDNavbar
           title={title}
           leftBtn={leftBtn}
-          rightBtn={rightBtn}
+          rightItems={rightItems}
           ref={bar => {
             if (isEmpty(this.state.navigator) && !isEmpty(bar && bar.navigator)) {
               this.setState({ navigator: bar.navigator })
