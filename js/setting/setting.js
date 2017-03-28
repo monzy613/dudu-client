@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native'
-import { settingTest } from './action'
 import { clearUserInfo } from 'authAction'
 import { push as pushRoute, clearSet } from 'navigationAction'
+import { resetAllStates } from 'rootAction'
 import DDNavigationLayout from 'DDNavigationLayout'
 
 class Setting extends Component {
@@ -18,8 +18,7 @@ class Setting extends Component {
   }
 
   clear = () => {
-    this.props.clearUserInfo()
-    this.props.clearSet({ key: 'auth' })
+    this.props.resetAllStates()
   }
 
   render = () => {
@@ -47,8 +46,8 @@ export default connect(
   null,
   {
     pushRoute,
-    settingTest,
     clearUserInfo,
     clearSet,
+    resetAllStates,
   }
 )(Setting)

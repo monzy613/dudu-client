@@ -17,8 +17,10 @@ import {
 import {
   backgroundColor,
   mainBlue,
+  darkText,
   lightText,
   lightGray,
+  divider,
 } from 'DDColor'
 import SearchNavbar from './components/SearchNavbar'
 import SearchFeedRow from './components/SearchFeedRow'
@@ -44,7 +46,10 @@ class Search extends Component {
   constructor(props) {
     super(props)
 
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2,
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+    })
 
     this.state = {
       searchType: SEARCH_TYPE_DEFAULT,
@@ -84,25 +89,86 @@ class Search extends Component {
 
   renderResultList = () => {
     const { result } = this.state
-    const dataSource = this.state.ds.cloneWithRows(result)
+    const sectionMap = {}
+    const feedRows = []
+    const itemRows = []
+    const userRows = []
+    result.map(item => {
+      switch (item.type) {
+        case SEARCH_TYPE_FEED: {
+          feedRows.push(item)
+          break
+        }
+        case SEARCH_TYPE_ITEM: {
+          itemRows.push(item)
+          break
+        }
+        case SEARCH_TYPE_USER: {
+          userRows.push(item)
+          break
+        }
+        default:
+          break
+      }
+    })
+    if (!isEmpty(feedRows)) {
+      sectionMap[SEARCH_TYPE_FEED] = feedRows
+    }
+    if (!isEmpty(itemRows)) {
+      sectionMap[SEARCH_TYPE_ITEM] = itemRows
+    }
+    if (!isEmpty(userRows)) {
+      sectionMap[SEARCH_TYPE_USER] = userRows
+    }
+    const dataSource = this.state.ds.cloneWithRowsAndSections(sectionMap)
     return (
       <ListView
         enableEmptySections
         style={styles.listView}
         dataSource={dataSource}
         renderRow={this.renderRow}
+        renderSectionHeader={this.renderSectionHeader}
       />
+    )
+  }
+
+  renderSectionHeader = (data, sectionID) => {
+    if (this.state.searchType !== SEARCH_TYPE_DEFAULT) {
+      return null
+    }
+    let title = ''
+    switch (sectionID) {
+      case SEARCH_TYPE_FEED: {
+        title = '订阅源'
+        break
+      }
+      case SEARCH_TYPE_ITEM: {
+        title = '文章'
+        break
+      }
+      case SEARCH_TYPE_USER: {
+        title = '用户'
+        break
+      }
+      default:
+        break
+    }
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>{title}</Text>
+        <View style={styles.headerDivider} />
+      </View>
     )
   }
 
   renderRow = data => {
     switch (data.type) {
       case SEARCH_TYPE_FEED:
-        return <SearchFeedRow style={styles.row} feed={data.feed} />
+        return <SearchFeedRow feed={data.feed} />
       case SEARCH_TYPE_ITEM:
-        return <SearchItemRow style={styles.row} item={data.item} />
+        return <SearchItemRow item={data.item} />
       case SEARCH_TYPE_USER:
-        return <SearchUserRow style={styles.row} user={data.user} />
+        return <SearchUserRow user={data.user} />
       default:
         return null
     }
@@ -178,11 +244,24 @@ const styles = StyleSheet.create({
   listView: {
     flex: 1,
   },
-  row: {
-    height: 40,
+  headerTitle: {
+    color: darkText,
+    fontSize: 12,
+    fontWeight: '100'
+  },
+  headerContainer: {
+    marginTop: 10,
+    paddingLeft: 16,
+    paddingTop: 10,
+    backgroundColor: 'white',
+  },
+  headerDivider: {
+    marginTop: 5,
+    flex: 1,
+    backgroundColor: divider,
+    height: StyleSheet.hairlineWidth,
   },
 })
-
 
 export default connect(
   null,
