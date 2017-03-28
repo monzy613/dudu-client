@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import TabView from 'react-native-scrollable-tab-view'
 import isEmpty from 'lodash/isEmpty'
 
-import Setting from './setting'
+import Setting from './setting/setting.js'
 import { routes } from './routes'
 import RSSSourceList from './rss/RSSSourceList'
 import DDTabBar from 'DDTabBar'

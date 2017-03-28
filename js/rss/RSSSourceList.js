@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { fromJS } from 'immutable'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import { push as pushRoute } from 'navigationAction'
 import DDNavigationLayout from 'DDNavigationLayout'
@@ -24,6 +25,7 @@ import {
   updateRSSList,
   clearRSSList,
 } from './action'
+import { transparent } from 'DDColor'
 
 class RSSSourceList extends Component {
   constructor(props) {
@@ -69,6 +71,13 @@ class RSSSourceList extends Component {
     )
   }
 
+  renderSearchButton = () => (
+    {
+      content: <Icon style={{ backgroundColor: transparent }} name="ios-search-outline" size={25} color="white" />,
+      handler: () => this.props.pushRoute({ key: 'search' })
+    }
+  )
+
   gotoAppendNew = () => {
     this.props.pushRoute({ key: 'rss_append_new', title: '添加' })
   }
@@ -78,7 +87,11 @@ class RSSSourceList extends Component {
     feeds.push(fromJS({ key: 'add' }))
     const dataSource = this.state.ds.cloneWithRows(feeds)
     return (
-      <DDNavigationLayout isRoot title="订阅源">
+      <DDNavigationLayout
+        isRoot
+        title="订阅源"
+        rightItems={[this.renderSearchButton()]}
+      >
         <ListView
           enableEmptySections
           style={styles.listView}

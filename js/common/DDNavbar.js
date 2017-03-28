@@ -47,9 +47,14 @@ class DDNavbar extends Component {
   componentWillReceiveProps = newProps => {
     const {
       title,
-      hidden = false
+      hidden = false,
+      rightItems,
     } = newProps
-    this.setState({ title, hidden })
+    this.setState({
+      title,
+      hidden,
+      rightItems,
+    })
   }
 
   renderButton(data, style, key) {
@@ -87,7 +92,8 @@ class DDNavbar extends Component {
       transparent: isTransparent,
     } = this.props
 
-    let containerColor = color ? { backgroundColor: color } : null
+    let containerColor = color ?
+    { backgroundColor: color } : { backgroundColor: mainBlue }
     if (isTransparent) {
       containerColor = { backgroundColor: transparent }
     }
@@ -109,16 +115,10 @@ class DDNavbar extends Component {
     return (
       <View style={[styles.container, containerColor, navigationStyle]}>
         <View style={[styles.content, style]}>
-          { !isEmpty(containerColor) ? null : (
-            <Image
-              style={[styles.imageBackground, style]}
-              source={navigationBackground}
-            />
-          )}
           <View style={styles.titleContainer}>
             <Text style={[styles.title, { color: tintColor }]}>{title}</Text>
           </View>
-          { leftBtn && this.renderButton(leftBtn) }
+          { leftBtn && this.renderButton(leftBtn) || <View /> }
           { RightButtonContainer }
         </View>
       </View>
