@@ -35,7 +35,6 @@ class DDNavbar extends Component {
     super(props)
     this.state = {
       title: '',
-      tintColor: 'white',
       navigationStyle: {},
       hidden: false,
       rightItems: [],
@@ -79,8 +78,7 @@ class DDNavbar extends Component {
     const {
       navigationStyle,
       backgroundImage,
-      title,
-      tintColor,
+      // title,
       rightItems,
     } = this.state
     const {
@@ -88,6 +86,8 @@ class DDNavbar extends Component {
       color,
       style = {},
       leftBtn,
+      title,
+      tintColor = 'white',
       rightButtons,
       transparent: isTransparent,
     } = this.props

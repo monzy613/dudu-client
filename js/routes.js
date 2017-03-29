@@ -9,12 +9,14 @@ import Home from './home'
 import { routes as auth } from './auth'
 import { routes as rss } from './rss'
 import { routes as search } from './search'
+import { routes as user } from './user'
 
 const RouteKeysWithOutNavigationBar = [
   'home',
   'auth',
   'search',
   'rss_detail',
+  'user_page',
 ]
 
 const routes = merge(
@@ -27,6 +29,7 @@ const routes = merge(
   rss,
   auth,
   search,
+  user,
 )
 
 export default mapValues(routes, (route, key) => {

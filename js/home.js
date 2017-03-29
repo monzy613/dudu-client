@@ -9,7 +9,8 @@ import { connect } from 'react-redux'
 import TabView from 'react-native-scrollable-tab-view'
 import isEmpty from 'lodash/isEmpty'
 
-import Setting from './setting/setting.js'
+import Setting from './setting/Setting'
+import More from './setting/More'
 import { routes } from './routes'
 import RSSSourceList from './rss/RSSSourceList'
 import DDTabBar from 'DDTabBar'
@@ -52,8 +53,8 @@ class Home extends Component {
         initialPage={this.props.tab}
         renderTabBar={this.renderTabBar}
       >
-        <RSSSourceList tabLabel="RSSSourceList" />
-        <Setting tabLabel="setting" />
+        <RSSSourceList tabLabel="SourceList" />
+        <More tabLabel="More" />
       </TabView>
     )
   }
