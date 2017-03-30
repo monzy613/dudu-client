@@ -10,6 +10,7 @@ import { routes as auth } from './auth'
 import { routes as rss } from './rss'
 import { routes as search } from './search'
 import { routes as user } from './user'
+import { routes as timeline } from './timeline'
 
 const RouteKeysWithOutNavigationBar = [
   'home',
@@ -30,6 +31,7 @@ const routes = merge(
   auth,
   search,
   user,
+  timeline,
 )
 
 export default mapValues(routes, (route, key) => {

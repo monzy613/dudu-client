@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/EvilIcons'
 
 import { push as pushRoute } from 'navigationAction'
 import DDUserHeader from 'DDUserHeader'
+import DDRow from 'DDRow'
 import DDNavbar from 'DDNavbar'
 import {
   mainBlue,
@@ -17,9 +18,13 @@ import {
 } from 'DDColor'
 
 class More extends Component {
-  gotoUserPage = () => {
+  goToUserPage = () => {
     const { user } = this.props.user
     this.props.pushRoute({ key: 'user_page', title: '张', user })
+  }
+
+  goToTimeline = () => {
+    this.props.pushRoute({ key: 'timeline', title: '分享圈' })
   }
 
   renderRightButtons = () => {
@@ -45,8 +50,13 @@ class More extends Component {
         />
         <ScrollView>
           <DDUserHeader
-            onPress={this.gotoUserPage}
+            onPress={this.goToUserPage}
             user={user}
+          />
+          <DDRow
+            style={{ marginTop: 10 }}
+            title="分享圈"
+            onPress={this.goToTimeline}
           />
         </ScrollView>
       </View>

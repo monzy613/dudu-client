@@ -47,16 +47,14 @@ class DDNavbar extends Component {
     const {
       title,
       hidden = false,
-      rightItems,
     } = newProps
     this.setState({
       title,
       hidden,
-      rightItems,
     })
   }
 
-  renderButton(data, style, key) {
+  renderButton = (data, style, key) => {
     return (
       <View style={[styles.buttonContainer, style]} key={key}>
         { data.handler ?
@@ -71,14 +69,17 @@ class DDNavbar extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if (this.state.hidden) {
       return <View style={styles.hidden} />
+    }
+    let { title } = this.state
+    if (isEmpty(title)) {
+      title = this.props.title
     }
     const {
       navigationStyle,
       backgroundImage,
-      // title,
       rightItems,
     } = this.state
     const {
@@ -86,7 +87,6 @@ class DDNavbar extends Component {
       color,
       style = {},
       leftBtn,
-      title,
       tintColor = 'white',
       rightButtons,
       transparent: isTransparent,
