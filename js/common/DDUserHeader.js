@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   backgroundColor,
   darkText,
+  lightGray,
   divider,
 } from 'DDColor'
 
@@ -54,7 +55,7 @@ class DDUserHeader extends Component {
     const AccessoryIcon = (
       <Icon style={[styles.accessoryIcon, {
         top: (this.state.height / 2) - 7.5
-      }]} name="angle-right" size={15} color={backgroundColor} />
+      }]} name="angle-right" size={15} color={lightGray} />
     )
 
     if (!showBackground) {

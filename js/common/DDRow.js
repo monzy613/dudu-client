@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   divider,
   darkText,
+  lightGray,
   backgroundColor,
 } from 'DDColor'
 
@@ -26,7 +27,7 @@ export default class DDRow extends Component {
     return (
       <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
         <Text style={styles.title}>{title}</Text>
-        <Icon name="angle-right" size={15} color={backgroundColor} />
+        <Icon name="angle-right" size={15} color={lightGray} />
       </TouchableOpacity>
     )
   } 
