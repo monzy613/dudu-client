@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
+import ModalContainer from 'ModalContainer'
 import {
   push as pushRoute,
   pop as popRoute
@@ -21,6 +22,7 @@ class Dudu extends Component {
     return rehydrated ? (
       <View style={styles.container}>
         <Navigator />
+        <ModalContainer />
       </View>
     ) : <View style={{ backgroundColor: 'red' }}/> 
   }

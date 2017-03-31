@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/EvilIcons'
 
 import { push as pushRoute } from 'navigationAction'
+import { showHud, showAlert } from 'modalAction'
 import DDUserHeader from 'DDUserHeader'
 import DDRow from 'DDRow'
 import DDNavbar from 'DDNavbar'
@@ -31,7 +32,7 @@ class More extends Component {
     return [
       {
         content: <Icon name="gear" color={mainBlue} size={25} />,
-        handler: undefined
+        handler: () => this.props.showHud({ type: 'loading', text: 'loading...' })
       }
     ]
   }
@@ -78,6 +79,10 @@ export default connect(
       user: authState.get('user') && authState.get('user').toJS()
     }
   },
-  { pushRoute }
+  {
+    pushRoute,
+    showHud,
+    showAlert,
+  }
 )(More)
 

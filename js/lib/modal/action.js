@@ -1,5 +1,5 @@
 /**
- * @providesModule DDModalAction
+ * @providesModule modalAction
  */
 
 import { fromJS } from 'immutable'

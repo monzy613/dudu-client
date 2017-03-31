@@ -3,14 +3,23 @@
  */
 
 import { fromJS } from 'immutable'
-import {} from './action'
+import {
+  TYPE_MODAL_NONE,
+  SHOW_MODAL,
+} from './action'
 
-const initialState = fromJS({})
+const initialState = fromJS({
+  modalType: TYPE_MODAL_NONE,
+  modalData: {},
+})
 
 export default modal = (state = initialState, action) => {
-  const payload = action.payload
-  switch (action.type) {
-    default:
-      return state
+  if (action.type === SHOW_MODAL) {
+    return state.withMutations(map => {
+      map.set('modalType', action.modalType)
+      .set('modalData', action.modalData)
+    })
   }
+
+  return state
 }

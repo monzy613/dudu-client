@@ -34,6 +34,7 @@ export default configureStore = onComplete => {
     blacklist: [
       'rehydrate',
       'navigation',
+      'modal',
     ],
     storage: AsyncStorage,
   }

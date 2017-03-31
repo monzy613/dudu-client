@@ -5,12 +5,14 @@ import rehydrate from './reducer'
 import { RESET_ALL_STATES } from 'rootAction'
 import { reducer as auth } from '../auth'
 import { reducer as navigation } from '../navigation'
+import modal from 'ModalReducer'
 import { reducer as setting } from '../setting'
 import { reducer as rss } from '../rss'
 
 const appReducer = combineReducers({
   rehydrate,
   auth,
+  modal,
   navigation,
   setting,
   rss,
