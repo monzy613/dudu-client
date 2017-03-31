@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import DDReferredSource from 'DDReferredSource'
 import DDReferredItem from 'DDReferredItem'
 import ddapi from 'ddapi'
+import { pop as popRoute } from 'navigationAction'
 
 const TIMELINE_TYPE_TEXT = 'text'
 const TIMELINE_TYPE_SOURCE = 'source'
@@ -39,6 +40,8 @@ class Post extends Component {
       type,
       payload,
      })
+     .then(() => this.props.popRoute())
+     .catch(error => console.warn(error))
   }
 
   componentWillReceiveProps = props => {
@@ -119,5 +122,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  null, null
+  null,
+  { popRoute }
 )(Post)

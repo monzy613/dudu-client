@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: backgroundColor,
     alignItems: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     padding: 10,
   },
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     color: darkText,
   },
   itemTitle: {
-    marginLeft: 20,
+    marginLeft: 10,
     fontWeight: '100',
     color: lightText,
   },
