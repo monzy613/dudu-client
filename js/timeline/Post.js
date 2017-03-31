@@ -6,6 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
+import isEmpty from 'lodash/isEmpty'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import DDReferredSource from 'DDReferredSource'
@@ -41,12 +42,16 @@ class Post extends Component {
   }
 
   componentWillReceiveProps = props => {
-    props.navigator && props.navigator.setRightItems([
-      {
-        content: <Icon style={{ backgroundColor: transparent }} name="ios-send-outline" color="white" size={30} />,
-        handler: this.post,
-      }
-    ])
+    const { navigator } = props
+    if (!isEmpty(navigator)) {
+      props.navigator.setRightItems([
+        {
+          content: <Icon style={{ backgroundColor: transparent }} name="ios-send-outline" color="white" size={30} />,
+          handler: this.post,
+        }
+      ])
+      props.navigator.setTitle('发布')
+    }
   }
 
   renderReferredView = type => {

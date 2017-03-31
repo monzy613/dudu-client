@@ -16,6 +16,7 @@ import isEmpty from 'lodash/isEmpty'
 import Icon from 'react-native-vector-icons/Ionicons'
 import moment from 'moment'
 
+import ddapi from 'ddapi'
 import { push as pushRoute } from 'navigationAction'
 import DDReferredItem from 'DDReferredItem'
 import DDReferredSource from 'DDReferredSource'
@@ -48,6 +49,13 @@ class DDTimeline extends Component {
   }
 
   like = () => {
+    const { _id: timelineID } = this.props.timeline
+    ddapi.post('/timeline/like', { timelineID })
+    .then(result => {
+      // should update in redux
+      alert('success')
+    })
+    .catch(error => console.warn(error))
   }
 
   comment = () => {

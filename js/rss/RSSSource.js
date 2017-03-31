@@ -36,13 +36,21 @@ class RSSSource extends Component {
     props.navigator && props.navigator.setRightItems([
       {
         content: <Icon style={{ backgroundColor: transparent }} name="ios-share-outline" size={25} color="white" />,
-        handler: this.share
+        handler: this.goToPost
       }
     ])
   }
 
-  share = () => {
-    alert('share')
+  goToPost = () => {
+    const { feed = {} } = this.props
+    const { title, source } = feed
+    this.props.pushRoute({
+      key: 'post',
+      params: {
+        type: 'source',
+        payload: { title, source }
+      }
+    })
   }
 
   renderRow = item => {
@@ -60,8 +68,8 @@ class RSSSource extends Component {
     }
 
     const { source } = this.props.route && this.props.route.params && this.props.route.params
-    const feeds = (this.props.feeds && this.props.feeds.toJS()) || []
-    const dataSource = this.state.ds.cloneWithRows(feeds)
+    const overviews = (this.props.overviews && this.props.overviews.toJS()) || []
+    const dataSource = this.state.ds.cloneWithRows(overviews)
 
     return (
       <ListView
@@ -95,7 +103,8 @@ export default connect(
   (state, props) => {
     const source = props.route && props.route.params && props.route.params.source
     return {
-      feeds: state.getIn(['rss', 'feeds', source, 'itemOverviews'])
+      feed: state.getIn(['rss', 'feeds', source]) && state.getIn(['rss', 'feeds', source]).toJS(),
+      overviews: state.getIn(['rss', 'feeds', source, 'itemOverviews'])
     }
   },
   { pushRoute, updateFeeds }

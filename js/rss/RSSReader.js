@@ -34,6 +34,25 @@ class RSSReader extends Component {
     }
   }
 
+  goToPost = () => {
+    const { feedItem } = this.state
+    if (isEmpty(feedItem)) {
+      return
+    }
+    const {
+      url,
+      title,
+      sourceTitle,
+    } = feedItem
+    this.props.pushRoute({
+      key: 'post',
+      params: {
+        type: 'item',
+        payload: { url, title, sourceTitle }
+      }
+    })
+  }
+
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
       ddapi.get('/feed/getFeedItem', { params: {
@@ -60,7 +79,7 @@ class RSSReader extends Component {
     return [
       {
         content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={35} color={iconColor} />,
-        handler: undefined
+        handler: this.goToPost
       }
     ]
   }

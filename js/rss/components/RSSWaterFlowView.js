@@ -20,6 +20,18 @@ import {
 } from 'DDColor'
 
 class RSSWaterFlowView extends Component {
+  goToPost = () => {
+    const { feed = {} } = this.props
+    const { title, source } = feed
+    this.props.pushRoute({
+      key: 'post',
+      params: {
+        type: 'source',
+        payload: { title, source }
+      }
+    })
+  }
+
   onPress = () => {
     const link = this.props.feed && this.props.feed.link
     if (!isEmpty(link)) {
@@ -56,7 +68,7 @@ class RSSWaterFlowView extends Component {
             ))
           }
           <View style={styles.buttonContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.goToPost}>
               <Icon color={mainBlue} name="ios-share-outline" size={20} />
             </TouchableOpacity>
           </View>
