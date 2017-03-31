@@ -52,8 +52,7 @@ class DDTimeline extends Component {
     const { _id: timelineID } = this.props.timeline
     ddapi.post('/timeline/like', { timelineID })
     .then(result => {
-      // should update in redux
-      alert('success')
+      // do update in redux
     })
     .catch(error => console.warn(error))
   }

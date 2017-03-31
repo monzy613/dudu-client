@@ -31,13 +31,13 @@ const HUD_TYPE_LOADING = 'loading'
 class DDHud extends Component {
 
   /**
-   * autoHideDuration 毫秒， 用来控制自动关闭的时间
+   * hideDuration 毫秒， 用来控制自动关闭的时间
    */
   componentDidMount = props => {
     const { data = {} } = this.props
-    const { autoHideDuration } = data
-    if (autoHideDuration !== undefined) {
-      setTimeout(() => this.modal.closeModal(), autoHideDuration)
+    const { hideDuration } = data
+    if (hideDuration !== undefined) {
+      setTimeout(() => this.modal.closeModal(), hideDuration)
     }
   }
 
@@ -81,7 +81,6 @@ class DDHud extends Component {
     const {
       type,
       text,
-      disableManual,
     } = data
 
     return (
@@ -99,7 +98,7 @@ class DDHud extends Component {
           activeOpacity={1}
           focusOpacity={1}
           style={styles.dismissBackground}
-          onPress={disableManual ? undefined : () => this.modal.closeModal()}
+          onPress={type === HUD_TYPE_LOADING ? undefined : () => this.modal.closeModal()}
         >
           <View style={styles.container}>
             { this.renderTopContent(type) }

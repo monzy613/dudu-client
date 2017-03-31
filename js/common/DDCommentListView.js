@@ -12,7 +12,7 @@ import {
 
 import {
   backgroundColor,
-  darkText,
+  mainBlue,
   lightText,
 } from 'DDColor'
 
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 14,
     fontWeight: '100',
-    color: darkText,
+    lineHeight: 15,
+    color: mainBlue,
   },
   contentText: {
     fontSize: 12,
