@@ -18,7 +18,6 @@ import {
   backgroundColor,
   darkText,
   lightGray,
-  divider,
 } from 'DDColor'
 
 class DDUserHeader extends Component {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     height: 72,
     width: 72,
     borderRadius: 36,
-    borderColor: divider,
+    borderColor: lightGray,
     borderWidth: StyleSheet.hairlineWidth,
   },
   lightMotto: {

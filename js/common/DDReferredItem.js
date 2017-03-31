@@ -20,13 +20,14 @@ export default class DDReferredItem extends Component {
     const {
       item = {},
       onPress,
+      style = {},
     } = this.props
     const {
       title,
       sourceTitle
     } = item
     return (
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
         <View style={styles.sourceTitleContainer}>
           <Text style={styles.sourceTitle}>{sourceTitle}</Text>
         </View>

@@ -20,13 +20,14 @@ export default class DDReferredSource extends Component {
     const {
       feed = {},
       onPress,
+      style = {},
     } = this.props
     const {
       title,
       source,
     } = feed
     return (
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
         <Text style={styles.title} numberOfLines={1}>{title}</Text>
         <Text style={styles.source} numberOfLines={1}>{source}</Text>
       </TouchableOpacity>
