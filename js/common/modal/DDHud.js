@@ -35,10 +35,8 @@ class DDHud extends Component {
    */
   componentDidMount = props => {
     const { data = {} } = this.props
-    const { hideDuration } = data
-    if (hideDuration !== undefined) {
-      setTimeout(() => this.modal.closeModal(), hideDuration)
-    }
+    const { autoHide } = data
+    setTimeout(() => this.modal.closeModal(), 1500)
   }
 
   renderTopContent = type => {

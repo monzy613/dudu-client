@@ -24,3 +24,6 @@ export const showAlert = baseShowModal.bind(this, TYPE_MODAL_ALERT)
 
 export const TYPE_MODAL_GRID_ACTIONS = 'TYPE_MODAL_GRID_ACTIONS'
 export const showGridActions = baseShowModal.bind(this, TYPE_MODAL_GRID_ACTIONS)
+
+export const TYPE_MODAL_COMMENT_BAR = 'TYPE_MODAL_COMMENT_BAR'
+export const showCommentBar = baseShowModal.bind(this, TYPE_MODAL_COMMENT_BAR)

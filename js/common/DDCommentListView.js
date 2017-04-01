@@ -61,11 +61,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   contentContainerStyle: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
   commentContainer: {
     flexDirection: 'row',
-    paddingBottom: 5,
+    paddingVertical: 2,
   },
   nameText: {
     fontSize: 14,

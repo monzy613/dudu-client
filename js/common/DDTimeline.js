@@ -21,6 +21,10 @@ import { push as pushRoute } from 'navigationAction'
 import DDReferredItem from 'DDReferredItem'
 import DDReferredSource from 'DDReferredSource'
 import DDCommentListView from 'DDCommentListView'
+import {
+  showCommentBar,
+  showHud
+} from 'modalAction'
 
 import {
   mainBlue,
@@ -52,13 +56,31 @@ class DDTimeline extends Component {
     const { _id: timelineID } = this.props.timeline
     ddapi.post('/timeline/like', { timelineID })
     .then(result => {
-      // do update in redux
+      // update in redux
     })
     .catch(error => console.warn(error))
   }
 
-  comment = () => {
-
+  comment = replyMobile => {
+    const { _id: timelineID } = this.props.timeline
+    this.props.showCommentBar({
+      placeholder: '请输入评论',
+      onSend: content => {
+        this.props.showHud({ type: 'loading', text: '评论中...' })
+        ddapi.post('/timeline/comment', {
+          timelineID,
+          content,
+        })
+        .then(result => {
+          this.props.showHud({ type: 'success', text: '评论成功' })
+          // update in redux
+        })
+        .catch(error => {
+          console.warn(error)
+          this.props.showHud({ type: 'error', text: error.toString() })
+        })
+      }
+    })
   }
 
   renderLikeButton = liked => {
@@ -109,7 +131,7 @@ class DDTimeline extends Component {
             { isEmpty(content) ? null : <Text style={styles.contentText}>{content}</Text> }
             { this.renderReferView() }
             <View style={styles.accessoryContainer}>
-              <Text style={styles.publishDate}>{moment(publishDate).format('M月DD日 HH:mm')}</Text>
+              <Text style={styles.publishDate}>{moment(publishDate).format('YYYY年M月DD日 HH:mm')}</Text>
               <View style={styles.buttonsContainer}>
                 { this.renderLikeButton(liked) }
                 { this.renderCommentButton() }
@@ -179,5 +201,9 @@ const styles = StyleSheet.create({
 
 export default connect(
   null,
-  { pushRoute }
+  {
+    showHud,
+    pushRoute,
+    showCommentBar,
+  }
 )(DDTimeline)
