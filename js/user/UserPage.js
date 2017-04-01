@@ -27,13 +27,13 @@ import {
 } from 'DDColor'
 import DDUserHeader from 'DDUserHeader'
 import ddapi from 'ddapi'
+import { NavigationBarHeight } from 'ddutil'
 
 
 const AVATAR_SIZE = 120
 const MINI_AVATAR_SIZE = 30
 const ROW_HEIGHT = 60
 const PARALLAX_HEADER_HEIGHT = 350
-const STICKY_HEADER_HEIGHT = 44 + (Platform.OS === 'ios' ? 20 : 0)
 
 class UserPage extends Component {
   constructor(props) {
@@ -120,7 +120,7 @@ class UserPage extends Component {
     return (
       <ParallaxScrollView
         headerBackgroundColor="#333"
-        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
+        stickyHeaderHeight={NavigationBarHeight}
         parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
         backgroundSpeed={10}
         renderBackground={this.renderBackground}
@@ -184,7 +184,7 @@ const plxStyles = StyleSheet.create({
     top: 0,
     left: 0,
     width: Dimensions.get('window').width,
-    height: STICKY_HEADER_HEIGHT,
+    height: NavigationBarHeight,
   },
   stickyBackground: {
     backgroundColor: mainBlue,

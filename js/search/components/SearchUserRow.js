@@ -19,7 +19,7 @@ export default class SearchUserRow extends Component {
     const { user } = this.props
     return (
       <TouchableOpacity style={styles.container}>
-        <Image style={styles.image} source={{ uri: 'http://ojiryy947.bkt.clouddn.com/blacksaber.jpg' }} />
+        <Image style={styles.image} source={{ uri: user.avatar }} />
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{user.name}</Text>
           <Text style={styles.motto}>{user.motto}</Text>

@@ -38,11 +38,7 @@ class RSSSourceList extends Component {
     }
   }
 
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.fetchData()
-    })
-  }
+  componentDidMount = () => InteractionManager.runAfterInteractions(() => this.fetchData())
 
   fetchData = () => {
     ddapi.get(`/feed/getSubscribesByUser/${this.props.mobile}`)
