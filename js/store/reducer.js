@@ -5,7 +5,12 @@ import {
 } from './action'
 
 const initialState = fromJS({
-  rehydrated: false
+  rehydrated: false,
+  hosts: [
+    'localhost',
+    '118.190.102.153',
+  ],
+  host: 'localhost',
 })
 
 export default rehydrate = (state = initialState, action) => {

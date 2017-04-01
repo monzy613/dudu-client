@@ -5,13 +5,7 @@ import {
   OBTAIN_USER_INFO,
   CLEAR_USER_INFO
 } from './action'
-const initialState = fromJS({
-  hosts: [
-    'localhost',
-    '118.190.102.153',
-  ],
-  host: 'localhost',
-})
+const initialState = fromJS({})
 
 export default auth = (state = initialState, action) => {
   const payload = action.payload

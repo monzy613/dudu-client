@@ -42,7 +42,6 @@ export default configureStore = onComplete => {
   persistStore(store, persistConfig, () => {
     const authState = store.getState().get('auth')
     const token = authState.get('token')
-    const host = authState.get('host')
     if (isEmpty(token)) {
       // 未登录
       axios.defaults.headers.common['Authorization'] = undefined
@@ -52,6 +51,8 @@ export default configureStore = onComplete => {
       axios.defaults.headers.common['Authorization'] = token
       store.dispatch(clearSet({ key: 'home' }))
     }
+
+    const host = store.getState().get('rehydrate') && store.getState().get('rehydrate').get('host')
 
     axios.defaults.baseURL = `http://${host}:3000/api/`
     store.dispatch(rehydrateComplete())
