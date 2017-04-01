@@ -10,7 +10,15 @@ import { routes as auth } from './auth'
 import { routes as rss } from './rss'
 import { routes as search } from './search'
 import { routes as user } from './user'
+import { routes as setting } from './setting'
 import { routes as timeline } from './timeline'
+
+import {
+  mainBlue
+} from 'DDColor'
+
+const NAVIGATION_STYLE_DEFAULT = 'default'
+const NAVIGATION_STYLE_LIGHT = 'light'
 
 const RouteKeysWithOutNavigationBar = [
   'home',
@@ -30,6 +38,7 @@ const routes = merge(
   rss,
   auth,
   search,
+  setting,
   user,
   timeline,
 )
@@ -49,12 +58,15 @@ export default mapValues(routes, (route, key) => {
     ...route,
     render: function(props) {
       const title = route.title || props.route.title
+      const { navigationStyle = NAVIGATION_STYLE_DEFAULT } = route
       const navigator = this.layout && this.layout.navigator
       if (isEmpty(props.navigator) && !isEmpty(navigator)) {
         props.navigator = navigator
       }
       return (
         <DDNavigationLayout
+          color={navigationStyle === NAVIGATION_STYLE_LIGHT ? 'white' : mainBlue}
+          tintColor={navigationStyle === NAVIGATION_STYLE_LIGHT ? mainBlue : 'white'}
           isRoot={route.isRoot}
           popRoute={props.popRoute}
           title={title}

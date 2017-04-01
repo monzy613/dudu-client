@@ -35,7 +35,7 @@ class More extends Component {
     return [
       {
         content: <Icon name="gear" color={mainBlue} size={25} />,
-        handler: () => this.props.showHud({ type: 'loading', text: 'loading...' })
+        handler: () => this.props.pushRoute({ key: 'setting', title: '设置' })
       }
     ]
   }

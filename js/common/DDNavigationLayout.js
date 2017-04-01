@@ -25,15 +25,15 @@ export default class DDNavigationLayout extends Component {
 
   render = () => {
     const {
-      title,
       popRoute,
       children,
       rightItems,
       isRoot,
+      tintColor = 'white',
     } = this.props
 
     const leftBtn = isRoot ? null : {
-      content: <Icon style={styles.backIcon} name="angle-left" size={30} color="white" />,
+      content: <Icon style={styles.backIcon} name="angle-left" size={30} color={tintColor} />,
       handler: popRoute
     }
 
@@ -42,7 +42,6 @@ export default class DDNavigationLayout extends Component {
     return (
       <View style={styles.container}>
         <DDNavbar
-          title={title}
           leftBtn={leftBtn}
           rightButtons={rightItems}
           ref={bar => {
