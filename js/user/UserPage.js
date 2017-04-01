@@ -170,7 +170,7 @@ const plxStyles = StyleSheet.create({
     width: MINI_AVATAR_SIZE,
     borderRadius: MINI_AVATAR_SIZE / 2,
     marginTop: (Platform.OS === 'ios' ? 20 : 0) + 5,
-    marginRight: 20,
+    marginRight: 10,
     borderColor: lightGray,
     borderWidth: StyleSheet.hairlineWidth,
   },
