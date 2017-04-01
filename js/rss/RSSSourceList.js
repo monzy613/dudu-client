@@ -90,6 +90,7 @@ class RSSSourceList extends Component {
       >
         <ListView
           enableEmptySections
+          showsVerticalScrollIndicator
           style={styles.listView}
           contentContainerStyle={styles.listViewContentContainer}
           dataSource={dataSource}

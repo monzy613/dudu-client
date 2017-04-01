@@ -139,6 +139,7 @@ class UserPage extends Component {
         <ListView
           style={styles.listView}
           enableEmptySections
+          showsVerticalScrollIndicator
           dataSource={dataSource}
           renderRow={this.renderTimelineRow}
           renderScrollComponent={this.renderScrollComponent}

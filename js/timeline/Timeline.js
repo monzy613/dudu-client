@@ -60,6 +60,7 @@ class Timeline extends Component {
     return (
       <ListView
         enableEmptySections
+        showsVerticalScrollIndicator
         renderRow={this.renderTimelineRow}
         style={styles.listView}
         dataSource={dataSource}

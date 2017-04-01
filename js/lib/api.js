@@ -8,19 +8,18 @@ import isEmpty from 'lodash/isEmpty'
 
 const baseURL = 'http://localhost:3000/api/'
 
-const instance = axios.create({
-  baseURL,
-  timeout: 10000,
-})
 const ddapi = {}
+
+axios.defaults.baseURL = baseURL
+axios.defaults.timeout = 10000
 
 const request = ({ method = 'get', path, params }) => {
   return new Promise((resolve, reject) => {
-    if (!isFunction(instance[method])) {
+    if (!isFunction(axios[method])) {
       reject({ error: `${method} is not a proper method` })
       return
     }
-    instance[method](path, params)
+    axios[method](path, params)
       .then(res => {
         const { data: json } = res
         if (isEmpty(json)) {

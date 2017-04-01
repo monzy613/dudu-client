@@ -92,6 +92,7 @@ class Setting extends Component {
     return (
       <ListView
         enableEmptySections
+        showsVerticalScrollIndicator
         dataSource={dataSource}
         renderRow={this.renderRow}
         renderSectionHeader={this.renderSectionHeader}
