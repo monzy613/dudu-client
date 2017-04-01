@@ -34,6 +34,9 @@ export default class SearchNavbar extends Component {
         ) : null }
         <View style={[styles.inputContainer, { marginLeft: isSingleSearch ? 10 : 16 }]}>
           <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoFocus
             style={styles.searchInput}
             underlineColorAndroid={transparent}
             placeholder={placeholder}
@@ -81,6 +84,8 @@ const styles = StyleSheet.create({
   },
   button: {
     justifyContent: 'center',
-    marginRight: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 16,
   }
 })

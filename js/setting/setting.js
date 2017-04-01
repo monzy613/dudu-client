@@ -7,6 +7,7 @@ import {
   ListView,
   StyleSheet,
 } from 'react-native'
+import isEmpty from 'lodash/isEmpty'
 import Egg from 'react-native-egg'
 
 import DDRow from 'DDRow'
@@ -63,6 +64,17 @@ class Setting extends Component {
     }
   }
 
+  componentWillReceiveProps = props => {
+    const { navigator } = props
+    if (!isEmpty(navigator)) {
+      navigator.setRightItems([
+        {
+          content: this.renderEgg()
+        }
+      ])
+    }
+  }
+
   renderRow = row => <DDRow {...row} />
 
   renderSectionHeader = () => <View style={styles.header} />
@@ -83,7 +95,6 @@ class Setting extends Component {
         dataSource={dataSource}
         renderRow={this.renderRow}
         renderSectionHeader={this.renderSectionHeader}
-        renderFooter={this.renderEgg}
       />
     )
   }
@@ -98,7 +109,8 @@ const styles = StyleSheet.create({
     height: 10,
   },
   egg: {
-    height: 999,
+    height: 50,
+    width: 50,
   },
 })
 
