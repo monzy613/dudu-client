@@ -50,7 +50,7 @@ class Timeline extends Component {
 
   renderTimelineRow = timeline => {
     return (
-      <DDTimeline timeline={timeline} />
+      <DDTimeline style={styles.timeline} timeline={timeline} />
     )
   }
 
@@ -72,6 +72,10 @@ const styles = StyleSheet.create({
   listView: {
     flex: 1,
     backgroundColor,
+  },
+  timeline: {
+    borderTopWidth: 10,
+    borderTopColor: backgroundColor
   },
 })
 

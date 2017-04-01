@@ -20,8 +20,11 @@ import {
 
 class More extends Component {
   goToUserPage = () => {
-    const { user } = this.props.user
-    this.props.pushRoute({ key: 'user_page', title: '张', user })
+    const { user } = this.props
+    this.props.pushRoute({
+      key: 'user_page',
+      params: { user },
+    })
   }
 
   goToTimeline = () => {

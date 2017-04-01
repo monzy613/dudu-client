@@ -125,7 +125,6 @@ class DDTimeline extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     backgroundColor: 'white',
     flexDirection: 'row',
     padding: 16,

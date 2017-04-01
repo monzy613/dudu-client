@@ -113,7 +113,7 @@ class DDNavbar extends Component {
       )
     }
     return (
-      <View style={[styles.container, containerColor, navigationStyle]}>
+      <View style={[styles.container, containerColor, navigationStyle, style]}>
         <View style={[styles.content, style]}>
           <View style={styles.titleContainer}>
             <Text style={[styles.title, { color: tintColor }]}>{title}</Text>

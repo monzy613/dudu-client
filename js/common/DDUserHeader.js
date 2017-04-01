@@ -44,6 +44,7 @@ class DDUserHeader extends Component {
       user = {},
       onPress,
       showBackground,
+      style = {},
     } = this.props
 
     const {
@@ -61,7 +62,7 @@ class DDUserHeader extends Component {
       return (
         <TouchableOpacity
           onPress={onPress}
-          style={[styles.container, { backgroundColor: 'white' }]}
+          style={[styles.container, { backgroundColor: 'white' }, style]}
           onLayout={this.measureView}
         >
           { AccessoryIcon }
@@ -72,10 +73,10 @@ class DDUserHeader extends Component {
     }
 
     return (
-      <Image source={{ uri: avatar }}>
+      <Image source={{ uri: avatar }} style={[{ flex: 1 }, style]}>
         <TouchableOpacity
           onPress={onPress}
-          style={[styles.container, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}
+          style={[styles.container, styles.touchableBackground]}
           onLayout={this.measureView}
         >
           { AccessoryIcon }
@@ -93,6 +94,9 @@ const styles = StyleSheet.create({
     paddingTop: 35,
     paddingBottom: 35,
     alignItems: 'center',
+  },
+  touchableBackground: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   image: {
     height: 72,
