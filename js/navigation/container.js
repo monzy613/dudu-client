@@ -24,13 +24,11 @@ const RouteScene = props => {
 }
 
 class RootNavigator extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.backHandler = BackAndroid.addEventListener('hardwareBackPress', this.handleBackAction)
   }
 
-  componentWillUnmount() {
-    this.backHandler.remove()
-  }
+  componentWillUnmount = () => this.backHandler.remove()
 
   handleBackAction = () => {
     const {

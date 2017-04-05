@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { NavigationExperimental } from 'react-native'
 import wurl from 'wurl'
 import isEmpty from 'lodash/isEmpty'
 
@@ -41,6 +42,13 @@ export default navigation = (state = initialState, action) => {
           payload.title = title
         }
       }
+
+      // TODO: 暂时防止一下重复页面的push
+      const routeIndex = state.get('routes').filter(route => route.get('key') === payload.key).size
+      if (routeIndex !== 0) {
+        return state
+      }
+
       return state
       .update('index', index => index + 1)
       .update('routes', routes => routes.push(fromJS(payload)))

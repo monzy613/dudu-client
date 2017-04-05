@@ -130,9 +130,10 @@ class UserPage extends Component {
     )
   }
 
-  renderScrollComponent = () => {
+  renderScrollComponent = props => {
     return (
       <ParallaxScrollView
+        onScroll={props.onScroll}
         headerBackgroundColor="#333"
         stickyHeaderHeight={NavigationBarHeight}
         parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
