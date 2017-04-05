@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   buttonTitle: {
-    fontSize: 12,
     color: mainBlue,
     textAlign: 'center',
     fontWeight: '100',
