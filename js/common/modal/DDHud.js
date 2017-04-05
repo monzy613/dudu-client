@@ -40,7 +40,7 @@ class DDHud extends Component {
     if (type === HUD_TYPE_LOADING || autoHide === false) {
       return
     }
-    setTimeout(() => this.modal.closeModal(), hideDuration === undefined ? 1500 : hideDuration)
+    setTimeout(() => this.modal && this.modal.closeModal(), hideDuration === undefined ? 1500 : hideDuration)
   }
 
   renderTopContent = type => {

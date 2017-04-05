@@ -10,8 +10,12 @@ import isEmpty from 'lodash/isEmpty'
 import { connect } from 'react-redux'
 import * as Animatable from 'react-native-animatable'
 
+import ddapi from 'ddapi'
 import { push as pushRoute } from 'navigationAction'
-
+import {
+  showHud,
+  showAlert,
+} from 'modalAction'
 import {
   darkText,
   lightText,
@@ -29,6 +33,33 @@ class RSSWaterFlowView extends Component {
         type: 'source',
         payload: { title, source }
       }
+    })
+  }
+
+  unsubscribe = () => {
+    const { feed = {} } = this.props
+    const {
+      title,
+      source,
+    } = feed
+    this.props.showAlert({
+      message: `真的要取消订阅${title}吗？`,
+      actions: [
+        {
+          title: '取消',
+          type: 'cancel',
+        },
+        {
+          title: '确定',
+          type: 'destructive',
+          handler: () => {
+            this.props.showHud({ type: 'loading', text: '取消订阅中...' })
+            ddapi.post('/feed/unsubscribe', { source })
+            .then(() => this.props.showHud({ type: 'success', text: '取消成功' }))
+            .catch(error => this.props.showHud({ type: 'error', text: error }))
+          }
+        }
+      ],
     })
   }
 
@@ -68,7 +99,10 @@ class RSSWaterFlowView extends Component {
             ))
           }
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={this.goToPost}>
+            <TouchableOpacity onPress={this.unsubscribe} style={styles.button}>
+              <Icon color="red" name="ios-remove-circle-outline" size={20} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.goToPost} style={styles.button}>
               <Icon color={mainBlue} name="ios-share-outline" size={20} />
             </TouchableOpacity>
           </View>
@@ -111,9 +145,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },
+  button: {
+    marginTop: 5,
+    marginLeft: 10,
+  },
 })
 
 export default connect(
   null,
-  { pushRoute }
+  {
+    pushRoute,
+    showHud,
+    showAlert,
+  }
 )(RSSWaterFlowView)

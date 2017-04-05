@@ -8,6 +8,7 @@ import { reducer as navigation } from '../navigation'
 import modal from 'ModalReducer'
 import { reducer as setting } from '../setting'
 import { reducer as rss } from '../rss'
+import { reducer as cache } from '../cache'
 
 const appReducer = combineReducers({
   rehydrate,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   navigation,
   setting,
   rss,
+  cache,
 })
 
 export default rootReducer = (state, action) => {
