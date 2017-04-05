@@ -34,6 +34,7 @@ class DDLikeList extends Component {
         key={index}
         style={styles.like}
         onPress={() => this.goToUserPage(mobile)}
+        activeOpacity={1}
       >
         <Image
           style={styles.avatar}
@@ -51,7 +52,10 @@ class DDLikeList extends Component {
         <View style={styles.iconContainer}>
           <Icon style={styles.icon} name="ios-heart" color={lightGray} />
         </View>
-        <ScrollView contentContainerStyle={styles.scrollViewContentStyle}>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContentStyle}
+          scrollEnabled={false}
+        >
           {likes.map((like, index) => this.renderLike(like, index))}
         </ScrollView>
       </View>

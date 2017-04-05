@@ -32,7 +32,14 @@ export default navigation = (state = initialState, action) => {
     }
     case ROUTE_PUSH: {
       const payload = action.payload
-      const link = payload.link
+      const {
+        link,
+        key,
+      } = payload
+      if (isEmpty(link) && isEmpty(key)) {
+        console.warn('push route need a link or a key')
+        return state
+      }
       const scheme = link ? wurl('protocol', link) : null
       if (scheme === 'dudu') {
         payload.key = wurl('hostname', link)
@@ -44,10 +51,10 @@ export default navigation = (state = initialState, action) => {
       }
 
       // TODO: 暂时防止一下重复页面的push
-      const routeIndex = state.get('routes').filter(route => route.get('key') === payload.key).size
+      const routeIndex = state.get('routes').filter(route => route.get('key') === key).size
       if (routeIndex !== 0) {
-        const newKey = `${payload.key}_${routeIndex}`
-        allRoutes[newKey] = allRoutes[payload.key]
+        const newKey = `${key}_${routeIndex}`
+        allRoutes[newKey] = allRoutes[key]
         payload.key = newKey
       }
       payload.routeIndex = routeIndex

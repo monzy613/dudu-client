@@ -27,7 +27,7 @@ export default class DDReferredSource extends Component {
       source,
     } = feed
     return (
-      <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style]} onPress={onPress} activeOpacity={1}>
         <Text style={styles.title} numberOfLines={1}>{title}</Text>
         <Text style={styles.source} numberOfLines={1}>{source}</Text>
       </TouchableOpacity>

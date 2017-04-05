@@ -33,7 +33,7 @@ const request = ({ method = 'get', path, params }) => {
         }
       })
       .catch(error => {
-        reject({ error })
+        reject({ error: `network error: ${error}` })
       })
   })
 }

@@ -32,6 +32,8 @@ class RSSSource extends Component {
     }
   }
 
+  componentDidMount = () => InteractionManager.runAfterInteractions(() => this.fetchData())
+
   componentWillReceiveProps = props => {
     props.navigator && props.navigator.setRightItems([
       {
@@ -39,6 +41,14 @@ class RSSSource extends Component {
         handler: this.goToPost
       }
     ])
+  }
+
+  fetchData = () => {
+    return
+    const { source } = this.props.route.params
+    ddapi.get('/getFeedOverviews', { params: { source } })
+    .then(result => {})
+    .catch(error => console.warn(error))
   }
 
   goToPost = () => {

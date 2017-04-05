@@ -8,10 +8,12 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native'
+import isEmpty from 'lodash/isEmpty'
 import { connect } from 'react-redux'
 
 import ddapi from 'ddapi'
 import { pop as popRoute } from 'navigationAction'
+import { showHud } from 'modalAction'
 import { updateRSSList } from './action'
 import DDButton from 'DDButton'
 import {
@@ -27,16 +29,16 @@ class RSSAppendNew extends Component {
 
   subscribe = () => {
     const { source } = this.state
+    if (isEmpty(source)) {
+      this.props.showHud({ type: 'error', text: '请输入订阅源' })
+      return
+    }
     ddapi.post(`/feed/subscribe`, { source })
     .then(feed => {
-      alert('done')
       this.props.updateRSSList(feed)
       this.props.popRoute()
     })
-    .catch(error => {
-      alert('error')
-      console.warn(error)
-    })
+    .catch(error => this.props.showHud({ type: error, text: error }))
   }
 
   render = () => {
@@ -84,5 +86,9 @@ const styles = StyleSheet.create({
 
 export default connect(
   null,
-  { popRoute, updateRSSList }
+  {
+    popRoute,
+    updateRSSList,
+    showHud,
+  }
 )(RSSAppendNew)

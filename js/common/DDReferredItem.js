@@ -27,7 +27,7 @@ export default class DDReferredItem extends Component {
       sourceTitle
     } = item
     return (
-      <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style]} onPress={onPress} activeOpacity={1}>
         <View style={styles.sourceTitleContainer}>
           <Text style={styles.sourceTitle}>{sourceTitle}</Text>
         </View>

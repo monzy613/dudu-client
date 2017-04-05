@@ -38,14 +38,27 @@ class DDTimeline extends Component {
   renderReferView = () => {
     const {
       referredItem = {},
+      link,
       type,
     } = this.props.timeline
     switch (type) {
       case 'source': {
-        return <DDReferredSource style={styles.refer} feed={referredItem} />
+        return (
+          <DDReferredSource
+            style={styles.refer}
+            feed={referredItem}
+            onPress={() => this.props.pushRoute({ link })}
+          />
+        )
       }
       case 'item': {
-        return <DDReferredItem style={styles.refer} item={referredItem} />
+        return (
+          <DDReferredItem
+            style={styles.refer}
+            item={referredItem}
+            onPress={() => this.props.pushRoute({ link })}
+          />
+        )
       }
       default:
         return null
