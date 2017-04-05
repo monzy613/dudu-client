@@ -33,10 +33,14 @@ class DDHud extends Component {
   /**
    * hideDuration 毫秒， 用来控制自动关闭的时间
    */
-  componentDidMount = props => {
-    const { data = {} } = this.props
-    const { autoHide } = data
-    setTimeout(() => this.modal.closeModal(), 1500)
+
+  componentWillReceiveProps = props => {
+    const { data = {} } = props
+    const { autoHide, hideDuration, type } = data
+    if (type === HUD_TYPE_LOADING || autoHide === false) {
+      return
+    }
+    setTimeout(() => this.modal.closeModal(), hideDuration === undefined ? 1500 : hideDuration)
   }
 
   renderTopContent = type => {

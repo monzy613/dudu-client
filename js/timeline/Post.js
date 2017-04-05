@@ -12,7 +12,10 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import DDReferredSource from 'DDReferredSource'
 import DDReferredItem from 'DDReferredItem'
 import ddapi from 'ddapi'
-import { showHud } from 'modalAction'
+import {
+  showHud,
+  showAlert,
+} from 'modalAction'
 import { pop as popRoute } from 'navigationAction'
 
 const TIMELINE_TYPE_TEXT = 'text'
@@ -43,7 +46,7 @@ class Post extends Component {
       payload,
      })
      .then(() => {
-       this.props.showHud({ type: 'success', text: '发布成功', hideDuration: 1000 })
+       this.props.showHud({ type: 'success', text: '发布成功' })
        this.props.popRoute()
      })
      .catch(error => this.props.showHud({ type: 'error', text: error.toString() }))
@@ -131,5 +134,6 @@ export default connect(
   {
     popRoute,
     showHud,
+    showAlert,
   }
 )(Post)

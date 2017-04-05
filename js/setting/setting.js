@@ -13,6 +13,9 @@ import Egg from 'react-native-egg'
 import DDRow from 'DDRow'
 import { clearUserInfo } from 'authAction'
 import { push as pushRoute, clearSet } from 'navigationAction'
+import {
+  showAlert
+} from 'modalAction'
 import { resetAllStates } from 'rootAction'
 import {
   backgroundColor
@@ -30,6 +33,7 @@ class Setting extends Component {
     this.state = {
       ds,
       sections: {
+        // section 0
         0: [
           {
             title: '清除缓存',
@@ -50,14 +54,28 @@ class Setting extends Component {
             type: 'normal',
           },
         ],
+        // section 1
         1: [
           {
             title: '退出',
             type: 'destructive',
-            onPress: () => {
-              this.props.clearUserInfo()
-              this.props.clearSet({ key: 'auth' })
-            }
+            onPress: () =>  this.props.showAlert({
+              // message: '确认退出吗?',
+              actions: [
+                {
+                  title: '退出',
+                  type: 'destructive',
+                  handler: () => {
+                    this.props.clearUserInfo()
+                    this.props.clearSet({ key: 'auth' })
+                  }
+                },
+                {
+                  title: '取消',
+                  type: 'cancel',
+                },
+              ]
+            })
           },
         ]
       }
@@ -68,9 +86,7 @@ class Setting extends Component {
     const { navigator } = props
     if (!isEmpty(navigator)) {
       navigator.setRightItems([
-        {
-          content: this.renderEgg()
-        }
+        { content: this.renderEgg() }
       ])
     }
   }
@@ -122,5 +138,6 @@ export default connect(
     clearUserInfo,
     clearSet,
     resetAllStates,
+    showAlert,
   }
 )(Setting)
