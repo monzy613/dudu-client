@@ -46,8 +46,11 @@ export default navigation = (state = initialState, action) => {
       // TODO: 暂时防止一下重复页面的push
       const routeIndex = state.get('routes').filter(route => route.get('key') === payload.key).size
       if (routeIndex !== 0) {
-        return state
+        const newKey = `${payload.key}_${routeIndex}`
+        allRoutes[newKey] = allRoutes[payload.key]
+        payload.key = newKey
       }
+      payload.routeIndex = routeIndex
 
       return state
       .update('index', index => index + 1)
