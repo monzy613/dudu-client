@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ParallaxScrollView from 'react-native-parallax-scroll-view'
+import isEmpty from 'lodash/isEmpty'
 
 import {
   pop as popRoute,
@@ -46,19 +47,32 @@ class UserPage extends Component {
   componentDidMount = () => this.fetchTimeline()
 
   fetchTimeline = () => {
-    const { user = {} } = this.props.route.params
-    ddapi.get('/timeline/getByUser', { params: {
-      mobile: user.mobile
-    } })
-    .then(timelines => this.setState({ timelines }))
-    .catch(error => console.warn(error))
+    const {
+      user = {},
+      mobile,
+    } = this.props.route.params
+    if (!isEmpty(mobile)) {
+      // get user info
+      ddapi.get('/auth/getUser', { params: { mobile } })
+      .then(user => this.setState({ user }))
+      .catch(error => console.warn(error))
+      // get user timelines
+      ddapi.get('/timeline/getByUser', { params: { mobile } })
+      .then(timelines => this.setState({ timelines }))
+      .catch(error => console.warn(error))
+    } else {
+      this.setState({ user })
+      ddapi.get('/timeline/getByUser', { params: { mobile: user.mobile } })
+      .then(timelines => this.setState({ timelines }))
+      .catch(error => console.warn(error))
+    }
   }
 
   renderTimelineRow = timeline => <DDTimeline style={styles.timeline} timeline={timeline} />
 
   // parallax header
   renderBackground = () => {
-    const { user = {} } = this.props.route.params
+    const { user = {} } = this.state
     const imageSource = {
       uri: user.avatar,
       width: window.width,
@@ -74,7 +88,7 @@ class UserPage extends Component {
   }
 
   renderForeground = () => {
-    const { user = {} } = this.props.route.params
+    const { user = {} } = this.state
     const avatarSource = {
       uri: user.avatar,
       width: AVATAR_SIZE,
@@ -91,7 +105,7 @@ class UserPage extends Component {
   }
 
   renderStickyHeader = () => {
-    const { user = {} } = this.props.route.params
+    const { user = {} } = this.state
     return (
       <View style={[plxStyles.header, plxStyles.stickyBackground]}>
         <Image style={plxStyles.miniAvatar} source={{ uri: user.avatar }}/>
@@ -100,7 +114,7 @@ class UserPage extends Component {
   }
 
   renderFixedHeader = () => {
-    const { user = {} } = this.props.route.params
+    const { user = {} } = this.state
     const leftBtn = {
       content: <Icon name="angle-left" size={30} color="white" />,
       handler: this.props.popRoute,

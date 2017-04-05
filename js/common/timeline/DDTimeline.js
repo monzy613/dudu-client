@@ -103,11 +103,11 @@ class DDTimeline extends Component {
     )
   }
 
-  renderCommentList = comments => {
-    if (isEmpty(comments)) {
+  renderCommentList = (comments, likes) => {
+    if (isEmpty(comments) && isEmpty(likes)) {
       return null
     }
-    return <DDCommentListView comments={comments} />
+    return <DDCommentListView comments={comments} likes={likes} />
   }
 
   render = () => {
@@ -120,6 +120,7 @@ class DDTimeline extends Component {
       content,
       publishDate,
       liked,
+      likes,
       comments
     } = timeline
     return (
@@ -137,7 +138,7 @@ class DDTimeline extends Component {
                 { this.renderCommentButton() }
               </View>
             </View>
-            { this.renderCommentList(comments) }
+            { this.renderCommentList(comments, likes) }
           </View>
         </View>
       </TouchableWithoutFeedback>

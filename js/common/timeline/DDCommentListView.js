@@ -9,12 +9,14 @@ import {
   ListView,
   StyleSheet,
 } from 'react-native'
+import isEmpty from 'lodash/isEmpty'
 
 import {
   backgroundColor,
   mainBlue,
   lightText,
 } from 'DDColor'
+import DDLikeList from 'DDLikeList'
 
 export default class DDCommentListView extends Component {
   constructor(props) {
@@ -36,6 +38,14 @@ export default class DDCommentListView extends Component {
     )
   }
 
+  renderLikeList = () => {
+    const { likes = [] } = this.props
+    if (isEmpty(likes)) {
+      return null
+    }
+    return <DDLikeList likes={likes} />
+  }
+
   render = () => {
     const {
       comments = [],
@@ -50,6 +60,7 @@ export default class DDCommentListView extends Component {
         scrollEnabled={false}
         dataSource={dataSource}
         renderRow={this.renderComment}
+        renderHeader={this.renderLikeList}
       />
     )
   }

@@ -60,7 +60,7 @@ class Setting extends Component {
             title: '退出',
             type: 'destructive',
             onPress: () =>  this.props.showAlert({
-              // message: '确认退出吗?',
+              message: '确认退出吗?',
               actions: [
                 {
                   title: '退出',
