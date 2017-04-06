@@ -16,3 +16,6 @@ export const navigationBackground = require('./navigation_background.png')
 
 // button background
 export const buttonBackground = require('./button_background.png')
+
+// default avatar
+export const defaultAvatar = require('./default_avatar.png')
