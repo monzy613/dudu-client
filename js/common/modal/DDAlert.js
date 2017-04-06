@@ -113,12 +113,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: darkText,
+    fontSize: 16,
     textAlign: 'center',
     marginTop: 16,
   },
   message: {
     lineHeight: 16,
-    fontSize: 12,
     color: lightText,
     textAlign: 'center',
     marginTop: 20,

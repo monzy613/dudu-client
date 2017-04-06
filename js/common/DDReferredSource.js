@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: darkText,
+    fontSize: 16,
     fontWeight: '100',
   },
   source: {
     color: lightText,
-    fontSize: 12,
     fontWeight: '100',
     marginTop: 5,
   },

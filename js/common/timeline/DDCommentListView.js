@@ -80,13 +80,11 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   nameText: {
-    fontSize: 14,
     fontWeight: '100',
     lineHeight: 15,
     color: mainBlue,
   },
   contentText: {
-    fontSize: 12,
     fontWeight: '100',
     color: lightText,
   },
