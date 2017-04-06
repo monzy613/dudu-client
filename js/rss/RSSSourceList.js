@@ -21,8 +21,9 @@ import DDSpinner from 'DDSpinner'
 import RSSWaterFlowView from './components/RSSWaterFlowView'
 import RSSAddButton from './components/RSSAddButton'
 import ddapi from 'ddapi'
+import { cacheFeed } from 'cacheAction'
 import {
-  updateRSSList,
+  updateSubscribes,
   clearRSSList,
 } from './action'
 import { transparent } from 'DDColor'
@@ -42,10 +43,10 @@ class RSSSourceList extends Component {
 
   fetchData = () => {
     ddapi.get(`/feed/getSubscribesByUser/${this.props.mobile}`)
-      .then(data => {
-        this.props.clearRSSList()
+      .then(result => {
         this.setState({ refreshing: false })
-        this.props.updateRSSList(data)
+        this.props.updateSubscribes(result)
+        this.props.cacheFeed(result)
       })
       .catch(error => {
         this.setState({ refreshing: false })
@@ -128,14 +129,20 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => {
+    const subscribes = state.getIn(['rss', 'subscribes'])
+    const feeds = state.getIn(['cache', 'feeds']).filter(feed => {
+      const source = feed.get('source')
+      return subscribes.includes(source)
+    })
     return {
-      feeds: state.getIn(['rss', 'feeds']),
+      feeds,
       mobile: state.getIn(['auth', 'user', 'mobile']),
     }
   },
   {
     pushRoute,
-    updateRSSList,
+    updateSubscribes,
+    cacheFeed,
     clearRSSList,
   }
 )(RSSSourceList)

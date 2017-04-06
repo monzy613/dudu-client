@@ -12,6 +12,7 @@ import * as Animatable from 'react-native-animatable'
 
 import ddapi from 'ddapi'
 import { push as pushRoute } from 'navigationAction'
+import { unsubscribe } from '../action'
 import {
   showHud,
   showAlert,
@@ -55,7 +56,10 @@ class RSSWaterFlowView extends Component {
           handler: () => {
             this.props.showHud({ type: 'loading', text: '取消订阅中...' })
             ddapi.post('/feed/unsubscribe', { source })
-            .then(() => this.props.showHud({ type: 'success', text: '取消成功' }))
+            .then(() => {
+              this.props.showHud({ type: 'success', text: '取消成功' })
+              this.props.unsubscribe(source)
+            })
             .catch(error => this.props.showHud({ type: 'error', text: error }))
           }
         }
@@ -157,5 +161,6 @@ export default connect(
     pushRoute,
     showHud,
     showAlert,
+    unsubscribe,
   }
 )(RSSWaterFlowView)

@@ -18,6 +18,7 @@ import ddapi from 'ddapi'
 import { htmlStyleInjector } from 'ddutil'
 import DDSpinner from 'DDSpinner'
 import DDNavbar from 'DDNavbar'
+import { cacheItem } from 'cacheAction'
 import { updateReaderTheme } from './action'
 import {
   Themes,
@@ -35,15 +36,15 @@ class RSSReader extends Component {
   }
 
   goToPost = () => {
-    const { feedItem } = this.state
-    if (isEmpty(feedItem)) {
+    const { item } = this.props
+    if (isEmpty(item)) {
       return
     }
     const {
       url,
       title,
       sourceTitle,
-    } = feedItem
+    } = item
     this.props.pushRoute({
       key: 'post',
       params: {
@@ -55,10 +56,12 @@ class RSSReader extends Component {
 
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
-      ddapi.get('/feed/getFeedItem', { params: {
-        url: this.props.route.params.url
-      } })
-      .then(feedItem => this.setState({ feedItem }))
+      const { url } = this.props.route.params
+      ddapi.get('/feed/getFeedItem', { params: { url } })
+      .then(feedItem => {
+        this.setState({ feedItem })
+        this.props.cacheItem({ [url]: feedItem })
+      })
       .catch(error => {
         this.setState({
           feedItem: {
@@ -115,6 +118,7 @@ class RSSReader extends Component {
       feedItem,
       showBars,
     } = this.state
+    const { item } = this.props
     const theme = Themes[this.props.theme]
 
     const Navbar = (
@@ -124,7 +128,7 @@ class RSSReader extends Component {
         rightButtons={this.renderRightButtons()}
       />
     )
-    if (isEmpty(feedItem)) {
+    if (isEmpty(item)) {
       return (
         <View style={[styles.container, { backgroundColor: theme.contentColor }]}>
           { Navbar }
@@ -133,7 +137,7 @@ class RSSReader extends Component {
       )
     }
     
-    const { description } = feedItem
+    const { description } = item
     const html = htmlStyleInjector({
       html: description,
       styles: {
@@ -181,9 +185,15 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  state => ({
-    theme: state.getIn(['rss', 'theme'])
-  }), {
+  (state, props) => {
+    const { url } = props.route.params
+    const item = state.getIn(['cache', 'items', url]) && state.getIn(['cache', 'items', url]).toJS()
+    return {
+      item,
+      theme: state.getIn(['rss', 'theme']),
+    }
+  }, {
+    cacheItem,
     popRoute,
     updateReaderTheme,
   }

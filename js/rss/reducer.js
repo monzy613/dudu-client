@@ -4,8 +4,9 @@ import isEmpty from 'lodash/isEmpty'
 
 import {
   CLEAR_RSS_LIST,
-  UPDATE_RSS_LIST,
   UPDATE_FEEDS,
+  UPDATE_SUBSCRIBE_LIST,
+  UNSUBSCRIBE,
   UPDATE_FEED_READ_STATE,
   UPDATE_FEED_BOOKMARK_STATE,
   UPDATE_READER_THEME,
@@ -13,7 +14,7 @@ import {
 
 const initialState = fromJS({
   theme: 0,
-  feeds: {},
+  subscribes: []
 })
 
 export default rss = (state = initialState, action) => {
@@ -21,8 +22,11 @@ export default rss = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_RSS_LIST:
       return state.update('feeds', map => fromJS({}))
-    case UPDATE_RSS_LIST:
-      return state.update('feeds', map => map.merge(payload))
+    case UPDATE_SUBSCRIBE_LIST:
+      return state.update('subscribes', subscribes => subscribes.concat(Object.keys(payload)))
+    case UNSUBSCRIBE: {
+      return state.update('subscribes', subscribes => subscribes.filter(subscribe => subscribe !== payload))
+    }
     case UPDATE_FEED_READ_STATE: {
       const { source, id, read } = payload
       return state.setIn(['feeds', source, id, 'read'], read)

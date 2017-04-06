@@ -14,7 +14,8 @@ import { connect } from 'react-redux'
 import ddapi from 'ddapi'
 import { pop as popRoute } from 'navigationAction'
 import { showHud } from 'modalAction'
-import { updateRSSList } from './action'
+import { cacheFeed } from 'cacheAction'
+import { updateSubscribes } from './action'
 import DDButton from 'DDButton'
 import {
   mainBlue,
@@ -35,7 +36,8 @@ class RSSAppendNew extends Component {
     }
     ddapi.post(`/feed/subscribe`, { source })
     .then(feed => {
-      this.props.updateRSSList(feed)
+      this.props.updateSubscribes(feed)
+      this.props.cacheFeed(feed)
       this.props.popRoute()
     })
     .catch(error => this.props.showHud({ type: error, text: error }))
@@ -88,7 +90,8 @@ export default connect(
   null,
   {
     popRoute,
-    updateRSSList,
+    cacheFeed,
     showHud,
+    updateSubscribes,
   }
 )(RSSAppendNew)

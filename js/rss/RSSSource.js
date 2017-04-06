@@ -11,7 +11,9 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
+import isEmpty from 'lodash/isEmpty'
 
+import { cacheFeed } from 'cacheAction'
 import DDSpinner from 'DDSpinner'
 import ddapi from 'ddapi'
 import RSSPreviewView from './components/RSSPreviewView'
@@ -19,7 +21,6 @@ import { push as pushRoute } from 'navigationAction'
 import {
   transparent
 } from 'DDColor'
-import { updateFeeds } from './action'
 
 class RSSSource extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class RSSSource extends Component {
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
-      loading: false,
+      loading: true,
       ds,
     }
   }
@@ -44,11 +45,16 @@ class RSSSource extends Component {
   }
 
   fetchData = () => {
-    return
     const { source } = this.props.route.params
-    ddapi.get('/getFeedOverviews', { params: { source } })
-    .then(result => {})
-    .catch(error => console.warn(error))
+    ddapi.get('/feed/getFeedBySource', { params: { source } })
+    .then(feed => {
+      this.setState({ loading: false })
+      this.props.cacheFeed(feed)
+    })
+    .catch(error => {
+      this.setState({ loading: false })
+      console.warn(error)
+    })
   }
 
   goToPost = () => {
@@ -73,12 +79,11 @@ class RSSSource extends Component {
   }
 
   render = () => {
-    if (this.state.loading) {
+    const { itemOverviews: overviews = [] } = this.props.feed
+    if (this.state.loading && isEmpty(this.props.feed)) {
       return <DDSpinner />
     }
 
-    const { source } = this.props.route && this.props.route.params && this.props.route.params
-    const overviews = (this.props.overviews && this.props.overviews.toJS()) || []
     const dataSource = this.state.ds.cloneWithRows(overviews)
 
     return (
@@ -114,9 +119,11 @@ export default connect(
   (state, props) => {
     const source = props.route && props.route.params && props.route.params.source
     return {
-      feed: state.getIn(['rss', 'feeds', source]) && state.getIn(['rss', 'feeds', source]).toJS(),
-      overviews: state.getIn(['rss', 'feeds', source, 'itemOverviews'])
+      feed: (state.getIn(['cache', 'feeds', source]) && state.getIn(['cache', 'feeds', source]).toJS()) || {},
     }
   },
-  { pushRoute, updateFeeds }
+  {
+    pushRoute,
+    cacheFeed,
+  }
 )(RSSSource)

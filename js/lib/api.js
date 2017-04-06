@@ -25,16 +25,14 @@ const request = ({ method = 'get', path, params }) => {
         if (isEmpty(json)) {
           reject({ error: 'json empty' })
         } else {
-          if (json.success || json.result !== undefined) {
+          if (json.success || !isEmpty(json.result)) {
             resolve(json.result)
           } else {
             reject({ error: json.error })
           }
         }
       })
-      .catch(error => {
-        reject({ error: `network error: ${error}` })
-      })
+      .catch(error => reject({ error: `network error: ${error}` }))
   })
 }
 
