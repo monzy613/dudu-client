@@ -9,13 +9,12 @@ import {
 } from 'react-native'
 import isEmpty from 'lodash/isEmpty'
 import Egg from 'react-native-egg'
+import { sizeof } from 'ddutil'
 
 import DDRow from 'DDRow'
 import { clearUserInfo } from 'authAction'
 import { push as pushRoute, clearSet } from 'navigationAction'
-import {
-  showAlert
-} from 'modalAction'
+import { showAlert } from 'modalAction'
 import { resetAllStates } from 'rootAction'
 import {
   backgroundColor
@@ -39,7 +38,7 @@ class Setting extends Component {
             title: '清除缓存',
             type: 'subtitle',
             data: {
-              subtitle: '100MB'
+              subtitle: this.props.cacheSize
             },
           },
           {
@@ -132,7 +131,13 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  null,
+  state => {
+    const cacheObject = state.get('cache').toJS()
+    const size = sizeof.sizeof(cacheObject, true)
+    return {
+      cacheSize: size,
+    }
+  },
   {
     pushRoute,
     clearUserInfo,
