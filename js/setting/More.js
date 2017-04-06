@@ -59,6 +59,16 @@ class More extends Component {
           />
           <DDRow
             style={{ marginTop: 10 }}
+            title="关注"
+            onPress={this.goToFollow}
+            type="follow"
+            data={{
+              followingCount: 10,
+              followerCount: 20,
+            }}
+          />
+          <DDRow
+            style={{ marginTop: 1 }}
             title="分享圈"
             onPress={this.goToTimeline}
           />

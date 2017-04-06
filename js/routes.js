@@ -12,6 +12,7 @@ import { routes as search } from './search'
 import { routes as user } from './user'
 import { routes as setting } from './setting'
 import { routes as timeline } from './timeline'
+import { routes as follow } from './follow'
 
 import {
   mainBlue
@@ -41,6 +42,7 @@ const routes = merge(
   setting,
   user,
   timeline,
+  follow,
 )
 
 export default mapValues(routes, (route, key) => {

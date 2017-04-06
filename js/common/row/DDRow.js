@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import {
+  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -23,6 +24,7 @@ const ROW_TYPE_NORMAL = 'normal'
 const ROW_TYPE_DESTRUCTIVE = 'destructive'
 const ROW_TYPE_SUBTITLE = 'subtitle'
 const ROW_TYPE_SWITCH = 'switch'
+const ROW_TYPE_FOLLOW = 'follow'
 
 export default class DDRow extends Component {
 
@@ -96,6 +98,33 @@ export default class DDRow extends Component {
     )
   }
 
+  renderFollowType = () => {
+    const {
+      style = {},
+      onPress,
+      title,
+      data = {},
+    } = this.props
+
+    const {
+      followingCount = 0,
+      followerCount = 0,
+    } = data
+
+    return (
+      <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.followContainer}>
+          <View>
+            <Text style={styles.largeText}>{followerCount}<Text style={styles.smallText}>人关注我</Text></Text>
+            <Text style={styles.smallText}>已关注<Text style={styles.largeText}>{followingCount}</Text>人</Text>
+          </View>
+          <Icon style={styles.icon} name="angle-right" size={15} color={lightGray} />
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   render = () => {
     const { type = ROW_TYPE_NORMAL } = this.props
 
@@ -106,6 +135,8 @@ export default class DDRow extends Component {
         return this.renderSubtitleType()
       case ROW_TYPE_SWITCH:
         return this.renderSwitchType()
+      case ROW_TYPE_FOLLOW:
+        return this.renderFollowType()
       default:
         return this.renderNormalType()
     }
@@ -143,5 +174,23 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     color: lightText,
     fontSize: 12,
-  }
+  },
+  followContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  largeText: {
+    fontWeight: '100',
+    color: lightText,
+    fontSize: 14,
+  },
+  smallText: {
+    fontWeight: '100',
+    color: lightText,
+    fontSize: 12,
+  },
+  icon: {
+    marginLeft: 10,
+  },
 })
