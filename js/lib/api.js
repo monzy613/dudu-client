@@ -25,10 +25,18 @@ const request = ({ method = 'get', path, params }) => {
         if (isEmpty(json)) {
           reject({ error: 'json empty' })
         } else {
-          if (json.success || !isEmpty(json.result)) {
-            resolve(json.result)
+          const {
+            success,
+            result
+          } = json
+          if (result === undefined) {
+            if (success === true) {
+              resolve({ success })
+            } else {
+              reject({ error: '操作失败' })
+            }
           } else {
-            reject({ error: json.error })
+            resolve(result)
           }
         }
       })

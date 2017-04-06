@@ -23,7 +23,7 @@ export default rss = (state = initialState, action) => {
     case CLEAR_RSS_LIST:
       return state.update('feeds', map => fromJS({}))
     case UPDATE_SUBSCRIBE_LIST:
-      return state.update('subscribes', subscribes => subscribes.concat(Object.keys(payload)))
+      return state.set('subscribes', Object.keys(payload))
     case UNSUBSCRIBE: {
       return state.update('subscribes', subscribes => subscribes.filter(subscribe => subscribe !== payload))
     }

@@ -51,7 +51,7 @@ class RSSSourceList extends Component {
       .catch(error => {
         this.setState({ refreshing: false })
         // TODO: 提示弹框
-        console.log(error)
+        console.warn(error.toString())
       })
   }
 
