@@ -181,13 +181,8 @@ class Search extends Component {
       type: this.state.searchType,
       keyword
     } })
-    .then(result => {
-      this.setState({ result })
-      console.log(result)
-    })
-    .catch(err => {
-      console.warn(err)
-    })
+    .then(result => this.setState({ result }))
+    .catch(err => console.warn(err))
   }
 
   render = () => {
