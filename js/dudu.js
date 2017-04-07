@@ -4,6 +4,7 @@ import {
   View
 } from 'react-native'
 import { connect } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen'
 
 import ModalContainer from 'ModalContainer'
 import {
@@ -17,6 +18,10 @@ import {
 } from 'DDColor'
 
 class Dudu extends Component {
+  componentDidMount = () => {
+    SplashScreen.hide()
+  }
+
   render = () => {
     const rehydrated = this.props.rehydrated
     return rehydrated ? (

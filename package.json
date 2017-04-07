@@ -24,6 +24,7 @@
     "react-native-scrollable-tab-view": "^0.7.2",
     "react-native-slider": "^0.9.1",
     "react-native-spinkit": "^1.0.2",
+    "react-native-splash-screen": "^2.0.0",
     "react-native-switch-pro": "^0.4.1",
     "react-native-vector-icons": "^4.0.0",
     "react-native-webview-bridge": "git+https://github.com/monzy613/react-native-webview-bridge.git",
