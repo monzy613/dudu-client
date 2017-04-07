@@ -48,6 +48,9 @@ class RSSAppendNew extends Component {
       <ScrollView style={styles.scrollView}>
         <TextInput
           style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoFocus
           placeholder="请输入订阅源url"
           placeholderTextColor={placeholderColor}
           onChangeText={source => this.setState({ source })}

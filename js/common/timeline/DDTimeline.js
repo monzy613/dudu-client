@@ -23,7 +23,7 @@ import DDReferredSource from 'DDReferredSource'
 import DDCommentListView from 'DDCommentListView'
 import {
   showCommentBar,
-  showHud
+  showHud,
 } from 'modalAction'
 
 import {
@@ -96,6 +96,33 @@ class DDTimeline extends Component {
     })
   }
 
+  deleteTimeline = () => {
+    const { timeline = {} } = this.props
+    const { _id: timelineID } = timeline
+
+    this.props.showHud({ type: 'loading', text: '删除中' })
+    ddapi.post('/timeline/deleteTimeline', { timelineID })
+    .then(() => {
+      // TODO: update redux
+      this.props.showHud({ type: 'success', text: '删除成功' })
+    })
+    .catch(error => {
+      console.warn(error)
+      this.props.showHud({ type: 'error', text: error.toString() })
+    })
+  }
+
+  renderDelete = () => {
+    const { currentUser = {} } = this.props
+    const { user = {} } = this.props.timeline
+
+    return (
+      currentUser.mobile === user.mobile ? (
+        <Text style={styles.delete} onPress={this.deleteTimeline}>{'  删除'}</Text>
+       ) : null
+    )
+  }
+
   renderLikeButton = liked => {
     return (
       <TouchableOpacity style={styles.smallButton} onPress={this.like}>
@@ -145,7 +172,9 @@ class DDTimeline extends Component {
             { isEmpty(content) ? null : <Text style={styles.contentText}>{content}</Text> }
             { this.renderReferView() }
             <View style={styles.accessoryContainer}>
-              <Text style={styles.publishDate}>{moment(publishDate).format('YYYY年M月DD日 HH:mm')}</Text>
+              <Text style={styles.publishDate}>{moment(publishDate).format('YYYY年M月DD日 HH:mm')}{
+                this.renderDelete()
+              }</Text>
               <View style={styles.buttonsContainer}>
                 { this.renderLikeButton(liked) }
                 { this.renderCommentButton() }
@@ -211,10 +240,25 @@ const styles = StyleSheet.create({
     backgroundColor,
     borderRadius: 4,
   },
+  deleteButton: {
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  delete: {
+    marginLeft: 5,
+    fontSize: 12,
+    color: 'red',
+  },
 })
 
 export default connect(
-  null,
+  state => {
+    const authState = state.get('auth')
+    return {
+      currentUser: authState.get('user') && authState.get('user').toJS()
+    }
+  },
   {
     showHud,
     pushRoute,

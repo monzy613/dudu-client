@@ -34,10 +34,10 @@ export default class SearchNavbar extends Component {
         ) : null }
         <View style={[styles.inputContainer, { marginLeft: isSingleSearch ? 10 : 16 }]}>
           <TextInput
+            style={styles.searchInput}
             autoCapitalize="none"
             autoCorrect={false}
             autoFocus
-            style={styles.searchInput}
             underlineColorAndroid={transparent}
             placeholder={placeholder}
             placeholderTextColor={placeholderColor}

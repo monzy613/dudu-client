@@ -92,6 +92,8 @@ class DDCommentBar extends Component {
           <View style={[styles.container, { marginBottom }]}>
             <TextInput
               style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
               autoFocus
               multiline={true}
               placeholder={placeholder}

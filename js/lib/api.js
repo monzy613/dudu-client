@@ -52,4 +52,8 @@ ddapi.post = (path, params) => {
   return request({ method: 'post', path, params })
 }
 
+ddapi.delete = (path, params) => {
+  return request({ method: 'delete', path, params })
+}
+
 export default ddapi

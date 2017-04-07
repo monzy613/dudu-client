@@ -80,8 +80,11 @@ class Login extends Component {
           <Image style={styles.logo} source={logo} />
           <View style={styles.inputContainer}>
             <TextInput
-              underlineColorAndroid="rgba(0,0,0,0)"
               style={styles.input}
+              underlineColorAndroid="rgba(0,0,0,0)"
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoFocus
               placeholder="请输入手机号"
               placeholderTextColor={placeholderColor}
               onChangeText={this.handleMobileInput}
