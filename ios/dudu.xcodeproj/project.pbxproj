@@ -18,7 +18,6 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
@@ -56,6 +55,7 @@
 		F4AA12FE1E5706B900E8180E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F41E5706B900E8180E /* SimpleLineIcons.ttf */; };
 		F4AA12FF1E5706B900E8180E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4AA12F51E5706B900E8180E /* Zocial.ttf */; };
 		F4E2320D1E7A30540059F984 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E231CF1E795AC00059F984 /* libReact-Native-Webview-Bridge.a */; };
+		F4E4CC3E1E97844800B92E98 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4E4CC3D1E97844800B92E98 /* Launch Screen.storyboard */; };
 		F98AA038E17D4C9DB6E4C036 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0670D03451054E29880F5278 /* EvilIcons.ttf */; };
 		FFB0E5F8D73C4F45B8CCF530 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB469460FD084DAA83C0A7C3 /* Foundation.ttf */; };
 		FFF39FA782F14C7E8940EDD8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 838813E938894FA58145BC59 /* Entypo.ttf */; };
@@ -290,7 +290,6 @@
 		13B07F961A680F5B00A75B9A /* dudu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dudu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = dudu/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = dudu/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = dudu/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dudu/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dudu/main.m; sourceTree = "<group>"; };
@@ -323,6 +322,7 @@
 		F4AA12F41E5706B900E8180E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		F4AA12F51E5706B900E8180E /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		F4E231B91E795AC00059F984 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
+		F4E4CC3D1E97844800B92E98 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		FB469460FD084DAA83C0A7C3 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -584,7 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				F4E4CC3D1E97844800B92E98 /* Launch Screen.storyboard */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				F4AA12EB1E5706B900E8180E /* Fonts */,
 				838813E938894FA58145BC59 /* Entypo.ttf */,
@@ -1032,7 +1032,6 @@
 				F4AA12FC1E5706B900E8180E /* MaterialIcons.ttf in Resources */,
 				F4AA12F61E5706B900E8180E /* Entypo.ttf in Resources */,
 				F4AA12FB1E5706B900E8180E /* MaterialCommunityIcons.ttf in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				FFF39FA782F14C7E8940EDD8 /* Entypo.ttf in Resources */,
 				F98AA038E17D4C9DB6E4C036 /* EvilIcons.ttf in Resources */,
 				82AD81FD424F4C42902ADC1F /* FontAwesome.ttf in Resources */,
@@ -1042,6 +1041,7 @@
 				52B8BBEC9BE7469A8D9C32DF /* MaterialIcons.ttf in Resources */,
 				5535861041244797AD56A65F /* Octicons.ttf in Resources */,
 				A6A9409115DF4BCCBF323075 /* SimpleLineIcons.ttf in Resources */,
+				F4E4CC3E1E97844800B92E98 /* Launch Screen.storyboard in Resources */,
 				4E5D0855397D458996CA1B1A /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1143,18 +1143,6 @@
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = dudu;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
