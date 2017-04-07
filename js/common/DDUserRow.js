@@ -12,7 +12,11 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
-import { showHud } from 'modalAction'
+import { push as pushRoute } from 'navigationAction'
+import {
+  showHud,
+  showAlert,
+} from 'modalAction'
 import {
   darkText,
   lightGray,
@@ -22,24 +26,70 @@ import {
 } from 'DDColor'
 import ddapi from 'ddapi'
 
-class SearchUserRow extends Component {
+class DDUserRow extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { user: {} }
+  }
+
+  componentDidMount = () => this.setState({ user: this.props.user })
+
+  goToUserPage = mobile => this.props.pushRoute({ key: 'user_page', params: { mobile } })
+
   follow = () => {
-    const { mobile } = this.props.user
+    const { user = {} } = this.state
+    const { mobile } = user
     this.props.showHud({ type: 'loading', text: '关注中...' })
     ddapi.post('/follow/follow', { mobile })
-    .then(() => this.props.showHud({ type: 'success', text: '关注成功' }))
+    .then(() => {
+      user.following = !user.following
+      this.setState({ user })
+      this.props.showHud({ type: 'success', text: '关注成功' })
+    })
     .catch(error => {
       this.props.showHud({ type: 'error', text: `错误 ${error}` })
       console.warn(error)
     })
   }
 
+  unfollow = () => {
+    const { user = {} } = this.state
+    const { mobile } = user
+    this.props.showAlert({
+      message: '确认取消关注吗?',
+      actions: [
+        {
+          title: '取消',
+          type: 'cancel',
+        },
+        {
+          title: '确定',
+          type: 'destructive',
+          handler: () => {
+            this.props.showHud({ type: 'loading', text: '取消关注中...' })
+            ddapi.post('/follow/unfollow', { mobile })
+            .then(() => {
+              user.following = !user.following
+              this.setState({ user })
+              this.props.showHud({ type: 'success', text: '取消关注成功' })
+            })
+            .catch(error => {
+              this.props.showHud({ type: 'error', text: `错误 ${error}` })
+              console.warn(error)
+            })
+          }
+        },
+      ]
+    })
+  }
+
   renderButton = () => {
-    const { following } = this.props.user
+    const { following } = this.state.user
     const { currentUser = {} } = this.props
     if (following) {
       return (
-        <TouchableOpacity style={[styles.button, styles.grayButton]}>
+        <TouchableOpacity style={[styles.button, styles.grayButton]} onPress={this.unfollow}>
           <Text style={styles.graybButtonTitle}>已关注</Text>
         </TouchableOpacity>
       )
@@ -53,9 +103,9 @@ class SearchUserRow extends Component {
   }
 
   render = () => {
-    const { user } = this.props
+    const { user } = this.state
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={() => this.goToUserPage(user.mobile)}>
         <Image style={styles.image} source={{ uri: user.avatar }} />
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{user.name}</Text>
@@ -123,5 +173,9 @@ export default connect(
       currentUser: authState.get('user') && authState.get('user').toJS()
     }
   },
-  { showHud }
-)(SearchUserRow)
+  {
+    showHud,
+    showAlert,
+    pushRoute,
+  }
+)(DDUserRow)

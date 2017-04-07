@@ -56,7 +56,7 @@ class DDAlert extends Component {
         key={index}
         style={styles.button}
         onPress={() => {
-          this.modal.closeModal()
+          this.props.hideModal()
           if (isFunction(handler)) {
             handler()
           }

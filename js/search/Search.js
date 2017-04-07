@@ -25,7 +25,7 @@ import {
 import SearchNavbar from './components/SearchNavbar'
 import SearchFeedRow from './components/SearchFeedRow'
 import SearchItemRow from './components/SearchItemRow'
-import SearchUserRow from './components/SearchUserRow'
+import DDUserRow from 'DDUserRow'
 
 import ddapi from 'ddapi'
 
@@ -168,7 +168,7 @@ class Search extends Component {
       case SEARCH_TYPE_ITEM:
         return <SearchItemRow item={data.item} />
       case SEARCH_TYPE_USER:
-        return <SearchUserRow user={data.user} />
+        return <DDUserRow user={data.user} />
       default:
         return null
     }
