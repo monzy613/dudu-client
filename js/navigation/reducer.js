@@ -54,7 +54,6 @@ export default navigation = (state = initialState, action) => {
       const routeIndex = state.get('routes').filter(route => {
         return route.get('key').includes(`${key}___`) || route.get('key') === key
       }).size
-      console.log(routeIndex)
       if (routeIndex !== 0) {
         const newKey = `${key}___${routeIndex}`
         allRoutes[newKey] = allRoutes[key]

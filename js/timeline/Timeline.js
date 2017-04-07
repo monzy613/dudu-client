@@ -39,9 +39,7 @@ class Timeline extends Component {
   }
 
   fetchTimeline = () => {
-    ddapi.get('/timeline/getByUser', { params: {
-      mobile: '15316699712'
-    } })
+    ddapi.get('/timeline/getFollowingTimelines')
     .then(timelines => this.setState({ timelines }))
     .catch(error => console.warn(error))
   }

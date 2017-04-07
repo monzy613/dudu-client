@@ -1,8 +1,9 @@
 import React from 'react'
-import Follow from './Follow'
+import Container from './Container'
 
 export default {
   'follow': {
-    render: props => <Follow {...props} />,
+    render: props => <Container {...props} />,
+    navigationStyle: 'light',
   },
 }

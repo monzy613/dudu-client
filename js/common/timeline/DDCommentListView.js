@@ -54,9 +54,9 @@ export default class DDCommentListView extends Component {
     const dataSource = this.state.ds.cloneWithRows(comments)
     return (
       <ListView
+        enableEmptySections
         style={[styles.listView, style]}
         contentContainerStyle={styles.contentContainerStyle}
-        enableEmptySections
         scrollEnabled={false}
         dataSource={dataSource}
         renderRow={this.renderComment}

@@ -27,8 +27,16 @@ class More extends Component {
     })
   }
 
-  goToTimeline = () => {
-    this.props.pushRoute({ key: 'timeline', title: '分享圈' })
+  goToTimeline = () => this.props.pushRoute({ key: 'timeline', title: '分享圈' })
+
+  goToFollow = () => {
+    const { user = {} } = this.props
+    const { mobile } = user
+    this.props.pushRoute({
+      key: 'follow',
+      title: '我的关注',
+      params: { mobile }
+    })
   }
 
   renderRightButtons = () => {
@@ -44,6 +52,10 @@ class More extends Component {
     const {
       user = {}
     } = this.props
+    const {
+      followings = [],
+      followers = []
+    } = user
     return (
       <View style={styles.container}>
         <DDNavbar
@@ -63,12 +75,12 @@ class More extends Component {
             onPress={this.goToFollow}
             type="follow"
             data={{
-              followingCount: 10,
-              followerCount: 20,
+              followingCount: followings.length,
+              followerCount: followers.length,
             }}
           />
           <DDRow
-            style={{ marginTop: 1 }}
+            style={{ marginTop: StyleSheet.hairlineWidth }}
             title="分享圈"
             onPress={this.goToTimeline}
           />

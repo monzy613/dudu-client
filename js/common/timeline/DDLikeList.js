@@ -66,7 +66,6 @@ class DDLikeList extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 5,
   },
   iconContainer: {
     justifyContent: 'center',
