@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import WebViewBridge from 'react-native-webview-bridge'
 
 import { pop as popRoute } from 'navigationAction'
+import { showActionSheet } from 'modalAction'
 import ddapi from 'ddapi'
 import { htmlStyleInjector } from 'ddutil'
 import DDSpinner from 'DDSpinner'
@@ -33,6 +34,25 @@ class RSSReader extends Component {
       feedItem: undefined,
       showBars: false,
     }
+  }
+
+  showActionSheet = () => {
+    this.props.showActionSheet({
+      message: '想做什么?',
+      actions: [
+        {
+          title: '评论',
+        },
+        {
+          title: '分享',
+          handler: this.goToPost,
+        },
+        {
+          title: '取消',
+          type: 'cancel',
+        }
+      ]
+    })
   }
 
   goToPost = () => {
@@ -82,7 +102,7 @@ class RSSReader extends Component {
     return [
       {
         content: <Ionicons style={{ backgroundColor: transparent }} name="ios-more" size={35} color={iconColor} />,
-        handler: this.goToPost
+        handler: this.showActionSheet
       }
     ]
   }
@@ -196,5 +216,6 @@ export default connect(
     cacheItem,
     popRoute,
     updateReaderTheme,
+    showActionSheet,
   }
 )(RSSReader)

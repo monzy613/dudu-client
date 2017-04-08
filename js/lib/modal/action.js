@@ -22,6 +22,9 @@ export const showHud = baseShowModal.bind(this, TYPE_MODAL_HUD)
 export const TYPE_MODAL_ALERT = 'TYPE_MODAL_ALERT'
 export const showAlert = baseShowModal.bind(this, TYPE_MODAL_ALERT)
 
+export const TYPE_MODAL_ACTION_SHEET = 'TYPE_MODAL_ACTION_SHEET'
+export const showActionSheet = baseShowModal.bind(this, TYPE_MODAL_ACTION_SHEET)
+
 export const TYPE_MODAL_GRID_ACTIONS = 'TYPE_MODAL_GRID_ACTIONS'
 export const showGridActions = baseShowModal.bind(this, TYPE_MODAL_GRID_ACTIONS)
 

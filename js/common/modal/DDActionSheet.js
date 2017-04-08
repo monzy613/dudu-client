@@ -1,5 +1,5 @@
 /**
- * @providesModule DDAlert
+ * @providesModule DDActionSheet
  */
 
 import React, { Component } from 'react'
@@ -8,20 +8,21 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
+  Dimensions,
 } from 'react-native'
 import {
   isEmpty,
-  isFunction
+  isFunction,
 } from 'lodash'
 
 import {
   transparent,
-  backgroundColor,
   mainBlue,
-  darkText,
+  divider,
+  backgroundColor,
   lightText,
+  darkText,
 } from 'DDColor'
 import DDModal from 'DDModal'
 import { hideModal } from 'modalAction'
@@ -30,8 +31,8 @@ const ACTION_TYPE_DEFAULT = 'default'
 const ACTION_TYPE_CANCEL = 'cancel'
 const ACTION_TYPE_DESTRUCTIVE = 'destructive'
 
-class DDAlert extends Component {
-  renderAction = (action, index) => {
+class DDActionSheet extends Component {
+  renderAction = (action = {}, index) => {
     const {
       title,
       type,
@@ -50,12 +51,13 @@ class DDAlert extends Component {
       default:
         break
     }
+
     return (
       <TouchableOpacity
+        style={styles.actionItem}
         key={index}
-        style={styles.button}
         onPress={() => {
-          this.props.hideModal()
+          this.modal.closeModal()
           if (isFunction(handler)) {
             handler()
           }
@@ -69,15 +71,17 @@ class DDAlert extends Component {
   render = () => {
     const { data = {} } = this.props
     const {
-      title = '提示',
       message,
-      actions = []
+      actions = [],
     } = data
+
+    const normalActions = actions.filter(action => action.type !== ACTION_TYPE_CANCEL)
+    const cancelActions = actions.filter(action => action.type === ACTION_TYPE_CANCEL)
 
     return (
       <DDModal
         swipeToClose={false}
-        animationDuration={100}
+        animationDuration={300}
         isOpen
         noHeader
         position="center"
@@ -85,13 +89,24 @@ class DDAlert extends Component {
         ref={modal => this.modal = modal}
         style={styles.modal}
       >
-        <View style={styles.container}>
-          <Text style={styles.title} numberOfLines={1}>{title}</Text>
-          { isEmpty(message) ? null : <Text style={styles.message}>{message}</Text> }
-          <View style={styles.buttonContainer}>
-            { actions.map((action, index) => this.renderAction(action, index)) }
+        <TouchableOpacity
+          activeOpacity={1}
+          focusOpacity={1}
+          style={styles.dismissBackground}
+          onPress={() => this.modal.closeModal()}
+        >
+          <View style={styles.actionContainer}>
+            { isEmpty(message) ? null : (
+              <View style={styles.messageContainer}>
+                <Text style={styles.message}>{message}</Text>
+              </View>
+            ) }
+            { normalActions.map((action, index) => this.renderAction(action, index)) }
           </View>
-        </View>
+          <View style={styles.actionContainer}>
+            { cancelActions.map((action, index) => this.renderAction(action, index)) }
+          </View>
+        </TouchableOpacity>
       </DDModal>
     )
   }
@@ -103,47 +118,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  container: {
-    width: 200,
-    backgroundColor: 'white',
-    borderRadius: 4,
-    alignItems: 'stretch',
-    overflow: 'hidden',
+  dismissBackground: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    justifyContent: 'flex-end',
   },
-  title: {
-    color: darkText,
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 16,
+  messageContainer: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: divider,
   },
   message: {
-    lineHeight: 16,
     color: lightText,
+    fontSize: 12,
     textAlign: 'center',
-    marginTop: 20,
-    marginHorizontal: 16,
+    fontWeight: '100',
+  },
+  actionItem: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+  },
+  actionContainer: {
+    borderRadius: 6,
+    backgroundColor,
+    overflow: 'hidden',
+    marginBottom: 10,
+    marginHorizontal: 10,
   },
   buttonTitle: {
     color: mainBlue,
     textAlign: 'center',
-    fontWeight: '100',
   },
   buttonTitleCancel: {
     fontWeight: 'bold',
   },
   buttonTitleDestructive: {
     color: 'red',
-  },
-  button: {
-    flex: 1,
-    paddingVertical: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    marginTop: 20,
-    backgroundColor,
-    flexDirection: 'row',
   },
 })
 
@@ -153,5 +166,5 @@ export default connect(
     return { data }
   },
   { hideModal }
-)(DDAlert)
+)(DDActionSheet)
 

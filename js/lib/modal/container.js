@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty'
 
 import DDHud from 'DDHud'
 import DDAlert from 'DDAlert'
+import DDActionSheet from 'DDActionSheet'
 import DDCommentBar from 'DDCommentBar'
 
 import {
@@ -16,12 +17,14 @@ import {
   TYPE_MODAL_NONE,
   TYPE_MODAL_ALERT,
   TYPE_MODAL_COMMENT_BAR,
+  TYPE_MODAL_ACTION_SHEET,
 } from './action'
 
 const Modals = {
   [TYPE_MODAL_HUD]: DDHud,
   [TYPE_MODAL_ALERT]: DDAlert,
   [TYPE_MODAL_COMMENT_BAR]: DDCommentBar,
+  [TYPE_MODAL_ACTION_SHEET]: DDActionSheet,
 }
 
 const ModalContainer = ({ type, data, hideModal }) => {
