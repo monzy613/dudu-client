@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as Animatable from 'react-native-animatable'
 import {
   View,
   Text,
@@ -55,10 +56,9 @@ class DDAlert extends Component {
         key={index}
         style={styles.button}
         onPress={() => {
-          this.props.hideModal()
-          if (isFunction(handler)) {
-            handler()
-          }
+          this.animatableView.fadeOut(100)
+          this.modal.closeModal()
+          this.endHander = handler
         }}
       >
         <Text style={[styles.buttonTitle, additionStyle]}>{title}</Text>
@@ -81,17 +81,26 @@ class DDAlert extends Component {
         isOpen
         noHeader
         position="center"
-        onClosed={this.props.hideModal}
+        onClosed={() => {
+          this.props.hideModal()
+          if (isFunction(this.endHander)) {
+            this.endHander()
+          }
+        }}
         ref={modal => this.modal = modal}
         style={styles.modal}
       >
-        <View style={styles.container}>
+        <Animatable.View
+          style={styles.container}
+          animation="fadeIn"
+          ref={animatableView => this.animatableView = animatableView}
+        >
           <Text style={styles.title} numberOfLines={1}>{title}</Text>
           { isEmpty(message) ? null : <Text style={styles.message}>{message}</Text> }
           <View style={styles.buttonContainer}>
             { actions.map((action, index) => this.renderAction(action, index)) }
           </View>
-        </View>
+        </Animatable.View>
       </DDModal>
     )
   }
