@@ -32,6 +32,7 @@ const ACTION_TYPE_CANCEL = 'cancel'
 const ACTION_TYPE_DESTRUCTIVE = 'destructive'
 
 class DDActionSheet extends Component {
+
   renderAction = (action = {}, index) => {
     const {
       title,
@@ -58,9 +59,7 @@ class DDActionSheet extends Component {
         key={index}
         onPress={() => {
           this.modal.closeModal()
-          if (isFunction(handler)) {
-            handler()
-          }
+          this.endHander = handler
         }}
       >
         <Text style={[styles.buttonTitle, additionStyle]}>{title}</Text>
@@ -85,7 +84,12 @@ class DDActionSheet extends Component {
         isOpen
         noHeader
         position="center"
-        onClosed={this.props.hideModal}
+        onClosed={() => {
+          this.props.hideModal()
+          if (isFunction(this.endHander)) {
+            this.endHander()
+          }
+        }}
         ref={modal => this.modal = modal}
         style={styles.modal}
       >

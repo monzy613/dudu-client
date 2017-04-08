@@ -52,7 +52,7 @@ export default configureStore = onComplete => {
       store.dispatch(clearSet({ key: 'home' }))
     }
 
-    const host = store.getState().get('rehydrate') && store.getState().get('rehydrate').get('host')
+    const host = store.getState().get('setting') && store.getState().get('setting').get('host')
 
     axios.defaults.baseURL = `http://${host}:3000/api/`
     store.dispatch(rehydrateComplete())

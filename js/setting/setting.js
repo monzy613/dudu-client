@@ -8,9 +8,9 @@ import {
   StyleSheet,
 } from 'react-native'
 import isEmpty from 'lodash/isEmpty'
-import Egg from 'react-native-egg'
 import { sizeof } from 'ddutil'
 
+import DDDebug from 'DDDebug'
 import DDRow from 'DDRow'
 import { clearUserInfo } from 'authAction'
 import { push as pushRoute, clearSet } from 'navigationAction'
@@ -64,10 +64,7 @@ class Setting extends Component {
                 {
                   title: '退出',
                   type: 'destructive',
-                  handler: () => {
-                    this.props.clearUserInfo()
-                    this.props.clearSet({ key: 'auth' })
-                  }
+                  handler: this.logout
                 },
                 {
                   title: '取消',
@@ -85,21 +82,21 @@ class Setting extends Component {
     const { navigator } = props
     if (!isEmpty(navigator)) {
       navigator.setRightItems([
-        { content: this.renderEgg() }
+        { content: this.renderDebug() }
       ])
     }
+  }
+
+  logout = () => {
+    this.props.clearUserInfo()
+    this.props.clearSet({ key: 'auth' })
   }
 
   renderRow = row => <DDRow {...row} />
 
   renderSectionHeader = () => <View style={styles.header} />
 
-  renderEgg = () => (
-    <Egg style={styles.egg}
-      setps={'TTTTTTT'}
-      onCatch={() => this.props.resetAllStates()}
-    />
-  )
+  renderDebug = () => <DDDebug />
 
   render = () => {
     const { ds, sections } = this.state
@@ -124,18 +121,16 @@ const styles = StyleSheet.create({
   header: {
     height: 10,
   },
-  egg: {
-    height: 50,
-    width: 50,
-  },
 })
 
 export default connect(
   state => {
     const cacheObject = state.get('cache').toJS()
+    const settingState = state.get('setting')
     const size = sizeof.sizeof(cacheObject, true)
     return {
       cacheSize: size,
+      hosts: settingState.get('hosts') && settingState.get('hosts').toJS()
     }
   },
   {

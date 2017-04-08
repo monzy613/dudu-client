@@ -9,6 +9,7 @@ import {
   StyleSheet
 } from 'react-native'
 
+import DDDebug from 'DDDebug'
 import DDButton from 'DDButton'
 import DDNavbar from 'DDNavbar'
 import { logo } from 'DDImages'
@@ -111,6 +112,7 @@ class Login extends Component {
             title="注册"
             onPress={goToRegister}
           />
+          <DDDebug style={styles.debug}/>
         </ScrollView>
       </View>
     )
@@ -161,6 +163,10 @@ const styles = StyleSheet.create({
   },
   registerButtonTitle: {
     color: mainBlue
+  },
+  debug: {
+    height: 100,
+    width: Dimensions.get('window').width,
   },
 })
 
