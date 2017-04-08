@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Egg from 'react-native-egg'
+import axios from 'axios'
 
 import {
   showActionSheet,
@@ -33,6 +34,12 @@ class Debug extends Component {
     this.props.clearSet({ key: 'auth' })
   }
 
+  changeToHost = host => {
+    this.props.updateHost(host)
+    axios.defaults.baseURL = `http://${host}:3000/api/`
+    this.logout()
+  }
+
   showActionSheet = () => {
     const { hosts = [] } = this.props
     const actions = [
@@ -40,10 +47,7 @@ class Debug extends Component {
           title: '自定义',
           handler: () => this.props.showCommentBar({
             placeholder: '请输入host',
-            onSend: host => {
-              this.props.updateHost(host)
-              this.logout()
-            }
+            onSend: host => this.changeToHost(host)
           })
         },
         {
@@ -52,10 +56,7 @@ class Debug extends Component {
         },
         ...hosts.map(host => ({
           title: host,
-          handler: () => {
-            this.props.updateHost(host)
-            this.logout()
-          }
+          handler: () => this.changeToHost(host)
         }))
     ]
 
