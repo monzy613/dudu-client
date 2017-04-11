@@ -13,7 +13,17 @@ export default setup = () => {
       this.store = configureStore()
     }
 
-    render() {
+    componentDidMount = () => {
+      codePush.sync({
+        updateDialog: {
+          appendReleaseDescription: true,
+          descriptionPrefix: '\n\nChange log:\n',
+        },
+        installMode: codePush.InstallMode.IMMEDIATE
+      })
+    }
+
+    render = () => {
       return (
         <Provider store={this.store}>
           <Dudu />
