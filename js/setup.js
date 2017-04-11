@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import codePush from 'react-native-code-push'
 
 import configureStore from './store/configureStore'
 import Dudu from './dudu'
@@ -21,7 +22,7 @@ export default setup = () => {
     }
   }
 
-  return Root
+  return codePush(Root)
 }
 
 // Show network requests in chrome (http://localhost:8081/debugger-ui)
