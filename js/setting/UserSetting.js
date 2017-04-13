@@ -55,11 +55,11 @@ class UserSetting extends Component {
     ddapi.get('/auth/getAvatarUploadInfo')
     .then(result => {
       const {
-        uploadToken,
+        token,
         key
       } = result
       this.setState({
-        uploadToken,
+        token,
         key,
       })
     })
