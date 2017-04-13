@@ -17,3 +17,9 @@ export const cacheItem = item => ({
   type: CACHE_RSS_ITEM,
   payload: item,
 })
+
+export const CACHE_USER = 'CACHE_USER'
+export const cacheUser = user => ({
+  type: CACHE_USER,
+  payload: user,
+})

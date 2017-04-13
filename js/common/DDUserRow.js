@@ -86,7 +86,6 @@ class DDUserRow extends Component {
 
   renderButton = () => {
     const { following } = this.state.user
-    const { currentUser = {} } = this.props
     if (following) {
       return (
         <TouchableOpacity style={[styles.button, styles.grayButton]} onPress={this.unfollow}>
@@ -167,12 +166,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  state => {
-    const authState = state.get('auth')
-    return {
-      currentUser: authState.get('user') && authState.get('user').toJS()
-    }
-  },
+  null,
   {
     showHud,
     showAlert,

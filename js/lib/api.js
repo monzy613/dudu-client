@@ -16,14 +16,14 @@ axios.defaults.timeout = 10000
 const request = ({ method = 'get', path, params }) => {
   return new Promise((resolve, reject) => {
     if (!isFunction(axios[method])) {
-      reject({ error: `${method} is not a proper method` })
+      reject && reject({ error: `${method} is not a proper method` })
       return
     }
     axios[method](path, params)
       .then(res => {
         const { data: json } = res
         if (isEmpty(json)) {
-          reject({ error: 'json empty' })
+          reject && reject({ error: 'json empty' })
         } else {
           const {
             success,
@@ -31,16 +31,16 @@ const request = ({ method = 'get', path, params }) => {
           } = json
           if (result === undefined) {
             if (success === true) {
-              resolve({ success })
+              resolve && resolve({ success })
             } else {
-              reject({ error: '操作失败' })
+              reject && reject({ error: '操作失败' })
             }
           } else {
-            resolve(result)
+            resolve && resolve(result)
           }
         }
       })
-      .catch(error => reject({ error: `network error: ${error}` }))
+      .catch(error => reject && reject({ error: `network error: ${error}` }))
   })
 }
 

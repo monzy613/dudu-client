@@ -21,7 +21,10 @@ import DDSpinner from 'DDSpinner'
 import RSSWaterFlowView from './components/RSSWaterFlowView'
 import RSSAddButton from './components/RSSAddButton'
 import ddapi from 'ddapi'
-import { cacheFeed } from 'cacheAction'
+import {
+  cacheFeed,
+  cacheUser,
+} from 'cacheAction'
 import {
   updateSubscribes,
   clearRSSList,
@@ -51,8 +54,13 @@ class RSSSourceList extends Component {
       .catch(error => {
         this.setState({ refreshing: false })
         // TODO: 提示弹框
-        console.warn(error.toString())
+        console.warn(error)
       })
+
+      // fetch user
+      ddapi.get('/auth/getUser', { params: { mobile: this.props.mobile } })
+      .then(result => this.props.cacheUser(result))
+      .catch(error => console.warn(error))
   }
 
   renderRow = data => {
@@ -143,6 +151,7 @@ export default connect(
     pushRoute,
     updateSubscribes,
     cacheFeed,
+    cacheUser,
     clearRSSList,
   }
 )(RSSSourceList)

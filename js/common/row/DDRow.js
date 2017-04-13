@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import {
+  Image,
   View,
   Text,
   TouchableOpacity,
@@ -25,6 +26,7 @@ const ROW_TYPE_DESTRUCTIVE = 'destructive'
 const ROW_TYPE_SUBTITLE = 'subtitle'
 const ROW_TYPE_SWITCH = 'switch'
 const ROW_TYPE_FOLLOW = 'follow'
+const ROW_TYPE_USER = 'user'
 
 export default class DDRow extends Component {
 
@@ -71,6 +73,7 @@ export default class DDRow extends Component {
       <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
+        <Icon style={styles.icon} name="angle-right" size={15} color={lightGray} />
       </TouchableOpacity>
     )
   }
@@ -125,6 +128,25 @@ export default class DDRow extends Component {
     )
   }
 
+  renderUserType = () => {
+    const {
+      style = {},
+      onPress,
+      data = {},
+    } = this.props
+    const { user } = data
+    return (
+      <TouchableOpacity style={[styles.userRowContainer, style]} onPress={onPress}>
+        <Image style={styles.avatar} source={{ uri: user.avatar }} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.motto}>{user.motto}</Text>
+        </View>
+        <Icon style={styles.icon} name="angle-right" size={15} color={lightGray} />
+      </TouchableOpacity>
+    )
+  }
+
   render = () => {
     const { type = ROW_TYPE_NORMAL } = this.props
 
@@ -137,6 +159,8 @@ export default class DDRow extends Component {
         return this.renderSwitchType()
       case ROW_TYPE_FOLLOW:
         return this.renderFollowType()
+      case ROW_TYPE_USER:
+        return this.renderUserType()
       default:
         return this.renderNormalType()
     }
@@ -171,7 +195,9 @@ const styles = StyleSheet.create({
     color: darkText,
   },
   subtitle: {
+    flex: 1,
     fontWeight: '100',
+    textAlign: 'right',
     color: lightText,
     fontSize: 12,
   },
@@ -192,5 +218,35 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 10,
+  },
+  avatar: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    borderColor: divider,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  userRowContainer: {
+    padding: 16,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: divider,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  infoContainer: {
+    flex: 1,
+    paddingLeft: 5,
+    justifyContent: 'space-around',
+  },
+  name: {
+    flex: 1,
+    color: darkText,
+    fontWeight: '100',
+  },
+  motto: {
+    fontSize: 12,
+    color: lightText,
+    fontWeight: '100',
   },
 })

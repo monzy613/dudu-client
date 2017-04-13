@@ -16,6 +16,7 @@ export default auth = (state = initialState, action) => {
       return state
       .set('token', token)
       .set('user', fromJS(user))
+      .set('mobile', user.mobile)
     }
     case CLEAR_USER_INFO: {
       return initialState
