@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import isEmpty from 'lodash/isEmpty'
-// import ImagePicker from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker'
 
 import { uploadFile } from 'ddutil'
 import ddapi from 'ddapi'
@@ -67,17 +67,17 @@ class UserSetting extends Component {
   }
 
   showPicker = () => {
-    // ImagePicker.openPicker({
-    //   width: 400,
-    //   height: 400,
-    //   cropping: true
-    // }).then(image => {
-    //   const { token, key } = this.state
-    //   const { path: uri } = image
-    //   uploadFile({ uri, token, key })
-    //   .then(result => console.log(result))
-    //   .catch(error => console.warn(error))
-    // })
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      const { token, key } = this.state
+      const { path: uri } = image
+      uploadFile({ uri, token, key })
+      .then(result => console.log(result))
+      .catch(error => console.warn(error))
+    })
   }
 
   renderRow = row => <DDRow {...row} />
