@@ -71,41 +71,47 @@ const uploadFile = ({ uri, token, key, onprogress }) => {
   const formInput = { key }
   return new Promise((resolve, reject)=> {
     if (typeof uri != 'string' || uri == '' || typeof formInput.key == 'undefined') {
-      reject && reject(null);
+      reject && reject(null)
       return;
     }
     if (uri[0] == '/') {
-      uri = "file://" + uri;
+      uri = "file://" + uri
     }
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', QINIU_UPLOAD_HOST);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', QINIU_UPLOAD_HOST)
     xhr.onload = () => {
       if (xhr.status !== 200) {
-        reject && reject(xhr);
-        return;
+        reject && reject(xhr)
+        return
       }
 
-      resolve && resolve(xhr);
+      resolve && resolve(xhr)
     };
 
-    var formdata = new FormData();
-    formdata.append("key", formInput.key);
-    formdata.append("token", token);
-    if (typeof formInput.type == 'undefined')
-      formInput.type = 'application/octet-stream';
-    if (typeof formInput.name == 'undefined') {
-      var filePath = uri.split("/");
-      if (filePath.length > 0)
-        formInput.name = filePath[filePath.length - 1];
-      else
-        formInput.name = "";
+    const formdata = new FormData()
+    formdata.append("key", formInput.key)
+    formdata.append("token", token)
+    if (typeof formInput.type == 'undefined') {
+      formInput.type = 'application/octet-stream'
     }
-    formdata.append("file", {uri: uri, type: formInput.type, name: formInput.name});
+    if (typeof formInput.name == 'undefined') {
+      const filePath = uri.split("/")
+      if (filePath.length > 0) {
+        formInput.name = filePath[filePath.length - 1]
+      } else {
+        formInput.name = ''
+      }
+    }
+    formdata.append("file", {
+      uri,
+      type: formInput.type,
+      name: formInput.name
+    })
     xhr.upload.onprogress = (event) => {
-      onprogress && onprogress(event, xhr);
+      onprogress && onprogress(event, xhr)
     };
-    xhr.send(formdata);
-  });
+    xhr.send(formdata)
+  })
 }
 
 var sizeof = sizeof || {};
