@@ -6,7 +6,7 @@ import {
   Platform
 } from 'react-native'
 
-const QINIU_UPLOAD_HOST = 'http://upload.qiniu.com'
+const QINIU_UPLOAD_HOST = 'http://upload-z2.qiniu.com'
 /**
  * 判断手机号是否合理
  */
