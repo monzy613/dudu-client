@@ -11,6 +11,7 @@ import {
 import isEmpty from 'lodash/isEmpty'
 import ImagePicker from 'react-native-image-crop-picker'
 
+import { showHud } from 'modalAction'
 import { uploadFile } from 'ddutil'
 import ddapi from 'ddapi'
 import DDRow from 'DDRow'
@@ -75,7 +76,11 @@ class UserSetting extends Component {
       const { token, key } = this.state
       const { path: uri } = image
       uploadFile({ uri, token, key })
-      .then(result => console.log(result))
+      .then(result => {
+        ddapi.post('/auth/changeAvatar', { key })
+        .then(result => this.props.showHud({ type: 'success', text: '修改成功' }))
+        .catch(error => console.warn(error))
+      })
       .catch(error => console.warn(error))
     })
   }
@@ -155,5 +160,7 @@ export default connect(
     const mobile = state.getIn(['auth', 'mobile'])
     const user = cacheState.getIn(['users', mobile]) && cacheState.getIn(['users', mobile]).toJS()
     return { user }
-  }, null
+  }, {
+    showHud
+  }
 )(UserSetting)
