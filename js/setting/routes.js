@@ -1,6 +1,7 @@
 import React from 'react'
 import Setting from './Setting'
 import UserSetting from './UserSetting'
+import Edit from './Edit'
 
 export default {
   'setting': {
@@ -13,5 +14,8 @@ export default {
   },
   'more': {
     render: props => <More {...props} />
+  },
+  'edit': {
+    render: props => <Edit {...props} />
   },
 }

@@ -11,6 +11,7 @@ import {
 import isEmpty from 'lodash/isEmpty'
 import ImagePicker from 'react-native-image-crop-picker'
 
+import { push as pushRoute } from 'navigationAction'
 import { showHud } from 'modalAction'
 import { uploadFile } from 'ddutil'
 import ddapi from 'ddapi'
@@ -36,6 +37,7 @@ class UserSetting extends Component {
           data: {
             subtitle: user.name,
           },
+          onPress: this.editName,
         },
         {
           title: '签名',
@@ -43,10 +45,12 @@ class UserSetting extends Component {
           data: {
             subtitle: user.motto,
           },
+          onPress: this.editMotto,
         },
         {
           title: '修改密码',
           type: 'normal',
+          onPress: this.changePassword,
         }
       ]
     }
@@ -66,6 +70,48 @@ class UserSetting extends Component {
     })
     .catch(error => console.warn(error))
   }
+
+  editName = () => this.props.pushRoute({
+    key: 'edit',
+    title: '名字',
+    params: {
+      placeholder: '请输入名字',
+      defaultValue: this.props.user && this.props.user.name,
+      onSubmit: name => {
+        this.props.showHud({ type: 'loading', text: '修改中...' })
+        ddapi.post('/auth/changeName', { name })
+        .then(result => {
+          this.props.showHud({ type: 'success', text: '修改名字成功' })
+        })
+        .catch(error => {
+          this.props.showHud({ type: 'error', text: error })
+          console.warn(error)
+        })
+      }
+    },
+  })
+
+  editMotto = () => this.props.pushRoute({
+    key: 'edit',
+    title: '签名',
+    params: {
+      placeholder: '请输入签名',
+      defaultValue: this.props.user && this.props.user.motto,
+      onSubmit: motto => {
+        this.props.showHud({ type: 'loading', text: '修改中...' })
+        ddapi.post('/auth/changeMotto', { motto })
+        .then(result => {
+          this.props.showHud({ type: 'success', text: '修改签名成功' })
+        })
+        .catch(error => {
+          this.props.showHud({ type: 'error', text: error })
+          console.warn(error)
+        })
+      }
+    },
+  })
+
+  changePassword = () => {}
 
   showPicker = () => {
     ImagePicker.openPicker({
@@ -161,6 +207,7 @@ export default connect(
     const user = cacheState.getIn(['users', mobile]) && cacheState.getIn(['users', mobile]).toJS()
     return { user }
   }, {
-    showHud
+    showHud,
+    pushRoute,
   }
 )(UserSetting)

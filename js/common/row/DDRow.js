@@ -236,7 +236,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 1,
-    paddingLeft: 5,
+    marginLeft: 15,
+    paddingVertical: 4,
     justifyContent: 'space-around',
   },
   name: {
