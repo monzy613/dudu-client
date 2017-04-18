@@ -78,11 +78,16 @@ class UserSetting extends Component {
       placeholder: '请输入名字',
       defaultValue: this.props.user && this.props.user.name,
       onSubmit: name => {
+        if (isEmpty(name)) {
+          this.props.showHud({ type: 'error', text: '名字不可为空' })
+          return
+        }
         this.props.showHud({ type: 'loading', text: '修改中...' })
         ddapi.post('/auth/changeName', { name })
-        .then(result => {
-          this.props.showHud({ type: 'success', text: '修改名字成功' })
-        })
+        .then(result => this.props.showHud({
+          type: 'success',
+          text: '修改名字成功'
+        }))
         .catch(error => {
           this.props.showHud({ type: 'error', text: error })
           console.warn(error)

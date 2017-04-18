@@ -35,7 +35,10 @@ class Edit extends Component {
     }
 
     const defaultValue = props.route.params.defaultValue || ''
-    this.setState({ defaultValue })
+    this.setState({
+      defaultValue,
+      content: defaultValue,
+    })
   }
 
   submit = () => {
