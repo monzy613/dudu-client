@@ -6,6 +6,7 @@ import {
   Platform
 } from 'react-native'
 
+const QINIU_UPLOAD_HOST = 'http://upload-z2.qiniu.com'
 /**
  * 判断手机号是否合理
  */
@@ -66,6 +67,53 @@ const htmlStyleInjector = ({ html, styles }) => {
           </body>`
 }
 
+const uploadFile = ({ uri, token, key, onprogress }) => {
+  const formInput = { key }
+  return new Promise((resolve, reject)=> {
+    if (typeof uri != 'string' || uri == '' || typeof formInput.key == 'undefined') {
+      reject && reject(null)
+      return;
+    }
+    if (uri[0] == '/') {
+      uri = "file://" + uri
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', QINIU_UPLOAD_HOST)
+    xhr.onload = () => {
+      if (xhr.status !== 200) {
+        reject && reject(xhr)
+        return
+      }
+
+      resolve && resolve(xhr)
+    };
+
+    const formdata = new FormData()
+    formdata.append("key", formInput.key)
+    formdata.append("token", token)
+    if (typeof formInput.type == 'undefined') {
+      formInput.type = 'application/octet-stream'
+    }
+    if (typeof formInput.name == 'undefined') {
+      const filePath = uri.split("/")
+      if (filePath.length > 0) {
+        formInput.name = filePath[filePath.length - 1]
+      } else {
+        formInput.name = ''
+      }
+    }
+    formdata.append("file", {
+      uri,
+      type: formInput.type,
+      name: formInput.name
+    })
+    xhr.upload.onprogress = (event) => {
+      onprogress && onprogress(event, xhr)
+    };
+    xhr.send(formdata)
+  })
+}
+
 var sizeof = sizeof || {};
 sizeof.sizeof = function(object, pretty) {
     var objectList = [];
@@ -105,6 +153,7 @@ const NavigationBarHeight = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT
 
 export {
   sizeof,
+  uploadFile,
   isMobileLegal,
   htmlStyleInjector,
   cssStringFromObject,

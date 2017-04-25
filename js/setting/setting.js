@@ -25,6 +25,8 @@ class Setting extends Component {
   constructor(props) {
     super(props)
 
+    const { user } = props
+
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
@@ -32,8 +34,16 @@ class Setting extends Component {
     this.state = {
       ds,
       sections: {
-        // section 0
         0: [
+          {
+            type: 'user',
+            data: {
+              user,
+            },
+            onPress: this.goToUserSetting
+          }
+        ],
+        1: [
           {
             title: '清除缓存',
             type: 'subtitle',
@@ -53,8 +63,7 @@ class Setting extends Component {
             type: 'normal',
           },
         ],
-        // section 1
-        1: [
+        2: [
           {
             title: '退出',
             type: 'destructive',
@@ -86,6 +95,8 @@ class Setting extends Component {
       ])
     }
   }
+
+  goToUserSetting = () => this.props.pushRoute({ key: 'user_setting', title: '个人资料' })
 
   logout = () => {
     this.props.clearUserInfo()
@@ -125,12 +136,15 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => {
-    const cacheObject = state.get('cache').toJS()
+    const cacheState = state.get('cache')
     const settingState = state.get('setting')
-    const size = sizeof.sizeof(cacheObject, true)
+    const size = sizeof.sizeof(cacheState.toJS(), true)
+    const mobile = state.getIn(['auth', 'mobile'])
+    const user = cacheState.getIn(['users', mobile]) && cacheState.getIn(['users', mobile]).toJS()
     return {
       cacheSize: size,
-      hosts: settingState.get('hosts') && settingState.get('hosts').toJS()
+      hosts: settingState.get('hosts') && settingState.get('hosts').toJS(),
+      user,
     }
   },
   {

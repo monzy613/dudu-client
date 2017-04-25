@@ -49,12 +49,10 @@ class More extends Component {
   }
 
   render = () => {
+    const { user = {} } = this.props
     const {
-      user = {}
-    } = this.props
-    const {
-      followings = [],
-      followers = []
+      followingCount,
+      followerCount,
     } = user
     return (
       <View style={styles.container}>
@@ -75,8 +73,8 @@ class More extends Component {
             onPress={this.goToFollow}
             type="follow"
             data={{
-              followingCount: followings.length,
-              followerCount: followers.length,
+              followingCount,
+              followerCount,
             }}
           />
           <DDRow
@@ -100,9 +98,11 @@ const styles = StyleSheet.create({
 export default connect(
   state => {
     const authState = state.get('auth')
-    return {
-      user: authState.get('user') && authState.get('user').toJS()
-    }
+    const cacheState = state.get('cache')
+
+    const mobile = authState.get('mobile')
+    const user = cacheState.getIn(['users', mobile]) && cacheState.getIn(['users', mobile]).toJS()
+    return { user }
   },
   {
     pushRoute,

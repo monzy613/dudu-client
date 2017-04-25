@@ -30,6 +30,9 @@ build/
 local.properties
 *.iml
 
+# cocoapods
+ios/Pods
+
 # node.js
 #
 node_modules/

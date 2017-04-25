@@ -19,6 +19,7 @@ import ddapi from 'ddapi'
 import { isMobileLegal } from 'ddutil'
 import { clearSet } from 'navigationAction'
 import { obtainUserInfo } from 'authAction'
+import { cacheUser } from 'cacheAction'
 
 const VALIDATION_TYPE_REGISTER = 'VALIDATION_TYPE_REGISTER'
 const VALIDATION_TYPE_VERIFY = 'VALIDATION_TYPE_VERIFY'
@@ -96,7 +97,12 @@ class Register extends Component {
     const { verifyCode: number, mobile } = this.state
     ddapi.post('/auth/verify', { mobile, number })
     .then(result => {
+      const {
+        user,
+        token,
+      } = result
       this.props.obtainUserInfo(result)
+      this.props.cacheUser(user)
       this.props.clearSet({ key: 'home' })
     })
     .catch(err => {
@@ -244,5 +250,6 @@ export default connect(
   null, {
     clearSet,
     obtainUserInfo,
+    cacheUser,
   }
 )(Register)

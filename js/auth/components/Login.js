@@ -21,6 +21,7 @@ import {
 import { isMobileLegal } from 'ddutil'
 import ddapi from 'ddapi'
 import { clearSet } from 'navigationAction'
+import { cacheUser } from 'cacheAction'
 import { obtainUserInfo } from 'authAction'
 
 class Login extends Component {
@@ -49,7 +50,12 @@ class Login extends Component {
     const { mobile, password } = this.state
     ddapi.post('/auth/login', { mobile, password })
     .then(result => {
+      const {
+        user,
+        token,
+      } = result
       this.props.obtainUserInfo(result)
+      this.props.cacheUser(user)
       this.props.clearSet({ key: 'home' })
     })
     .catch(error => console.warn(error))
@@ -171,5 +177,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  null, { obtainUserInfo, clearSet }
+  null, {
+    obtainUserInfo,
+    clearSet,
+    cacheUser,
+  }
 )(Login)

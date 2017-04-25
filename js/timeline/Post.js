@@ -55,13 +55,13 @@ class Post extends Component {
   componentWillReceiveProps = props => {
     const { navigator } = props
     if (!isEmpty(navigator)) {
-      props.navigator.setRightItems([
+      navigator.setRightItems([
         {
           content: <Icon style={{ backgroundColor: transparent }} name="ios-send-outline" color="white" size={30} />,
           handler: this.post,
         }
       ])
-      props.navigator.setTitle('发布')
+      navigator.setTitle('发布')
     }
   }
 
@@ -97,6 +97,9 @@ class Post extends Component {
       <ScrollView style={styles.scrollView}>
         <View style={styles.inputContainer}>
           <TextInput
+            autoCapitalize="none"
+            autoFocus={true}
+            autoCorrect={false}
             style={styles.textInput}
             multiline={true}
             underlineColorAndroid={transparent}
@@ -122,6 +125,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     fontSize: 14,
+    fontWeight: '100',
   },
   referContainer: {
     backgroundColor: 'white',
