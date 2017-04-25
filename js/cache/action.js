@@ -23,3 +23,9 @@ export const cacheUser = user => ({
   type: CACHE_USER,
   payload: user,
 })
+
+export const CACHE_ITEM_COMMENTS = 'CACHE_ITEM_COMMENTS'
+export const cacheItemComments = payload => ({
+  type: CACHE_ITEM_COMMENT,
+  payload,
+})

@@ -42,6 +42,7 @@ class RSSReader extends Component {
       actions: [
         {
           title: '评论',
+          handler: this.goToComment
         },
         {
           title: '分享',
@@ -71,6 +72,18 @@ class RSSReader extends Component {
         type: 'item',
         payload: { url, title, sourceTitle }
       }
+    })
+  }
+
+  goToComment = () => {
+    const {
+      url,
+      title,
+    } = this.props.item
+    this.props.pushRoute({
+      key: 'rss_comment',
+      title,
+      params: { url },
     })
   }
 
