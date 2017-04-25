@@ -97,7 +97,7 @@ class Post extends Component {
       <ScrollView style={styles.scrollView}>
         <View style={styles.inputContainer}>
           <TextInput
-            autoCapitalize={false}
+            autoCapitalize="none"
             autoFocus={true}
             autoCorrect={false}
             style={styles.textInput}
