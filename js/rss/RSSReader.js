@@ -82,7 +82,6 @@ class RSSReader extends Component {
     } = this.props.item
     this.props.pushRoute({
       key: 'rss_comment',
-      title,
       params: { url },
     })
   }

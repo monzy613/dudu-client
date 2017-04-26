@@ -6,6 +6,7 @@ import {
   CACHE_RSS_ITEM,
   CACHE_USER,
   CACHE_ITEM_COMMENTS,
+  CACHE_ITEM_COMMENT,
 } from './action'
 
 const initialState = fromJS({
@@ -28,7 +29,9 @@ export default cache = (state = initialState, action) => {
     case CACHE_USER:
       return state.update('users', users => users.merge({ [payload.mobile]: payload }))
     case CACHE_ITEM_COMMENTS:
-      return state.set('comments', comments => comments.merge(payload))
+      return state.update('comments', comments => comments.merge(payload))
+    case CACHE_ITEM_COMMENT:
+      return state.update('comments', comments => comments.merge(payload))
     default:
       return state
   }
