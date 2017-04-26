@@ -3,6 +3,7 @@ import RSSSourceList from './RSSSourceList'
 import RSSSource from './RSSSource'
 import  RSSAppendNew from './RSSAppendNew'
 import RSSReader from './RSSReader'
+import RSSComment from './RSSComment'
 
 export default {
   'rss_source_list': {
@@ -16,5 +17,9 @@ export default {
   },
   'rss_detail': {
     render: props => <RSSReader {...props} />,
+  },
+  'rss_comment': {
+    render: props => <RSSComment {...props}/>,
+    navigationStyle: 'light',
   },
 }
