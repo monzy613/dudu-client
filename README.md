@@ -27,20 +27,20 @@ react-native run-ios --simulator='iPhone 7'
 - star or fork it!
 
 ### Screenshots (基本上这些是所有界面了)
-<img src="http://ojiryy947.bkt.clouddn.com/login.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/register.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/rss1.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/rss2.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/detail0.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/detail1.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/detail2.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/detail3.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/item_comment.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/follow.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/mine.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/timeline.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/post.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/user_page.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/search1.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/search2.PNG" alt="Drawing" style="width: 200px"/>
-<img src="http://ojiryy947.bkt.clouddn.com/search3.PNG" alt="Drawing" style="width: 200px"/>
+<img src="http://ojiryy947.bkt.clouddn.com/login.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/register.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/rss1.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/rss2.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/detail0.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/detail1.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/detail2.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/detail3.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/item_comment.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/follow.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/mine.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/timeline.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/post.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/user_page.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/search1.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/search2.PNG" alt="Drawing" width="300"/>
+<img src="http://ojiryy947.bkt.clouddn.com/search3.PNG" alt="Drawing" width="300"/>
