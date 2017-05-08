@@ -1,0 +1,54 @@
+exports[`common components DDReferredSource renders correctly 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "borderColor": "#F2F2F2",
+      "borderRadius": 2,
+      "borderWidth": 1,
+      "justifyContent": "space-between",
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      Object {
+        "color": "#000000",
+        "fontSize": 16,
+        "fontWeight": "100",
+      }
+    } />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      Object {
+        "color": "#9B9B9B",
+        "fontWeight": "100",
+        "marginTop": 5,
+      }
+    } />
+</View>
+`;
