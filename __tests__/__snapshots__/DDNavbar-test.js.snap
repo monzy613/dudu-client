@@ -1,0 +1,61 @@
+exports[`common components DDNavbar renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "white",
+      },
+      Object {
+        "backgroundColor": "#4A90E2",
+      },
+      Object {},
+      Object {},
+    ]
+  }>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 64,
+          "justifyContent": "space-between",
+        },
+        Object {},
+      ]
+    }>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "justifyContent": "center",
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgba(0,0,0,0)",
+              "fontSize": 20,
+              "fontWeight": "100",
+              "letterSpacing": 0.5,
+              "marginTop": 10,
+            },
+            Object {
+              "color": "white",
+            },
+          ]
+        } />
+    </View>
+    <View />
+  </View>
+</View>
+`;
