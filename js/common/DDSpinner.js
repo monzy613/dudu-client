@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native'
 
-export class DDSpinner extends Component {
+export default class DDSpinner extends Component {
   render = () => {
     const { color = '#4A90E2' } = this.props
     return (
